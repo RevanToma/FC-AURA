@@ -1,40 +1,14 @@
 import express from "express";
-import { gql, ApolloServer } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import { connectToMongoDB } from "./db/db";
-
-const typeDefs = gql`
-  type User {
-    id: ID!
-    name: String!
-    email: String!
-  }
-
-  type Query {
-    getUser(id: ID!): User
-  }
-
-  type Mutation {
-    createUser(name: String!, email: String!): User
-  }
-`;
-
-const resolvers = {
-  //   Query: {
-  //     getUser: (parent, args, context, info) => {
-  //       // Fetch user from database using args.id
-  //       // Return the user
-  //     },
-  //   },
-  //   Mutation: {
-  //     createUser: (parent, args, context, info) => {
-  //       // Create a user in the database using args.name and args.email
-  //       // Return the created user
-  //     },
-  //   },
-};
+import typeDefs from "./graphql/typeDefs";
+import resolvers from "./graphql/resolvers";
 
 const app = express();
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
 
 const startServer = async () => {
   try {
@@ -58,4 +32,5 @@ const startServer = async () => {
     console.error("Error starting the server:", error.message);
   }
 };
+
 startServer();
