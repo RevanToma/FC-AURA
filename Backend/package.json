@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for FC-Aura",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev server.ts",
+    "build": "tsc",
+    "compile": "graphql-codegen",
+    "watch": "graphql-codegen -w"
+  },
+  "author": "Revan Toma",
+  "license": "ISC",
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@types/express": "^4.17.18",
+    "@types/node": "^20.7.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "apollo-server-express": "^3.12.1",
+    "express": "^4.18.2",
+    "graphql": "^16.8.1",
+    "ts-node-dev": "^2.0.0"
+  }
+}
