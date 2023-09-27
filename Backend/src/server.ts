@@ -1,5 +1,6 @@
 import express from "express";
 import { gql, ApolloServer } from "apollo-server-express";
+import { connectToMongoDB } from "./db/db";
 
 const typeDefs = gql`
   type User {
@@ -32,18 +33,29 @@ const resolvers = {
   //   },
 };
 
+const app = express();
 const server = new ApolloServer({ typeDefs, resolvers });
 
-const app = express();
-
 const startServer = async () => {
-  // This will ensure that the ApolloServer is started before you continue.
-  await server.start();
-  server.applyMiddleware({ app });
+  try {
+    //  Connect to MongoDB.
+    await connectToMongoDB();
+    console.log("MongoDB connected...");
 
-  app.listen({ port: 4000 }, () =>
-    console.log(`Server ready at http://localhost:4000${server.graphqlPath}`)
-  );
+    // Start the Apollo Server.
+    await server.start();
+    server.applyMiddleware({ app });
+    console.log(`Apollo Server started at ${server.graphqlPath}`);
+
+    //  Start listening for HTTP requests.
+    const PORT = 4000;
+    app.listen(PORT, () =>
+      console.log(
+        `Express server listening on http://localhost:${PORT}${server.graphqlPath}`
+      )
+    );
+  } catch (error: any) {
+    console.error("Error starting the server:", error.message);
+  }
 };
-
 startServer();

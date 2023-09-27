@@ -4,7 +4,7 @@
   "description": "backend for FC-Aura",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev server.ts",
+    "start": "ts-node-dev src/server.ts",
     "build": "tsc",
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w"
@@ -21,8 +21,10 @@
     "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-typed-document-node/core": "^3.2.0",
     "apollo-server-express": "^3.12.1",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "graphql": "^16.8.1",
+    "mongoose": "^7.5.3",
     "ts-node-dev": "^2.0.0"
   }
 }
