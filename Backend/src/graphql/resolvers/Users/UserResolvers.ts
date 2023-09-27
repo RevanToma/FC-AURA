@@ -16,12 +16,10 @@ const UserResolvers = {
       const user = await User.findById(args.id);
       return user;
     },
-    getAllUsers: async (
-      _parent: any,
-      _args: any,
-      _context: any,
-      _info: any
-    ) => {
+    users: async (_parent: any, _args: any, context: any, _info: any) => {
+      if (!context.user) {
+        throw new Error("Authentication required!");
+      }
       const users = await User.find();
       return users;
     },

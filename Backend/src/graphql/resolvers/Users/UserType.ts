@@ -72,7 +72,7 @@ const UserType = gql`
 
   type Query {
     getUser(id: ID!): User
-    getAllUsers: [User!]
+    users: [User!]
   }
 `;
 

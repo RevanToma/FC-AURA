@@ -1,4 +1,5 @@
 import { ReadStream } from "fs";
+import jwt from "jsonwebtoken";
 
 export interface UpdateUserInput {
   id: string;
@@ -33,4 +34,15 @@ export interface IPostReqBody {
   condition: string;
   images: File[];
   id?: string;
+}
+
+// interface Request extends ExpressRequest {
+//   headers: {
+//     authorization?: string;
+//   };
+// }
+export interface ApolloContext {
+  req: any;
+  res: any;
+  user?: string | jwt.JwtPayload; // Add this line
 }

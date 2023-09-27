@@ -3,11 +3,21 @@ import { ApolloServer } from "apollo-server-express";
 import { connectToMongoDB } from "./db/db";
 import typeDefs from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
+import { authMiddleware } from "./middleware/authmiddleware";
+import { ApolloContext } from "./types";
 
 const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req, res }): ApolloContext => {
+    const user = authMiddleware({ req, res });
+    return {
+      req,
+      res,
+      user,
+    };
+  },
 });
 
 const startServer = async () => {
