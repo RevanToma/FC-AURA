@@ -1,6 +1,6 @@
-import { login, signToken } from "../../../auth/authController";
 import User, { UserDocument } from "../../../models/userModel";
 import { UpdateUserInput } from "../../../types";
+import { login, signToken } from "../../../utils/auth";
 import { catchAsyncResolver } from "../../../utils/catchAsync";
 
 const UserResolvers = {
@@ -27,7 +27,7 @@ const UserResolvers = {
     },
   },
   Mutation: {
-    login: login,
+    loginUser: login,
     createUser: catchAsyncResolver(
       async (
         _parent: any,
@@ -73,6 +73,7 @@ const UserResolvers = {
         const token = signToken(user._id.toString());
 
         return {
+          status: "success",
           user,
           token,
         };

@@ -15,7 +15,8 @@ export const login = async (
 ) => {
   const { email, password } = args.input;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select("+password");
+  console.log(user);
 
   if (
     !user ||

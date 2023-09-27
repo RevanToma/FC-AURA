@@ -55,33 +55,23 @@ const UserType = gql`
     token: String!
     user: User!
   }
-  type LoginInput {
+
+  input UserLoginInput {
     email: String!
     password: String!
   }
 
-  extend type Query {
-    getUser(id: ID!): User
-  }
-  extend type Query {
-    getAllUsers: [User!]
-  }
-
-  extend type Mutation {
+  type Mutation {
     createUser(input: CreateUserInput!): AuthPayload
-  }
-  extend type Mutation {
+    loginUser(input: UserLoginInput!): AuthPayload
     updateUser(input: UpdateUserInput!): User
-  }
-  extend type Mutation {
     getSignedUrl(filename: String!, filetype: String!): String!
     updateUserImage(userId: ID!, imageUrl: String!): User!
   }
-  extend type Mutation {
-    signup(input: SignupInput!): AuthPayload!
-  }
-  extend type Mutation {
-    login(input: LoginInput!): AuthPayload!
+
+  type Query {
+    getUser(id: ID!): User
+    getAllUsers: [User!]
   }
 `;
 
