@@ -20,7 +20,12 @@ const UserResolvers = {
       const user = await User.findById(args.id);
       return user;
     },
-    users: async (_parent: any, _args: any, context: any, _info: any) => {
+    users: async (
+      _parent: any,
+      _args: any,
+      context: UserDocument,
+      _info: any
+    ) => {
       const users = await User.find();
       return users;
     },
@@ -37,6 +42,38 @@ const UserResolvers = {
     },
   },
   Mutation: {
+    updateUser: catchAsyncResolver(
+      async (
+        _parent: any,
+        args: { input: UpdateUserInput },
+        _context: any,
+        _info: any
+      ) => {
+        const { input } = args;
+
+        if (input.password && input.passwordConfirm) {
+          if (input.password !== input.passwordConfirm) {
+            throw new Error("Passwords do not match!");
+          }
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+          input.id,
+          { ...input },
+          { new: true } // This option returns the updated document
+        );
+
+        if (!updatedUser) {
+          throw new Error("User not found");
+        }
+
+        return updatedUser;
+      }
+    ),
+    logout: (parent: any, args: any, context: any, info: any) => {
+      context.res.clearCookie("authToken", "", { expires: new Date(0) });
+      return true;
+    },
     loginUser: login,
     createUser: catchAsyncResolver(
       async (
@@ -90,34 +127,6 @@ const UserResolvers = {
       }
     ),
   },
-  updateUser: catchAsyncResolver(
-    async (
-      _parent: any,
-      args: { input: UpdateUserInput },
-      _context: any,
-      _info: any
-    ) => {
-      const { input } = args;
-
-      if (input.password && input.passwordConfirm) {
-        if (input.password !== input.passwordConfirm) {
-          throw new Error("Passwords do not match!");
-        }
-      }
-
-      const updatedUser = await User.findByIdAndUpdate(
-        input.id,
-        { ...input },
-        { new: true } // This option returns the updated document
-      );
-
-      if (!updatedUser) {
-        throw new Error("User not found");
-      }
-
-      return updatedUser;
-    }
-  ),
 };
 
 export default UserResolvers;

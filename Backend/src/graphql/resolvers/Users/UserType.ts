@@ -68,6 +68,7 @@ const UserType = gql`
     updateUser(input: UpdateUserInput!): User
     getSignedUrl(filename: String!, filetype: String!): String!
     updateUserImage(userId: ID!, imageUrl: String!): User!
+    logout: Boolean
   }
 
   type Query {
