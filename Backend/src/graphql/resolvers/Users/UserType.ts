@@ -73,6 +73,7 @@ const UserType = gql`
   type Query {
     getUser(id: ID!): User
     users: [User!]
+    me: User
   }
 `;
 

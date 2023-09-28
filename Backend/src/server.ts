@@ -5,14 +5,22 @@ import typeDefs from "./graphql/typeDefs";
 import resolvers from "./graphql/resolvers";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import helmet from "helmet";
+
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req, res }) => {
+    return { req, res };
+  },
 });
-app.use(cors());
-app.use(helmet());
+
 app.use(cookieParser());
 app.use(express.json());
 const startServer = async () => {
@@ -23,7 +31,7 @@ const startServer = async () => {
 
     // Start the Apollo Server.
     await server.start();
-    server.applyMiddleware({ app });
+    server.applyMiddleware({ app, cors: false });
     console.log(`Apollo Server started at ${server.graphqlPath}`);
 
     //  Start listening for HTTP requests.

@@ -1,6 +1,10 @@
 import User, { UserDocument } from "../../../models/userModel";
 import { UpdateUserInput } from "../../../types";
-import { login, signToken } from "../../../utils/auth";
+import {
+  getCurrentUserFromContext,
+  login,
+  signToken,
+} from "../../../utils/auth";
 import { catchAsyncResolver } from "../../../utils/catchAsync";
 
 const UserResolvers = {
@@ -17,11 +21,19 @@ const UserResolvers = {
       return user;
     },
     users: async (_parent: any, _args: any, context: any, _info: any) => {
-      if (!context.user) {
-        throw new Error("Authentication required!");
-      }
       const users = await User.find();
       return users;
+    },
+    me: async (_parent: any, _args: any, context: any, _info: any) => {
+      // Assuming you have a function or method to get the current user from the context
+
+      const user = await getCurrentUserFromContext(context);
+
+      if (!user) {
+        throw new Error("Not authenticated");
+      }
+
+      return user;
     },
   },
   Mutation: {
