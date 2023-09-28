@@ -12,6 +12,14 @@ export interface UpdateUserInput {
   bio?: string;
   skills?: string[];
 }
+export type LoginInput = {
+  email: string;
+  password: string;
+};
+export type ResolverArgs = {
+  input: LoginInput;
+};
+
 export interface INumberObject {
   [key: string]: number | undefined;
 }
@@ -36,13 +44,8 @@ export interface IPostReqBody {
   id?: string;
 }
 
-// interface Request extends ExpressRequest {
-//   headers: {
-//     authorization?: string;
-//   };
-// }
 export interface ApolloContext {
   req: any;
   res: any;
-  user?: string | jwt.JwtPayload; // Add this line
+  user?: string | jwt.JwtPayload;
 }

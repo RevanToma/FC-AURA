@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/userModel";
+import { ResolverArgs } from "./../types";
 
 export const signToken = (id: string) => {
   return jwt.sign({ id }, process.env.JWT_SECRET!, {
@@ -9,7 +10,7 @@ export const signToken = (id: string) => {
 
 export const login = async (
   parent: any,
-  args: any,
+  args: ResolverArgs,
   context: any,
   info: any
 ) => {
@@ -21,7 +22,7 @@ export const login = async (
   if (
     !user ||
     !user.password ||
-    !(await user.correctPassword(password, user.password))
+    !(await user.correctPassword(password!, user.password))
   ) {
     throw new Error("Incorrect email or password");
   }
