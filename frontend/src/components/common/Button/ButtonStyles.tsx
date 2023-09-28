@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ButtonType, buttons } from "./ButtonTypes";
+import { StyledSpinner } from "../Spinner/SpinnerStyles";
 
 // import { StyledSpinner } from "../spinner/spinner.styles";
 
@@ -25,11 +26,14 @@ export const StyledButton = styled.button<{ buttonType: ButtonType }>`
   }
 `;
 
-// export const ButtonSpinner = styled(StyledSpinner)`
+export const ButtonSpinner = styled(StyledSpinner)`
+  width: 30px;
+  height: 30px;
+`;
+// export const VortexSpinner = styled(Vortex)`
 //   width: 30px;
 //   height: 30px;
 // `;
-
 export const StyledButtonSpinner = styled.div`
   display: flex;
   align-items: center;

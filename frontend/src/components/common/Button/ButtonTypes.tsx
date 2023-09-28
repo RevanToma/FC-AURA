@@ -1,4 +1,4 @@
-import { theme } from "../../theme/Theme";
+import { theme } from "../../../theme/Theme";
 
 export enum ButtonType {
   Disabled = "disabled",

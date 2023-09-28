@@ -2,6 +2,7 @@ import React, { FC, ReactElement, ReactNode } from "react";
 import { ButtonType } from "./ButtonTypes";
 import * as S from "./ButtonStyles";
 
+import { Vortex } from "react-loader-spinner";
 export interface ButtonProps {
   buttonType: ButtonType;
   children: ReactNode;
@@ -18,6 +19,7 @@ const Button: FC<ButtonProps> = ({
   children,
   disabled,
   iconLeft,
+  isLoading,
   ...otheprops
 }) => {
   return (
@@ -27,7 +29,15 @@ const Button: FC<ButtonProps> = ({
       disabled={disabled || buttonType === ButtonType.Disabled}
       {...otheprops}
     >
-      {children}
+      {isLoading ? (
+        <Vortex
+          width={50}
+          height={50}
+          colors={["yellow", "black", "yellow", "black", "black", "yellow"]}
+        />
+      ) : (
+        children
+      )}
     </S.StyledButton>
   );
 };
