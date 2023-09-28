@@ -13,3 +13,12 @@ export type AuthContextType = {
 export type AuthProviderProps = {
   children: ReactNode;
 };
+
+export enum InputType {
+  email = "email",
+  password = "password",
+  passwordConfirm = "passwordConfirm",
+  search = "search",
+  firstName = "name",
+  lastName = "lastName",
+}

@@ -1,60 +1,49 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { GlobalStyles } from "./theme/GlobalStyles";
 import { Suspense } from "react";
-import Button from "./components/common/Button/Button";
-import { ButtonType } from "./components/common/Button/ButtonTypes";
+// import Button from "./components/common/Button/Button";
+// import { ButtonType } from "./components/common/Button/ButtonTypes";
 
 import { Vortex } from "react-loader-spinner";
-import { useAuth } from "./components/common/hooks/auth";
+import { useAuth } from "./context/auth/auth";
+import Input from "./components/common/input/Input";
+import { InputType } from "./types/types";
 function App() {
-  const auth = useAuth();
-  // const GET_ALL_USERS = gql`
-  //   query GetAllUsers {
-  //     users {
-  //       id
-  //       name
-  //       email
-  //       password
-  //       skills
-  //       bio
+  // const auth = useAuth();
+
+  // const LOGIN_MUTATION = gql`
+  //   mutation Login($email: String!, $password: String!) {
+  //     loginUser(input: { email: $email, password: $password }) {
+  //       status
+  //       token
+  //       user {
+  //         id
+  //         name
+  //         email
+  //       }
   //     }
   //   }
   // `;
-  const LOGIN_MUTATION = gql`
-    mutation Login($email: String!, $password: String!) {
-      loginUser(input: { email: $email, password: $password }) {
-        status
-        token
-        user {
-          id
-          name
-          email
-        }
-      }
-    }
-  `;
-  // const { loading, error, data } = useQuery(GET_ALL_USERS);
-  const [loginMutation, { data, loading, error }] = useMutation(LOGIN_MUTATION);
 
-  console.log(data);
+  // const [loginMutation, { loading, error }] = useMutation(LOGIN_MUTATION);
 
-  if (loading)
-    return (
-      <Vortex
-        colors={["yellow", "black", "yellow", "black", "black", "yellow"]}
-      />
-    );
-  if (error) return <p>Error: {error.message}</p>;
+  // if (loading)
+  //   return (
+  //     <Vortex
+  //       colors={["yellow", "black", "yellow", "black", "black", "yellow"]}
+  //     />
+  //   );
+  // if (error) return <p>Error: {error.message}</p>;
 
-  const handleLogin = async (email: string, password: string) => {
-    try {
-      const response = await loginMutation({ variables: { email, password } });
-      auth.login(response.data.loginUser.user);
-      // Handle the token and user data from the response however you wish
-    } catch (err) {
-      console.error("Error logging in:", err);
-    }
-  };
+  // const handleLogin = async (email: string, password: string) => {
+  //   try {
+  //     const response = await loginMutation({ variables: { email, password } });
+  //     auth.login(response.data.loginUser.user);
+  //     // Handle the token and user data from the response however you wish
+  //   } catch (err) {
+  //     console.error("Error logging in:", err);
+  //   }
+  // };
   return (
     <>
       <GlobalStyles />
@@ -65,11 +54,9 @@ function App() {
           />
         }
       >
-        <div>
-          <button onClick={() => handleLogin("hej@se.se", "hejhejhej")}>
-            {auth?.user ? auth.user.name : "login"}
-          </button>
-        </div>
+        <header>
+          <h1>Hej</h1>
+        </header>
       </Suspense>
     </>
   );

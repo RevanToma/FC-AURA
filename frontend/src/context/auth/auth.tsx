@@ -1,16 +1,24 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from "react";
-import Spinner from "../Spinner/Spinner";
-import { gql, useApolloClient } from "@apollo/client";
-import { AuthContextType, AuthProviderProps, User } from "../../../types/types";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import Spinner from "../../components/common/Spinner/Spinner";
+import { gql, useApolloClient, useMutation } from "@apollo/client";
+import { AuthContextType, AuthProviderProps, User } from "../../types/types";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const CURRENT_USER_QUERY = gql`
+  query CurrentUser {
+    me {
+      id
+      name
+      email
+    }
+  }
+`;
+const LOGOUT_USER_MUTATION = gql`
+  mutation logout {
+    logout
+  }
+`;
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -22,17 +30,9 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const client = useApolloClient();
+  const [logoutMutation] = useMutation(LOGOUT_USER_MUTATION);
 
-  const CURRENT_USER_QUERY = gql`
-    query CurrentUser {
-      me {
-        id
-        name
-        email
-      }
-    }
-  `;
+  const client = useApolloClient();
 
   const login = (userData: User) => {
     setUser(userData);
@@ -40,17 +40,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch("/logout", { method: "POST" });
+      await logoutMutation();
+
       setUser(null);
-    } catch (err) {
-      console.error("Error logging out:", err);
+    } catch (error) {
+      console.error("Error logging out:", error);
     }
   };
 
   useEffect(() => {
     async function fetchCurrentUser() {
       try {
-        console.log("DATA FROM CONTEXT", user);
         const { data } = await client.query({
           query: CURRENT_USER_QUERY,
           fetchPolicy: "network-only",
@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     fetchCurrentUser();
-  }, [CURRENT_USER_QUERY, client]);
+  }, [client, user]);
 
   if (loading) {
     return <Spinner />;
