@@ -13,6 +13,7 @@ export const StyledButton = styled.button<{ buttonType: ButtonType }>`
   font-size: ${({ buttonType }) => buttons[buttonType]?.fontSize || "2rem"};
   font-family: ${({ buttonType }) =>
     buttons[buttonType]?.fontFamily || "Poppins"};
+  letter-spacing: ${({ buttonType }) => buttons[buttonType]?.letterSpacing};
   &:hover {
     color: ${({ buttonType }) => buttons[buttonType]?.hoverColor || "#fff"};
     background: ${({ buttonType }) => buttons[buttonType]?.hoverBackground};

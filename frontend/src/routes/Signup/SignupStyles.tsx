@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../theme/Theme";
 
-export const SignupContainer = styled.div`
+export const GenericSignContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -6,6 +6,7 @@ import * as S from "./SignupStyles";
 import { InputType } from "../../types/types";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const CREATE_USER = gql`
   mutation CreateUser($input: CreateUserInput!) {
@@ -24,6 +25,22 @@ const CREATE_USER = gql`
 const SignUp = () => {
   const [createUser] = useMutation(CREATE_USER);
   const navigate = useNavigate();
+  const [formData, setFormData] = useState<Record<string, string | boolean>>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+    teamMember: false,
+  });
+
+  const [fieldValidity, setFieldValidity] = useState<Record<string, boolean>>({
+    firstName: false,
+    lastName: false,
+    email: false,
+    password: false,
+    passwordConfirm: false,
+  });
 
   const handleSubmit = async (formData: Record<string, string | boolean>) => {
     console.log(formData);
@@ -48,14 +65,14 @@ const SignUp = () => {
         navigate("/");
         // Maybe navigate the user to a different page or store the token somewhere
       }
-    } catch (e: ApolloError | any) {
-      console.error("There was an error creating the user:", e);
-      alert(e.message);
+    } catch (error: ApolloError | any) {
+      console.error("There was an error creating the user:", error);
+      alert(error.message);
     }
   };
 
   return (
-    <S.SignupContainer>
+    <S.GenericSignContainer>
       <img src={Logo} alt="fcaura logo" />
 
       <h1>Registrering till Aura FC</h1>
@@ -87,6 +104,10 @@ const SignUp = () => {
             name: InputType.passwordConfirm,
           },
         ]}
+        formData={formData}
+        propFieldValidity={fieldValidity}
+        onFormDataChange={setFormData}
+        onFieldValidityChange={setFieldValidity}
         onSubmit={handleSubmit}
         submitButtonText="Skapa konto"
         teamMember={true}
@@ -96,7 +117,7 @@ const SignUp = () => {
         <h6>eller skapa konto med</h6>
         <FcGoogle size={40} />
       </S.Footer>
-    </S.SignupContainer>
+    </S.GenericSignContainer>
   );
 };
 

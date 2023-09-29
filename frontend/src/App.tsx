@@ -12,7 +12,7 @@ import { InputType } from "./types/types";
 import Home from "./routes/Home/Home";
 import VortexSpinner from "./components/common/Vortex/Vortex";
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
-
+const Signin = lazy(() => import("./routes/Signin/Signin"));
 function App() {
   // const auth = useAuth();
 
@@ -58,6 +58,7 @@ function App() {
             <Route>
               <Route index element={<Home />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<Signin />} />
             </Route>
           </Routes>
         </Suspense>

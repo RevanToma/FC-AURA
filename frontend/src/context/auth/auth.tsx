@@ -59,7 +59,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         if (data && data.me) {
           setUser(data.me);
-          console.log(data.me);
         }
       } catch (err) {
         console.error("Error fetching current user:", err);
