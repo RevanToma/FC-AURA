@@ -3,7 +3,7 @@ import { theme } from "../../../theme/Theme";
 
 const commonStyles = css`
   width: 100%;
-  border-radius: ${theme.radius.button};
+  border-radius: 1rem;
   border: 1px solid #b4b4b4;
   cursor: text;
   box-shadow: ${theme.primaryShadow};
@@ -14,7 +14,7 @@ const commonStyles = css`
 
   &:active,
   &:focus {
-    outline: 3px solid ${theme.color.primaryGreen};
+    outline: 2px solid ${theme.color.primaryYellow};
   }
 `;
 
@@ -30,4 +30,11 @@ export const StyledTextarea = styled.textarea`
 
   padding: 1rem;
   height: 18rem;
+`;
+
+export const SvgSpan = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-60%, 30%);
 `;

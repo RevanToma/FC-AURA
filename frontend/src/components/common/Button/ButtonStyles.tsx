@@ -12,7 +12,7 @@ export const StyledButton = styled.button<{ buttonType: ButtonType }>`
   font-weight: ${({ buttonType }) => buttons[buttonType]?.fontWeight || 700};
   font-size: ${({ buttonType }) => buttons[buttonType]?.fontSize || "2rem"};
   font-family: ${({ buttonType }) =>
-    buttons[buttonType]?.fontFamily || "Open Sans"};
+    buttons[buttonType]?.fontFamily || "Poppins"};
   &:hover {
     color: ${({ buttonType }) => buttons[buttonType]?.hoverColor || "#fff"};
     background: ${({ buttonType }) => buttons[buttonType]?.hoverBackground};

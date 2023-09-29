@@ -33,4 +33,24 @@ export const theme = {
     font-weight: 500;
     letter-spacing: 0.1rem;
   `,
+  footerH6: css`
+    font-family: "Roboto";
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+  `,
+  h1: css`
+    font-family: "Poppins";
+    font-weight: semibold;
+    letter-spacing: 0.1rem;
+    font-size: 2.4rem;
+  `,
+
+  label: css`
+    font-family: "Poppins";
+    letter-spacing: 0.1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+  `,
 };

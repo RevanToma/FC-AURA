@@ -21,4 +21,5 @@ export enum InputType {
   search = "search",
   firstName = "name",
   lastName = "lastName",
+  text = "text",
 }

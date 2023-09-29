@@ -1,7 +1,8 @@
 import { FC } from "react";
 import * as S from "./InputStyle";
+import { BsCheck2Circle } from "react-icons/bs";
 interface IInput {
-  placeholder: string;
+  placeholder: string | undefined;
   type?: string;
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -12,6 +13,8 @@ interface IInput {
   require?: boolean;
   min?: number;
   max?: number;
+  showValidIcon?: boolean;
+  isValid?: boolean;
 }
 
 const Input: FC<IInput> = ({
@@ -21,6 +24,8 @@ const Input: FC<IInput> = ({
   value,
   name,
   readOnly,
+  showValidIcon,
+  isValid,
   ...otherProps
 }) => {
   return (
@@ -45,6 +50,11 @@ const Input: FC<IInput> = ({
           {...otherProps}
         />
       )}
+      <S.SvgSpan>
+        {showValidIcon && isValid && (
+          <BsCheck2Circle size={26} color="#269846" />
+        )}
+      </S.SvgSpan>
     </>
   );
 };
