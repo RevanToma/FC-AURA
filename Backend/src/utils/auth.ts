@@ -12,6 +12,18 @@ export const signToken = (id: string) => {
   });
 };
 
+export const setTokenInCookie = (res: any, token: string) => {
+  const days = parseInt(process.env.JWT_EXPIRES_IN!);
+  const milliseconds = days * 24 * 60 * 60 * 1000;
+
+  res.cookie("authToken", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV !== "development",
+    maxAge: milliseconds,
+    sameSite: "strict",
+  });
+};
+
 export const login = async (
   parent: any,
   args: ResolverArgs,
@@ -33,15 +45,7 @@ export const login = async (
 
   const token = signToken(user.id);
 
-  const days = parseInt(process.env.JWT_EXPIRES_IN!);
-  const milliseconds = days * 24 * 60 * 60 * 1000;
-
-  res.cookie("authToken", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV !== "development",
-    maxAge: milliseconds,
-    sameSite: "strict",
-  });
+  setTokenInCookie(res, token);
   return {
     status: "success",
     token,

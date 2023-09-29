@@ -3,6 +3,7 @@ import { UpdateUserInput } from "../../../types";
 import {
   getCurrentUserFromContext,
   login,
+  setTokenInCookie,
   signToken,
 } from "../../../utils/auth";
 import { catchAsyncResolver } from "../../../utils/catchAsync";
@@ -79,9 +80,10 @@ const UserResolvers = {
       async (
         _parent: any,
         args: { input: UserDocument },
-        _context: any,
+        context: any,
         _info: any
       ) => {
+        const { res } = context;
         const {
           input: {
             name,
@@ -118,6 +120,7 @@ const UserResolvers = {
           teamMember,
         });
         const token = signToken(user._id.toString());
+        setTokenInCookie(res, token);
 
         return {
           status: "success",

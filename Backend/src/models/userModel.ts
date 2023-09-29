@@ -39,23 +39,15 @@ const userSchema = new Schema<UserDocument>(
     },
     skills: {
       type: [String],
-      required: [true, "Please tell us your skills!"],
     },
     teamMember: {
       type: Boolean,
       default: false,
     },
-    bio: {
-      type: String,
-      required: [
-        true,
-        "Please tell us your bio!, at least a few things about you",
-      ],
-    },
-    position: {
-      type: String,
-      required: [true, "Please tell us your position!"],
-    },
+    bio: String,
+
+    position: String,
+
     email: {
       type: String,
       required: [true, "Please provide your email"],
