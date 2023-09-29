@@ -13,12 +13,14 @@ export const Form = styled.form`
   box-shadow: ${theme.primaryShadow};
   display: flex;
   flex-direction: column;
-  width: 100%;
+  min-width: 37rem;
+  max-width: 50rem;
   align-items: center;
   border-radius: 5px;
 
   div {
-    width: 100%;
+    min-width: 37rem;
+    max-width: 45rem;
     padding: 1.5rem;
     position: relative;
   }

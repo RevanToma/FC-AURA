@@ -77,7 +77,13 @@ const ReusableForm: FC<FormProps> = ({
               name={field.name}
               placeholder={field.placeholder}
               onChange={handleChange}
-              showValidIcon={["name", "lastName", "email"].includes(field.name)}
+              showValidIcon={[
+                "name",
+                "lastName",
+                "email",
+                "password",
+                "passwordConfirm",
+              ].includes(field.name)}
               isValid={fieldValidity[field.name]}
             />
           </div>

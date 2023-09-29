@@ -33,11 +33,11 @@ export const buttons: Buttons = {
 
   signIn: {
     background: theme.color.primaryGreen,
-    width: "90%",
+    width: "35rem",
   },
   disabled: {
     color: theme.color.darkWhite,
     background: theme.color.disabledButton,
-    width: "90%",
+    width: "35rem",
   },
 };

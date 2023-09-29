@@ -5,7 +5,7 @@ export const SignupContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
+  gap: 4rem;
   padding: 2rem 1rem;
 
   h1 {
@@ -20,7 +20,7 @@ export const Footer = styled.footer`
   align-items: center;
   padding-top: 2rem;
   gap: 4rem;
-  width: 90%;
+  width: 35rem;
   border-top: 2px solid rgba(0, 0, 0, 0.3);
   h6 {
     color: #ffffff;

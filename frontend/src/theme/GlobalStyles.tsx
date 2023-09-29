@@ -26,7 +26,7 @@ html {
   Arial, sans-serif;
   font-size: 1.4rem;
 
-  overflow: scroll;
+  
 }
 
 li {
