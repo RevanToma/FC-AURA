@@ -67,7 +67,6 @@ const userSchema = new Schema<UserDocument>(
     },
     passwordConfirm: {
       type: String,
-      minLength: [8, "Passwords must have at least 8 characters"],
       select: false,
     },
     createdAt: {
