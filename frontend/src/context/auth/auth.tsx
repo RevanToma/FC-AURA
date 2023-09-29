@@ -3,7 +3,7 @@ import Spinner from "../../components/common/Spinner/Spinner";
 import { gql, useApolloClient, useMutation } from "@apollo/client";
 import { AuthContextType, AuthProviderProps, User } from "../../types/types";
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 const CURRENT_USER_QUERY = gql`
   query CurrentUser {
@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     fetchCurrentUser();
-  }, [client, user]);
+  }, [client]);
 
   if (loading) {
     return <Spinner />;

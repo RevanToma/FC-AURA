@@ -1,13 +1,23 @@
 import { gql, useMutation } from "@apollo/client";
 import { GlobalStyles } from "./theme/GlobalStyles";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
+import {
+  BrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+  createBrowserRouter,
+} from "react-router-dom";
 // import Button from "./components/common/Button/Button";
 // import { ButtonType } from "./components/common/Button/ButtonTypes";
 
 import { Vortex } from "react-loader-spinner";
 import { useAuth } from "./context/auth/auth";
-import Input from "./components/common/input/Input";
+import Input from "./components/common/Input/Input";
 import { InputType } from "./types/types";
+import Home from "./routes/Home/Home";
+const SignUp = lazy(() => import("./routes/Signup/Signup"));
+
 function App() {
   // const auth = useAuth();
 
@@ -47,17 +57,22 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Suspense
-        fallback={
-          <Vortex
-            colors={["yellow", "black", "yellow", "black", "black", "yellow"]}
-          />
-        }
-      >
-        <header>
-          <h1>Hej</h1>
-        </header>
-      </Suspense>
+      <BrowserRouter>
+        <Suspense
+          fallback={
+            <Vortex
+              colors={["yellow", "black", "yellow", "black", "black", "yellow"]}
+            />
+          }
+        >
+          <Routes>
+            <Route>
+              <Route index element={<Home />} />
+              <Route path="/signup" element={<SignUp />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
     </>
   );
 }

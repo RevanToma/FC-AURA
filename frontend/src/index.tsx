@@ -11,6 +11,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   credentials: "include",
 });
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

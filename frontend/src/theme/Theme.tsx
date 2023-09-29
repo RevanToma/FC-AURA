@@ -1,3 +1,5 @@
+import { css } from "styled-components";
+
 export const theme = {
   color: {
     darkWhite: "#F7F7F7",
@@ -25,4 +27,10 @@ export const theme = {
     transition: "all 0.3s",
     padding: "1.6rem 3rem",
   },
+  h6: css`
+    font-family: "Poppins";
+    font-size: 2.4rem;
+    font-weight: 500;
+    letter-spacing: 0.1rem;
+  `,
 };

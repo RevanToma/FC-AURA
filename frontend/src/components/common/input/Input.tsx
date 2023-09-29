@@ -1,6 +1,5 @@
 import { FC } from "react";
 import * as S from "./InputStyle";
-
 interface IInput {
   placeholder: string;
   type?: string;

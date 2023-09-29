@@ -19,6 +19,7 @@ html {
 }
 
  body {
+  background-color: ${theme.color.primaryBackground} ;
   margin: 0!;
   padding-bottom: 3rem;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
