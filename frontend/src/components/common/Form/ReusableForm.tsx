@@ -28,9 +28,13 @@ const ReusableForm: FC<FormProps> = ({
   const [formData, setFormData] = useState<Record<string, string | boolean>>(
     {}
   );
-  const [fieldValidity, setFieldValidity] = useState<Record<string, boolean>>(
-    {}
-  );
+  const initialValidity = fields.reduce((acc, field) => {
+    acc[field.name] = false;
+    return acc;
+  }, {} as Record<string, boolean>);
+  const [fieldValidity, setFieldValidity] =
+    useState<Record<string, boolean>>(initialValidity);
+
   const isValidEmail = (email: string): boolean => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
@@ -42,15 +46,19 @@ const ReusableForm: FC<FormProps> = ({
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    if (
-      (name === "name" && value.length >= 3) ||
-      (name === "lastName" && value.length >= 3) ||
-      (name === "email" && isValidEmail(value)) // You can add more specific validation for the email if needed
-    ) {
-      setFieldValidity({ ...fieldValidity, [name]: true });
-    } else {
-      setFieldValidity({ ...fieldValidity, [name]: false });
+    let isValid = false;
+
+    if (name === "name" || name === "lastName") {
+      isValid = value.length >= 3;
+    } else if (name === "email") {
+      isValid = isValidEmail(value);
+    } else if (name === "password") {
+      isValid = value.length >= 8;
+    } else if (name === "passwordConfirm") {
+      isValid = value.length >= 8;
     }
+
+    setFieldValidity((prevValidity) => ({ ...prevValidity, [name]: isValid }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -92,6 +100,7 @@ const ReusableForm: FC<FormProps> = ({
         buttonType={ButtonType.SignIn}
         type="button"
         onClick={handleSubmit}
+        disabled={!Object.values(fieldValidity).every((valid) => valid)}
       >
         {submitButtonText}
       </Button>

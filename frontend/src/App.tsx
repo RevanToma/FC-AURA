@@ -1,13 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { GlobalStyles } from "./theme/GlobalStyles";
 import { Suspense, lazy } from "react";
-import {
-  BrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import Button from "./components/common/Button/Button";
 // import { ButtonType } from "./components/common/Button/ButtonTypes";
 
@@ -16,6 +10,7 @@ import { useAuth } from "./context/auth/auth";
 import Input from "./components/common/Input/Input";
 import { InputType } from "./types/types";
 import Home from "./routes/Home/Home";
+import VortexSpinner from "./components/common/Vortex/Vortex";
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 
 function App() {
@@ -58,13 +53,7 @@ function App() {
     <>
       <GlobalStyles />
       <BrowserRouter>
-        <Suspense
-          fallback={
-            <Vortex
-              colors={["yellow", "black", "yellow", "black", "black", "yellow"]}
-            />
-          }
-        >
+        <Suspense fallback={<VortexSpinner />}>
           <Routes>
             <Route>
               <Route index element={<Home />} />

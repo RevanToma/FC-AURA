@@ -4,7 +4,8 @@ import { FcGoogle } from "react-icons/fc";
 
 import * as S from "./SignupStyles";
 import { InputType } from "../../types/types";
-import { gql, useMutation } from "@apollo/client";
+import { ApolloError, gql, useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 const CREATE_USER = gql`
   mutation CreateUser($input: CreateUserInput!) {
@@ -22,6 +23,7 @@ const CREATE_USER = gql`
 `;
 const SignUp = () => {
   const [createUser] = useMutation(CREATE_USER);
+  const navigate = useNavigate();
 
   const handleSubmit = async (formData: Record<string, string | boolean>) => {
     console.log(formData);
@@ -37,17 +39,18 @@ const SignUp = () => {
             passwordConfirm: formData.passwordConfirm,
             teamMember: formData.teamMember,
           },
-          // ... other fields
         },
       });
 
       // handle response
       if (response.data) {
         console.log(response.data.createUser);
+        navigate("/");
         // Maybe navigate the user to a different page or store the token somewhere
       }
-    } catch (e) {
+    } catch (e: ApolloError | any) {
       console.error("There was an error creating the user:", e);
+      alert(e.message);
     }
   };
 

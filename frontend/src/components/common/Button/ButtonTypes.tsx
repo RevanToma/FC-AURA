@@ -38,5 +38,6 @@ export const buttons: Buttons = {
   disabled: {
     color: theme.color.darkWhite,
     background: theme.color.disabledButton,
+    width: "90%",
   },
 };
