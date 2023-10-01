@@ -88,3 +88,30 @@ export const Korpen = styled.span`
   font-family: "Rubik Microbe", cursive;
   padding-bottom: 1rem;
 `;
+
+export const CarouselContainer = styled.div`
+  display: flex;
+  overflow: hidden;
+`;
+
+export const CarouselSlide = styled.div`
+  flex: none;
+
+  width: 100%;
+
+  scroll-snap-align: start;
+`;
+
+export const ImgChanger = styled.img`
+  transition: all 0.3s ease;
+`;
+
+export const ImageContainer = styled.div`
+  img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transition: opacity 1s ease-in-out;
+  }
+`;
