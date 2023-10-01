@@ -53,4 +53,11 @@ export const theme = {
     font-weight: 500;
     line-height: 2.4rem;
   `,
+  matchInfo: css`
+    font-family: "Roboto";
+    font-weight: 600;
+    font-size: 1.6rem;
+    letter-spacing: 0.1rem;
+    line-height: 2.5rem;
+  `,
 };
