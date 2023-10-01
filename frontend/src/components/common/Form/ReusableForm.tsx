@@ -120,7 +120,7 @@ const ReusableForm: FC<FormProps> = ({
       </S.Form>
 
       <Button
-        buttonType={ButtonType.SignIn}
+        buttontypes={ButtonType.SignIn}
         type="button"
         onClick={handleSubmit}
         disabled={!Object.values(internalFieldValidity).every((valid) => valid)}

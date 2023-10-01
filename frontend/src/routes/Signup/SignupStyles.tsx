@@ -8,6 +8,11 @@ export const GenericSignContainer = styled.div`
   gap: 4rem;
   padding: 2rem 1rem;
 
+  p {
+    ${theme.footerH6}
+    color: red;
+  }
+
   h1 {
     color: #ffffff;
     ${theme.h1}

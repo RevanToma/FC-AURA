@@ -23,7 +23,7 @@ const CREATE_USER = gql`
   }
 `;
 const SignUp = () => {
-  const [createUser] = useMutation(CREATE_USER);
+  const [createUser, { error, loading }] = useMutation(CREATE_USER);
   const navigate = useNavigate();
   const [formData, setFormData] = useState<Record<string, string | boolean>>({
     firstName: "",
@@ -43,8 +43,6 @@ const SignUp = () => {
   });
 
   const handleSubmit = async (formData: Record<string, string | boolean>) => {
-    console.log(formData);
-
     try {
       const response = await createUser({
         variables: {
@@ -61,14 +59,23 @@ const SignUp = () => {
 
       // handle response
       if (response.data) {
-        console.log(response.data.createUser);
         navigate("/");
         // Maybe navigate the user to a different page or store the token somewhere
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
-      alert(error.message);
     }
+  };
+  const handleError = (error: ApolloError | any) => {
+    let err;
+
+    if (error.message.includes("Duplicate field value")) {
+      err = "Email finns redan registrerad";
+    } else {
+      err = "Något gick fel";
+    }
+
+    return err;
   };
 
   return (
@@ -76,6 +83,7 @@ const SignUp = () => {
       <img src={Logo} alt="fcaura logo" />
 
       <h1>Registrering till Aura FC</h1>
+      <p>{error && handleError(error)}</p>
       <ReusableForm
         fields={[
           {

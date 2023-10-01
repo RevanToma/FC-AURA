@@ -4,26 +4,26 @@ import { StyledSpinner } from "../Spinner/SpinnerStyles";
 
 // import { StyledSpinner } from "../spinner/spinner.styles";
 
-export const StyledButton = styled.button<{ buttonType: ButtonType }>`
-  color: ${({ buttonType }) => buttons[buttonType]?.color || "#fff"};
-  background: ${({ buttonType }) => buttons[buttonType]?.background};
-  width: ${({ buttonType }) => buttons[buttonType]?.width || "fit-content"};
-  border: ${({ buttonType }) => buttons[buttonType]?.border || "none"};
-  font-weight: ${({ buttonType }) => buttons[buttonType]?.fontWeight || 700};
-  font-size: ${({ buttonType }) => buttons[buttonType]?.fontSize || "2rem"};
-  font-family: ${({ buttonType }) =>
-    buttons[buttonType]?.fontFamily || "Poppins"};
-  letter-spacing: ${({ buttonType }) => buttons[buttonType]?.letterSpacing};
+export const StyledButton = styled.button<{ buttontypes: ButtonType }>`
+  color: ${({ buttontypes }) => buttons[buttontypes]?.color || "#fff"};
+  background: ${({ buttontypes }) => buttons[buttontypes]?.background};
+  width: ${({ buttontypes }) => buttons[buttontypes]?.width || "fit-content"};
+  border: ${({ buttontypes }) => buttons[buttontypes]?.border || "none"};
+  font-weight: ${({ buttontypes }) => buttons[buttontypes]?.fontWeight || 700};
+  font-size: ${({ buttontypes }) => buttons[buttontypes]?.fontSize || "2rem"};
+  font-family: ${({ buttontypes }) =>
+    buttons[buttontypes]?.fontFamily || "Poppins"};
+  letter-spacing: ${({ buttontypes }) => buttons[buttontypes]?.letterSpacing};
   &:hover {
-    color: ${({ buttonType }) => buttons[buttonType]?.hoverColor || "#fff"};
-    background: ${({ buttonType }) => buttons[buttonType]?.hoverBackground};
+    color: ${({ buttontypes }) => buttons[buttontypes]?.hoverColor || "#fff"};
+    background: ${({ buttontypes }) => buttons[buttontypes]?.hoverBackground};
   }
 
   &:active {
-    color: ${({ buttonType }) => buttons[buttonType]?.activeColor || "#fff"};
-    background: ${({ buttonType }) => buttons[buttonType]?.activeBackground};
-    border: ${({ buttonType }) =>
-      buttons[buttonType]?.activeBackground || "none"};
+    color: ${({ buttontypes }) => buttons[buttontypes]?.activeColor || "#fff"};
+    background: ${({ buttontypes }) => buttons[buttontypes]?.activeBackground};
+    border: ${({ buttontypes }) =>
+      buttons[buttontypes]?.activeBackground || "none"};
   }
 `;
 

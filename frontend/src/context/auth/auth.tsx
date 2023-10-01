@@ -36,14 +36,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const client = useApolloClient();
 
   const login = (userData: User) => {
+    console.log("Login", user);
     setUser(userData);
+    console.log("Login after set", user);
   };
 
   const logout = async () => {
     try {
       await logoutMutation();
-
+      console.log("LOGOUT BEFORE SETUSERN ULL", user);
       setUser(null);
+      console.log("logout after setuser null", user);
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -59,6 +62,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         if (data && data.me) {
           setUser(data.me);
+          console.log(data.me);
         }
       } catch (err) {
         console.error("Error fetching current user:", err);
@@ -70,12 +74,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     fetchCurrentUser();
   }, [client]);
 
+  const isLoggedIn = () => {
+    return !user;
+  };
+
   if (loading) {
     return <Spinner />;
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );

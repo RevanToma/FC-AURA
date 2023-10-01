@@ -4,7 +4,7 @@ import * as S from "./ButtonStyles";
 
 import { Vortex } from "react-loader-spinner";
 export interface ButtonProps {
-  buttonType: ButtonType;
+  buttontypes: ButtonType;
   children: ReactNode;
   isLoading?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -14,7 +14,7 @@ export interface ButtonProps {
 }
 
 const Button: FC<ButtonProps> = ({
-  buttonType = ButtonType.SignIn,
+  buttontypes = ButtonType.SignIn,
   onClick,
   children,
   disabled,
@@ -25,8 +25,8 @@ const Button: FC<ButtonProps> = ({
   return (
     <S.StyledButton
       onClick={onClick}
-      buttonType={disabled ? ButtonType.Disabled : buttonType}
-      disabled={disabled || buttonType === ButtonType.Disabled}
+      buttontypes={disabled ? ButtonType.Disabled : buttontypes}
+      disabled={disabled || buttontypes === ButtonType.Disabled}
       {...otheprops}
     >
       {isLoading ? (

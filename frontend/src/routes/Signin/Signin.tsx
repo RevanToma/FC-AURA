@@ -60,6 +60,7 @@ const Signin = () => {
       <S.SigninHeader>Logga in med Email och Lösenord</S.SigninHeader>
 
       {/* {loading && <VortexSpinner />} */}
+
       <ReusableForm
         fields={[
           {

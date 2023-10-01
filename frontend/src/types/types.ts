@@ -9,6 +9,7 @@ export type AuthContextType = {
   user: User | null;
   login: (userData: User) => void;
   logout: () => void;
+  isLoggedIn: () => boolean;
 };
 export type AuthProviderProps = {
   children: ReactNode;
