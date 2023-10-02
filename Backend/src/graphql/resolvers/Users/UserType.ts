@@ -41,7 +41,7 @@ const UserType = gql`
     image: String
   }
   input UpdateUserInput {
-    id: ID!
+    id: ID
     email: String
     password: String
     weight: Float

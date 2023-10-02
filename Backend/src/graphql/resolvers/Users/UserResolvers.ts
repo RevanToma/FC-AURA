@@ -1,6 +1,7 @@
 import User, { UserDocument } from "../../../models/userModel";
-import { UpdateUserInput } from "../../../types";
+import { MyGraphQLContext, UpdateUserInput } from "../../../types";
 import {
+  decodeToken,
   getCurrentUserFromContext,
   login,
   setTokenInCookie,
@@ -30,10 +31,17 @@ const UserResolvers = {
       const users = await User.find();
       return users;
     },
-    me: async (_parent: any, _args: any, context: any, _info: any) => {
+    me: async (
+      _parent: any,
+      _args: any,
+      context: MyGraphQLContext,
+      _info: any
+    ) => {
       // Assuming you have a function or method to get the current user from the context
 
-      const user = await getCurrentUserFromContext(context);
+      const user = await getCurrentUserFromContext(
+        context?.req.headers.cookie!
+      );
 
       if (!user) {
         throw new Error("Not authenticated");
@@ -47,19 +55,23 @@ const UserResolvers = {
       async (
         _parent: any,
         args: { input: UpdateUserInput },
-        _context: any,
+        context: MyGraphQLContext,
         _info: any
       ) => {
         const { input } = args;
 
-        if (input.password && input.passwordConfirm) {
-          if (input.password !== input.passwordConfirm) {
-            throw new Error("Passwords do not match!");
-          }
+        const tokenString = context.req.headers.cookie;
+        if (!tokenString) {
+          throw new Error("Authentication token is missing!");
+        }
+
+        const user = await getCurrentUserFromContext(tokenString);
+        if (!user || !user.id) {
+          throw new Error("Invalid token or token has expired.");
         }
 
         const updatedUser = await User.findByIdAndUpdate(
-          input.id,
+          user.id, // use the ID from the token
           { ...input },
           { new: true } // This option returns the updated document
         );

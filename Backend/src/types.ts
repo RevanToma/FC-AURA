@@ -1,8 +1,8 @@
 import { ReadStream } from "fs";
 import jwt from "jsonwebtoken";
+import { Request, Response } from "express";
 
 export interface UpdateUserInput {
-  id: string;
   email?: string;
   password?: string;
   passwordConfirm?: string;
@@ -12,6 +12,7 @@ export interface UpdateUserInput {
   bio?: string;
   skills?: string[];
 }
+
 export type LoginInput = {
   email: string;
   password: string;
@@ -48,4 +49,9 @@ export interface ApolloContext {
   req: any;
   res: any;
   user?: string | jwt.JwtPayload;
+}
+
+export interface MyGraphQLContext {
+  req: Request;
+  res: Response;
 }
