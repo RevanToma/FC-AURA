@@ -3,24 +3,13 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { gql, useApolloClient, useMutation } from "@apollo/client";
 import { AuthContextType, AuthProviderProps, User } from "../../types/types";
 import VortexSpinner from "../../components/common/Vortex/Vortex";
+import {
+  CURRENT_USER_QUERY,
+  LOGOUT_USER_MUTATION,
+} from "../../Mutations/Mutations";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-const CURRENT_USER_QUERY = gql`
-  query CurrentUser {
-    me {
-      id
-      name
-      email
-      teamMember
-    }
-  }
-`;
-const LOGOUT_USER_MUTATION = gql`
-  mutation logout {
-    logout
-  }
-`;
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

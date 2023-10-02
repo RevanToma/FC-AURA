@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import Button from "../../../components/common/Button/Button";
 import { ButtonType } from "../../../components/common/Button/ButtonTypes";
 import { RiDeleteBack2Line } from "react-icons/ri";
-import { ApolloError, gql, useMutation, useQuery } from "@apollo/client";
+import { ApolloError, gql, useMutation } from "@apollo/client";
 import useUserSkills from "../../../hooks/useUserSkills";
 import { ADD_SKILLS } from "../../../Mutations/Mutations";
 

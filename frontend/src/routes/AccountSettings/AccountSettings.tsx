@@ -8,8 +8,18 @@ import { LuWand } from "react-icons/lu";
 import { ButtonType } from "../../components/common/Button/ButtonTypes";
 import Button from "../../components/common/Button/Button";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth/auth";
 const AccountSettings = () => {
+  const auth = useAuth();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    auth.logout();
+    navigate("/");
+  };
+
+  if (!auth.user) return null;
+
   return (
     <>
       <GobackNav title="Inställningar" />
@@ -42,7 +52,11 @@ const AccountSettings = () => {
           />
         </S.NavigationItems>
 
-        <Button buttontypes={ButtonType.SignOut} className="signOut">
+        <Button
+          buttontypes={ButtonType.SignOut}
+          className="signOut"
+          onClick={handleLogout}
+        >
           Logga ut
         </Button>
       </S.AccountSettingsContainer>

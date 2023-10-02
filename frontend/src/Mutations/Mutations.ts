@@ -81,3 +81,35 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
+
+export const CURRENT_USER_QUERY = gql`
+  query CurrentUser {
+    me {
+      id
+      name
+      email
+      teamMember
+    }
+  }
+`;
+export const LOGOUT_USER_MUTATION = gql`
+  mutation logout {
+    logout
+  }
+`;
+
+export const GET_TEAMMEMBERS = gql`
+  query Users {
+    users {
+      name
+      bio
+      position
+      skills
+      length
+      weight
+      instagram
+      lastName
+      teamMember
+    }
+  }
+`;
