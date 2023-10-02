@@ -6,7 +6,7 @@ import * as S from "./SignupStyles";
 import { InputType } from "../../types/types";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useForm } from "../../hooks/useForm";
 
 const CREATE_USER = gql`
   mutation CreateUser($input: CreateUserInput!) {
@@ -25,22 +25,15 @@ const CREATE_USER = gql`
 const SignUp = () => {
   const [createUser, { error, loading }] = useMutation(CREATE_USER);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<Record<string, string | boolean>>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
-    teamMember: false,
-  });
 
-  const [fieldValidity, setFieldValidity] = useState<Record<string, boolean>>({
-    firstName: false,
-    lastName: false,
-    email: false,
-    password: false,
-    passwordConfirm: false,
-  });
+  const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
+    "firstName",
+    "lastName",
+    "email",
+    "password",
+    "passwordConfirm",
+    "teamMember",
+  ]);
 
   const handleSubmit = async (formData: Record<string, string | boolean>) => {
     try {

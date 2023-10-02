@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { theme } from "../../theme/Theme";
-import { GenericSignContainer } from "../Signup/SignupStyles";
 
 export const SigninHeader = styled.h1`
   color: #ffffff;

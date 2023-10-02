@@ -1,9 +1,9 @@
-import ImageCarousel from "../../components/common/imageCarousel/ImageCarousel";
+import MatchdayBanner from "../../components/common/MatchdayBanner/MatchdayBanner";
 
 const Home = () => {
   return (
     <div>
-      <ImageCarousel />
+      <MatchdayBanner />
     </div>
   );
 };

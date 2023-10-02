@@ -6,6 +6,7 @@ export enum ButtonType {
   SignOut = "signout",
   SignIn = "signIn",
   Google = "google",
+  Settings = "settings",
 }
 
 interface Buttons {
@@ -28,12 +29,20 @@ interface Buttons {
 }
 
 export const buttons: Buttons = {
-  SignOut: {
-    background: theme.color.primaryGreen,
+  signout: {
+    background: theme.color.primaryRed,
   },
 
   signIn: {
     background: theme.color.primaryGreen,
+    width: "35rem",
+    fontFamily: "Poppins",
+    fontWeight: 500,
+    fontSize: "2rem",
+    letterSpacing: "0.1rem",
+  },
+  settings: {
+    background: theme.color.primarySettingsColor,
     width: "35rem",
     fontFamily: "Poppins",
     fontWeight: 500,

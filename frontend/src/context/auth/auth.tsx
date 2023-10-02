@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import Spinner from "../../components/common/Spinner/Spinner";
+
 import { gql, useApolloClient, useMutation } from "@apollo/client";
 import { AuthContextType, AuthProviderProps, User } from "../../types/types";
+import VortexSpinner from "../../components/common/Vortex/Vortex";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -79,7 +80,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   if (loading) {
-    return <Spinner />;
+    return <VortexSpinner />;
   }
 
   return (

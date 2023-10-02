@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { FaChevronLeft } from "react-icons/fa";
 import { GoBackNav, Title } from "./GoBackNavStyles";
+import { BiChevronLeft } from "react-icons/bi";
 
 type NavBarProps = {
   title: string;
@@ -10,8 +10,8 @@ type NavBarProps = {
 const GobackNav: FC<NavBarProps> = ({ title, size }: NavBarProps) => {
   return (
     <GoBackNav>
-      <FaChevronLeft
-        size={size ? size : 26}
+      <BiChevronLeft
+        size={size ? size : 40}
         color="#FFFFFF"
         cursor="pointer"
         onClick={() => window.history.back()}

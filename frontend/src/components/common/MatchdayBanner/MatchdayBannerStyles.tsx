@@ -7,7 +7,10 @@ export const ImageCarouselContainer = styled.div`
   align-items: center;
   position: relative;
   text-align: center;
+  min-height: 39rem;
+  max-height: 50rem;
   border-bottom: 2px #f1dd56 solid;
+  z-index: 1;
   img {
     width: 100%;
     aspect-ratio: 1/ 1;
@@ -20,6 +23,7 @@ export const ImageCarouselContainer = styled.div`
     letter-spacing: 0.1rem;
     padding-top: 2rem;
     position: absolute;
+    z-index: 1;
   }
 
   h1 {
@@ -35,13 +39,14 @@ export const Span = styled.span`
   position: absolute;
   top: 6.5rem;
   color: #f1dd56;
+  z-index: 1;
 `;
 
 export const MatchVsContainer = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
-
+  z-index: 1;
   gap: 4rem;
   top: 13rem;
   img {
@@ -67,6 +72,7 @@ export const MathInfo = styled.p`
   position: absolute;
   top: 13rem;
   left: 50%;
+  z-index: 1;
   transform: translate(-50%, -50%);
 
   ${theme.matchInfo}
@@ -87,11 +93,31 @@ export const Korpen = styled.span`
   color: white;
   font-family: "Rubik Microbe", cursive;
   padding-bottom: 1rem;
+  z-index: 1;
 `;
 
 export const CarouselContainer = styled.div`
   display: flex;
-  overflow: hidden;
+  height: 30rem;
+  z-index: 0;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    height: 100%;
+    transition: opacity 1s;
+    object-fit: cover;
+  }
+
+  img.fade-in {
+    opacity: 1;
+  }
+
+  .fade-in {
+    transition: opacity 1s ease-in-out;
+  }
 `;
 
 export const CarouselSlide = styled.div`

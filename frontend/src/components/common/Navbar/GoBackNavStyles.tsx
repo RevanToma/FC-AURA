@@ -11,5 +11,5 @@ export const GoBackNav = styled.div`
   display: flex;
   align-items: center;
   gap: 5rem;
-  padding: 1rem 1rem;
+  padding: 2rem 2rem;
 `;

@@ -9,6 +9,7 @@ import { useAuth } from "../../context/auth/auth";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "../../hooks/useForm";
 
 const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
@@ -26,14 +27,18 @@ const LOGIN_MUTATION = gql`
 
 const Signin = () => {
   const [signinMutation, { error, loading }] = useMutation(LOGIN_MUTATION);
-  const [formData, setFormData] = useState<Record<string, string | boolean>>({
-    email: "",
-    password: "",
-  });
-  const [fieldValidity, setFieldValidity] = useState<Record<string, boolean>>({
-    email: false,
-    password: false,
-  });
+  // const [formData, setFormData] = useState<Record<string, string | boolean>>({
+  //   email: "",
+  //   password: "",
+  // });
+  // const [fieldValidity, setFieldValidity] = useState<Record<string, boolean>>({
+  //   email: false,
+  //   password: false,
+  // });
+  const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
+    "email",
+    "password",
+  ]);
   const auth = useAuth();
   const navigate = useNavigate();
 

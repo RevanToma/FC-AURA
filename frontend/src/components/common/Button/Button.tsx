@@ -11,6 +11,7 @@ export interface ButtonProps {
   disabled?: boolean;
   type?: "button" | "submit";
   iconLeft?: ReactElement;
+  className?: string;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -20,6 +21,7 @@ const Button: FC<ButtonProps> = ({
   disabled,
   iconLeft,
   isLoading,
+  className,
   ...otheprops
 }) => {
   return (
@@ -28,7 +30,9 @@ const Button: FC<ButtonProps> = ({
       buttontypes={disabled ? ButtonType.Disabled : buttontypes}
       disabled={disabled || buttontypes === ButtonType.Disabled}
       {...otheprops}
+      className={className}
     >
+      {iconLeft && !isLoading && iconLeft}
       {isLoading ? (
         <Vortex
           width={50}

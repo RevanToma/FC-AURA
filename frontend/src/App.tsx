@@ -1,15 +1,17 @@
 import { GlobalStyles } from "./theme/GlobalStyles";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AOS from "aos";
+
 import Home from "./routes/Home/Home";
 import VortexSpinner from "./components/common/Vortex/Vortex";
 import ProtectedRoute from "./components/helpers/ProtectedRoute";
+import AccountSettings from "./routes/AccountSettings/AccountSettings";
+import ChangeEmail from "./routes/AccountSettings/ChangeEmail/ChangeEmail";
+import ChangePassowrd from "./routes/AccountSettings/ChangePassword/ChangePassword";
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
 
 function App() {
-  AOS.init();
   return (
     <>
       <GlobalStyles />
@@ -18,13 +20,18 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
-              path="/signup"
+              path="signup"
               element={<ProtectedRoute component={SignUp} />}
             />
             <Route
-              path="/signin"
+              path="signin"
               element={<ProtectedRoute component={Signin} />}
             />
+            <Route path="account/*">
+              <Route index element={<AccountSettings />} />
+              <Route path="changeEmail" element={<ChangeEmail />} />
+              <Route path="changePassword" element={<ChangePassowrd />} />
+            </Route>
           </Routes>
         </Suspense>
       </BrowserRouter>

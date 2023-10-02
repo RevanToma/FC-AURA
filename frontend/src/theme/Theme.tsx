@@ -20,7 +20,7 @@ export const theme = {
   playerCardShadow: "0px 4px 4px rgba(241, 210, 2, 0.50)",
 
   radius: {
-    button: "5px",
+    button: "10px",
   },
 
   button: {

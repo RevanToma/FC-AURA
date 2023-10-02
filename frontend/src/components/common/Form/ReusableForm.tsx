@@ -19,8 +19,8 @@ type FormProps = {
   teamMember?: boolean;
   formData: Record<string, string | boolean>;
   propFieldValidity: Record<string, boolean>;
-  onFormDataChange: (data: Record<string, string | boolean>) => void;
-  onFieldValidityChange: (validity: Record<string, boolean>) => void;
+  onFormDataChange?: (data: Record<string, string | boolean>) => void;
+  onFieldValidityChange?: (validity: Record<string, boolean>) => void;
 };
 
 const ReusableForm: FC<FormProps> = ({
@@ -33,17 +33,6 @@ const ReusableForm: FC<FormProps> = ({
   onFormDataChange,
   onFieldValidityChange,
 }) => {
-  // const [formData, setFormData] = useState<Record<string, string | boolean>>(
-  //   {}
-  // );
-  const initialValidity = fields.reduce((acc, field) => {
-    acc[field.name] = false;
-    return acc;
-  }, {} as Record<string, boolean>);
-
-  const [internalFieldValidity, setInternalFieldValidity] =
-    useState<Record<string, boolean>>(initialValidity);
-
   const isValidEmail = (email: string): boolean => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
@@ -55,8 +44,7 @@ const ReusableForm: FC<FormProps> = ({
     const { name, value } = e.target;
 
     // Update form data
-    let updatedFormData = { ...formData, [name]: value };
-    onFormDataChange(updatedFormData); // Notify parent about form data changes
+    const updatedFormData = { ...formData, [name]: value };
 
     // Determine the validity of the changed field
     let isValid = false;
@@ -68,22 +56,20 @@ const ReusableForm: FC<FormProps> = ({
       isValid = value.length >= 8;
     }
 
-    // Update field validity
-    let updatedFieldValidity = { ...internalFieldValidity, [name]: isValid };
+    const updatedFieldValidity = { ...propFieldValidity, [name]: isValid };
 
-    setInternalFieldValidity(updatedFieldValidity); // Update internal state
-    onFieldValidityChange(updatedFieldValidity); // Notify parent about the validity change
+    // Notify parent
+    if (onFormDataChange) onFormDataChange(updatedFormData);
+    if (onFieldValidityChange) onFieldValidityChange(updatedFieldValidity);
   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     onSubmit(formData);
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const updatedFormData = { ...formData, teamMember: e.target.checked };
-    onFormDataChange(updatedFormData); // Notify parent about the change
+    if (onFormDataChange) onFormDataChange(updatedFormData);
   };
 
   return (
@@ -123,7 +109,7 @@ const ReusableForm: FC<FormProps> = ({
         buttontypes={ButtonType.SignIn}
         type="button"
         onClick={handleSubmit}
-        disabled={!Object.values(internalFieldValidity).every((valid) => valid)}
+        disabled={false}
       >
         {submitButtonText}
       </Button>

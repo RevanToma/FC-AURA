@@ -1,16 +1,17 @@
 import FCAURALogo from "../../../assets/images/FCAURA-Logo.png";
-import * as S from "./ImageCarousel.Styles";
 
-import { CarouselImageData } from "./ImageData";
+import * as S from "./MatchdayBannerStyles";
 import ImageChanger from "./ImageChanger";
 
-const ImageCarousel = () => {
+import { CarouselImageData } from "./ImageData";
+
+const MatchdayBanner = () => {
   return (
     <S.ImageCarouselContainer>
+      <ImageChanger images={CarouselImageData} duration={4000} />
+
       <h1>MATCHDAY</h1>
       <S.Span>8</S.Span>
-      {/* <img src={Image1} alt="image1" /> */}
-      <ImageChanger images={CarouselImageData} />
       <S.MatchVsContainer>
         <h4>Stockholm United FC</h4>
         <h3>VS</h3>
@@ -24,4 +25,4 @@ const ImageCarousel = () => {
   );
 };
 
-export default ImageCarousel;
+export default MatchdayBanner;
