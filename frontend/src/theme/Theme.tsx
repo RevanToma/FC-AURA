@@ -29,7 +29,7 @@ export const theme = {
   },
   h6: css`
     font-family: "Poppins";
-    font-size: 2.4rem;
+    font-size: 2.3rem;
     font-weight: 500;
     letter-spacing: 0.1rem;
   `,

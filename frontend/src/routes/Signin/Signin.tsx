@@ -7,34 +7,13 @@ import * as S from "./SigninStyles";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useAuth } from "../../context/auth/auth";
 
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
-
-const LOGIN_MUTATION = gql`
-  mutation Login($email: String!, $password: String!) {
-    loginUser(input: { email: $email, password: $password }) {
-      status
-      token
-      user {
-        id
-        name
-        email
-      }
-    }
-  }
-`;
+import { LOGIN_MUTATION } from "../../Mutations/Mutations";
 
 const Signin = () => {
   const [signinMutation, { error, loading }] = useMutation(LOGIN_MUTATION);
-  // const [formData, setFormData] = useState<Record<string, string | boolean>>({
-  //   email: "",
-  //   password: "",
-  // });
-  // const [fieldValidity, setFieldValidity] = useState<Record<string, boolean>>({
-  //   email: false,
-  //   password: false,
-  // });
+
   const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
     "email",
     "password",

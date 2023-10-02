@@ -7,28 +7,11 @@ import { useForm } from "../../../hooks/useForm";
 import { ApolloError, gql, useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import {
+  CHANGE_PROFILE_INFO,
+  GET_PROFILE_INFO,
+} from "../../../Mutations/Mutations";
 
-const CHANGE_PROFILE_INFO = gql`
-  mutation UpdateUser($input: UpdateUserInput!) {
-    updateUser(input: $input) {
-      bio
-      weight
-      length
-      instagram
-    }
-  }
-`;
-
-const GET_PROFILE_INFO = gql`
-  query CurrentUser {
-    me {
-      bio
-      weight
-      length
-      instagram
-    }
-  }
-`;
 const ChangeProfileInfo = () => {
   const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
     "bio",

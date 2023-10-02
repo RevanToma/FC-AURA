@@ -10,6 +10,6 @@ export const Title = styled.h6`
 export const GoBackNav = styled.div`
   display: flex;
   align-items: center;
-  gap: 5rem;
+  gap: 3rem;
   padding: 2rem 2rem;
 `;

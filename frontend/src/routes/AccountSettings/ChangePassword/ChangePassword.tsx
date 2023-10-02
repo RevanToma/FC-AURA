@@ -6,14 +6,7 @@ import { ChangeEmailContainer } from "../ChangeEmail/ChangeEmailStyles";
 import ReusableForm from "../../../components/common/Form/ReusableForm";
 import { InputType } from "../../../types/types";
 import { ApolloError, gql, useMutation } from "@apollo/client";
-
-const CHANGE_PASSWORD = gql`
-  mutation UpdateUser($input: UpdateUserInput!) {
-    updateUser(input: $input) {
-      password
-    }
-  }
-`;
+import { CHANGE_PASSWORD } from "../../../Mutations/Mutations";
 
 const ChangePassowrd = () => {
   const navigate = useNavigate();

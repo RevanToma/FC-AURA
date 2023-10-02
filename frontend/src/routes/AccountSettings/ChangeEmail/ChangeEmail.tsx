@@ -7,14 +7,7 @@ import { InputType } from "../../../types/types";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useForm } from "../../../hooks/useForm";
 import { useNavigate } from "react-router-dom";
-
-const CHANGE_EMAIL = gql`
-  mutation UpdateUser($input: UpdateUserInput!) {
-    updateUser(input: $input) {
-      email
-    }
-  }
-`;
+import { CHANGE_EMAIL } from "../../../Mutations/Mutations";
 
 const ChangeEmail = () => {
   const navigate = useNavigate();

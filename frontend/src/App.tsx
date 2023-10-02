@@ -5,12 +5,24 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./routes/Home/Home";
 import VortexSpinner from "./components/common/Vortex/Vortex";
 import ProtectedRoute from "./components/helpers/ProtectedRoute";
-import AccountSettings from "./routes/AccountSettings/AccountSettings";
-import ChangeEmail from "./routes/AccountSettings/ChangeEmail/ChangeEmail";
-import ChangePassowrd from "./routes/AccountSettings/ChangePassword/ChangePassword";
-import ChangeProfileInfo from "./routes/AccountSettings/ChangeProfileInfo/ChangeProfileInfo";
+
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
+const AccountSettings = lazy(
+  () => import("./routes/AccountSettings/AccountSettings")
+);
+const ChangeEmail = lazy(
+  () => import("./routes/AccountSettings/ChangeEmail/ChangeEmail")
+);
+const ChangePassword = lazy(
+  () => import("./routes/AccountSettings/ChangePassword/ChangePassword")
+);
+const ChangeProfileInfo = lazy(
+  () => import("./routes/AccountSettings/ChangeProfileInfo/ChangeProfileInfo")
+);
+const ChangeSkills = lazy(
+  () => import("./routes/AccountSettings/ChangeSkills/ChangeSkills")
+);
 
 function App() {
   return (
@@ -31,8 +43,9 @@ function App() {
             <Route path="account/*">
               <Route index element={<AccountSettings />} />
               <Route path="changeEmail" element={<ChangeEmail />} />
-              <Route path="changePassword" element={<ChangePassowrd />} />
+              <Route path="changePassword" element={<ChangePassword />} />
               <Route path="ChangeProfileInfo" element={<ChangeProfileInfo />} />
+              <Route path="ChangeSkills" element={<ChangeSkills />} />
             </Route>
           </Routes>
         </Suspense>

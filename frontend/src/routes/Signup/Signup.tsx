@@ -7,21 +7,8 @@ import { InputType } from "../../types/types";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
+import { CREATE_USER } from "../../Mutations/Mutations";
 
-const CREATE_USER = gql`
-  mutation CreateUser($input: CreateUserInput!) {
-    createUser(input: $input) {
-      status
-      user {
-        email
-        lastName
-        name
-        password
-        passwordConfirm
-      }
-    }
-  }
-`;
 const SignUp = () => {
   const [createUser, { error, loading }] = useMutation(CREATE_USER);
   const navigate = useNavigate();

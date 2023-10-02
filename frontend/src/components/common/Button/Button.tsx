@@ -5,7 +5,7 @@ import * as S from "./ButtonStyles";
 import { Vortex } from "react-loader-spinner";
 export interface ButtonProps {
   buttontypes: ButtonType;
-  children: ReactNode;
+  children?: ReactNode;
   isLoading?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;

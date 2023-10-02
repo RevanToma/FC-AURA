@@ -7,6 +7,8 @@ export enum ButtonType {
   SignIn = "signIn",
   Google = "google",
   Settings = "settings",
+  Skills = "skills",
+  AddSkill = "addskills",
 }
 
 interface Buttons {
@@ -40,6 +42,7 @@ export const buttons: Buttons = {
     fontWeight: 500,
     fontSize: "2rem",
     letterSpacing: "0.1rem",
+    hoverBackground: "rgba(38, 152, 70, 0.8)",
   },
   settings: {
     background: theme.color.primarySettingsColor,
@@ -57,5 +60,13 @@ export const buttons: Buttons = {
     fontWeight: 500,
     fontSize: "2rem",
     letterSpacing: "0.1rem",
+  },
+  skills: {
+    background: theme.color.black,
+  },
+  addskills: {
+    background: theme.color.primaryYellow,
+    color: theme.color.primaryBackground,
+    width: "100%",
   },
 };
