@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/helpers/ProtectedRoute";
 import AccountSettings from "./routes/AccountSettings/AccountSettings";
 import ChangeEmail from "./routes/AccountSettings/ChangeEmail/ChangeEmail";
 import ChangePassowrd from "./routes/AccountSettings/ChangePassword/ChangePassword";
+import ChangeProfileInfo from "./routes/AccountSettings/ChangeProfileInfo/ChangeProfileInfo";
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
 
@@ -31,6 +32,7 @@ function App() {
               <Route index element={<AccountSettings />} />
               <Route path="changeEmail" element={<ChangeEmail />} />
               <Route path="changePassword" element={<ChangePassowrd />} />
+              <Route path="ChangeProfileInfo" element={<ChangeProfileInfo />} />
             </Route>
           </Routes>
         </Suspense>

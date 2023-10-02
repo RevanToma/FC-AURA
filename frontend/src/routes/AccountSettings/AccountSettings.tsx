@@ -32,7 +32,7 @@ const AccountSettings = () => {
           <h4>Profil</h4>
           <NavigationItem
             text="Ändra profil info"
-            onClick={() => navigate("changeProfileInfo")}
+            onClick={() => navigate("ChangeProfileInfo")}
             icon={<ImProfile />}
           />
           <NavigationItem

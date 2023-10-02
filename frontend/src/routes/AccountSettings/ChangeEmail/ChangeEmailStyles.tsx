@@ -7,6 +7,16 @@ export const ChangeEmailContainer = styled.div`
   align-items: center;
   gap: 4rem;
   margin-top: 4rem;
+  textarea {
+    background: #303841;
+    border: none;
+    color: white;
+
+    &:active,
+    &:focus {
+      outline: 1px solid ${theme.color.primaryYellow};
+    }
+  }
 
   input {
     background: #303841;

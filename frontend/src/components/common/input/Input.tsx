@@ -7,7 +7,7 @@ interface IInput {
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  value?: string;
+  value?: string | number | boolean;
   name?: string;
   readOnly?: boolean;
   require?: boolean;
@@ -32,7 +32,7 @@ const Input: FC<IInput> = ({
     <>
       {type === "textarea" ? (
         <S.StyledTextarea
-          value={value}
+          value={value?.toString()}
           placeholder={placeholder}
           onChange={onChange}
           name={name}
@@ -41,7 +41,7 @@ const Input: FC<IInput> = ({
         />
       ) : (
         <S.StyledInput
-          value={value}
+          value={value?.toString()}
           placeholder={placeholder}
           type={type}
           onChange={onChange}

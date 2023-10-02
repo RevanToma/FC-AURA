@@ -6,10 +6,11 @@ import Button from "../Button/Button";
 import { ButtonType } from "../Button/ButtonTypes";
 
 type InputField = {
-  label: string;
+  label?: string;
   type: string;
   name: string;
   placeholder?: string;
+  value?: string | number | boolean;
 };
 
 type FormProps = {
@@ -21,6 +22,7 @@ type FormProps = {
   propFieldValidity: Record<string, boolean>;
   onFormDataChange?: (data: Record<string, string | boolean>) => void;
   onFieldValidityChange?: (validity: Record<string, boolean>) => void;
+  value?: string | number;
 };
 
 const ReusableForm: FC<FormProps> = ({
@@ -32,6 +34,7 @@ const ReusableForm: FC<FormProps> = ({
   propFieldValidity,
   onFormDataChange,
   onFieldValidityChange,
+  value,
 }) => {
   const isValidEmail = (email: string): boolean => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -91,6 +94,7 @@ const ReusableForm: FC<FormProps> = ({
                 "passwordConfirm",
               ].includes(field.name)}
               isValid={propFieldValidity[field.name]}
+              value={field.value}
             />
           </div>
         ))}

@@ -23,4 +23,18 @@ export enum InputType {
   firstName = "name",
   lastName = "lastName",
   text = "text",
+  bio = "bio",
+  skills = "skills",
+  instagram = "instagram",
+  weight = "weight",
+  length = "length",
+  textarea = "textarea",
+  number = "number",
 }
+
+export type UpdateUserInput = {
+  bio?: string;
+  weight?: number;
+  length?: number;
+  instagram?: string;
+};
