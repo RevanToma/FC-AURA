@@ -115,14 +115,16 @@ const ChangeProfileInfo = () => {
                 placeholder: "Din vikt i kg",
                 value: formData.weight,
               },
-              {
-                type: InputType.number,
 
+              {
+                label: "Din Längd",
+                type: InputType.number,
                 name: InputType.length,
                 placeholder: "Din Längd i cm",
                 value: formData.length,
               },
               {
+                label: "Din Instagram",
                 type: InputType.text,
                 name: InputType.instagram,
                 placeholder: "Din Instagram",

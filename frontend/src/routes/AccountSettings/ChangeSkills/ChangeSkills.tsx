@@ -10,12 +10,15 @@ import { RiDeleteBack2Line } from "react-icons/ri";
 import { ApolloError, gql, useMutation } from "@apollo/client";
 import useUserSkills from "../../../hooks/useUserSkills";
 import { ADD_SKILLS } from "../../../Mutations/Mutations";
+import { useNavigate } from "react-router-dom";
 
 const ChangeSkills = () => {
   const [inputSkill, setInputSkill] = useState<string>("");
   const selectRef = useRef<HTMLSelectElement>(null);
   const [addSkills] = useMutation(ADD_SKILLS);
   const { selectedSkills, setSelectedSkills } = useUserSkills();
+
+  const navigate = useNavigate();
 
   const preDefinedSkills: string[] = [
     "Dribbling", // Dribbling remains similar in many languages
@@ -68,7 +71,7 @@ const ChangeSkills = () => {
 
       // handle response
       if (response.data) {
-        // navigate("/account");
+        navigate("/account");
         console.log("data", response.data);
       }
     } catch (error: ApolloError | any) {
