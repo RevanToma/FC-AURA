@@ -49,6 +49,7 @@ const UserType = gql`
     instagram: String
     bio: String
     skills: [String]
+    position: String
   }
 
   type AuthPayload {
