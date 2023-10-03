@@ -30,6 +30,7 @@ export enum InputType {
   length = "length",
   textarea = "textarea",
   number = "number",
+  position = "position",
 }
 
 export type UpdateUserInput = {
@@ -37,4 +38,5 @@ export type UpdateUserInput = {
   weight?: number;
   length?: number;
   instagram?: string;
+  position?: string;
 };

@@ -72,7 +72,6 @@ const ChangeSkills = () => {
       // handle response
       if (response.data) {
         navigate("/account");
-        console.log("data", response.data);
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
@@ -86,8 +85,8 @@ const ChangeSkills = () => {
         <ChangeEmailContainer>
           <img src={ChangeSkillsImg} alt="change skills" />
           <S.SkillsContainer>
-            {selectedSkills.map((skill) => (
-              <Button buttontypes={ButtonType.Skills} key={skill}>
+            {selectedSkills.map((skill, indx) => (
+              <Button buttontypes={ButtonType.Skills} key={indx}>
                 {skill}
                 <RiDeleteBack2Line
                   onClick={() => removeSkill(skill)}

@@ -20,7 +20,7 @@ type User = {
 const TeamMembers = () => {
   const { data, loading } = useQuery(GET_TEAMMEMBERS);
   const isTeamMember = data?.users?.filter((usr: any) => usr.teamMember) || [];
-  console.log(isTeamMember);
+
   if (loading) return null;
   return (
     <S.TeamMemberContainer>
@@ -30,8 +30,8 @@ const TeamMembers = () => {
             <img src={ProfileImg} alt="profile" />
             <h4>{user.name}</h4>
             <S.SkillsContainer>
-              {user.skills.map((skill) => {
-                return <span>{skill}</span>;
+              {user.skills.map((skill, indx) => {
+                return <span key={indx}>{skill}</span>;
               })}
             </S.SkillsContainer>
             <Link to={`/teamMembers/${user.id}`}>

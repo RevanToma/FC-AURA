@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-import { gql, useApolloClient, useMutation } from "@apollo/client";
+import { useApolloClient, useMutation } from "@apollo/client";
 import { AuthContextType, AuthProviderProps, User } from "../../types/types";
 import VortexSpinner from "../../components/common/Vortex/Vortex";
 import {

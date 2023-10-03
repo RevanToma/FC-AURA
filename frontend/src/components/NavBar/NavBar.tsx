@@ -1,11 +1,12 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import * as S from "./NavBarStyles";
 import FCAURALOGO from "../../assets/images/FCAURA-Logo.png";
 import { FiSettings } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa";
+
 const NavBar = () => {
   const { pathname } = useLocation();
-  console.log("PATHNAME", pathname);
+
   return (
     <>
       <S.NavBarContainer>

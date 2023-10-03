@@ -7,6 +7,7 @@ export const CHANGE_PROFILE_INFO = gql`
       weight
       length
       instagram
+      position
     }
   }
 `;
@@ -18,6 +19,7 @@ export const GET_PROFILE_INFO = gql`
       weight
       length
       instagram
+      position
     }
   }
 `;

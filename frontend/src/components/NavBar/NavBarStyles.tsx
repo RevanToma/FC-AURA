@@ -3,8 +3,13 @@ import { theme } from "../../theme/Theme";
 import { Link } from "react-router-dom";
 type NavLinkProps = {
   active: boolean;
-  isSignedIn?: boolean;
+  children?: React.ReactNode;
 };
+
+const StyledDiv: React.FC<NavLinkProps> = ({ active, ...props }) => {
+  return <div {...props} />;
+};
+
 export const NavBarContainer = styled.nav`
   position: fixed;
   bottom: 0;
@@ -44,7 +49,7 @@ export const NavLink = styled(Link)`
    
 `;
 
-export const NavLinkDiv = styled.div<NavLinkProps>`
+export const NavLinkDiv = styled(StyledDiv)<NavLinkProps>`
   span,
   a,
   img {

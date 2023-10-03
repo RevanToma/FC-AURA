@@ -18,9 +18,11 @@ const ChangeProfileInfo = () => {
     "weight",
     "length",
     "instagram",
+    "position",
   ]);
   const navigate = useNavigate();
-  const [changeProfileInfo, { error }] = useMutation(CHANGE_PROFILE_INFO);
+  const [changeProfileInfo, { error, loading }] =
+    useMutation(CHANGE_PROFILE_INFO);
   const {
     data: userProfileData,
 
@@ -28,17 +30,17 @@ const ChangeProfileInfo = () => {
   } = useQuery(GET_PROFILE_INFO);
 
   useEffect(() => {
-    console.log("userProfileData changed:", userProfileData);
-
     if (userProfileData) {
       setFormData({
         bio: userProfileData.me.bio || "",
         weight: userProfileData.me.weight || "",
         length: userProfileData.me.length || "",
         instagram: userProfileData.me.instagram || "",
+        position: userProfileData.me.position || "",
       });
     }
     refetch();
+    console.log(userProfileData);
   }, [userProfileData]);
 
   const handleSubmit = async (formData: Record<string, string | boolean>) => {
@@ -76,6 +78,13 @@ const ChangeProfileInfo = () => {
       ) {
         input.instagram = formData.instagram as string;
       }
+      if (
+        formData.position !== undefined &&
+        formData.position !== null &&
+        formData.position !== ""
+      ) {
+        input.position = formData.position as string;
+      }
 
       const response = await changeProfileInfo({
         variables: {
@@ -92,6 +101,7 @@ const ChangeProfileInfo = () => {
     }
   };
 
+  if (loading) return <p>Loading...</p>;
   return (
     <>
       <GobackNav title="Ändra profil info" />
@@ -129,6 +139,13 @@ const ChangeProfileInfo = () => {
                 name: InputType.instagram,
                 placeholder: "Din Instagram",
                 value: formData.instagram,
+              },
+              {
+                label: "Din Position",
+                type: InputType.text,
+                name: InputType.position,
+                placeholder: "Din Position",
+                value: formData.position,
               },
             ]}
             formData={formData}
