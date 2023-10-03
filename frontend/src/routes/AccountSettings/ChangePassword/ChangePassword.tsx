@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../../hooks/useForm";
-import GobackNav from "../../../components/common/Navbar/GobackNav";
+import GobackNav from "../../../components/common/GoBackNav/GobackNav";
 import ChangePasswordImg from "../../../assets/images/ChangePasswordImg.svg";
 import { ChangeEmailContainer } from "../ChangeEmail/ChangeEmailStyles";
 import ReusableForm from "../../../components/common/Form/ReusableForm";

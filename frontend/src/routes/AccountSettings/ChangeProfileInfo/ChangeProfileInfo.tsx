@@ -1,4 +1,4 @@
-import GobackNav from "../../../components/common/Navbar/GobackNav";
+import GobackNav from "../../../components/common/GoBackNav/GobackNav";
 import ChangePorfileInfoImg from "../../../assets/images/ChangePorfileInfoImg.svg";
 import { ChangeEmailContainer } from "../ChangeEmail/ChangeEmailStyles";
 import ReusableForm from "../../../components/common/Form/ReusableForm";

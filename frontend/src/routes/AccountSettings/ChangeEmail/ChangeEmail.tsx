@@ -1,4 +1,4 @@
-import GobackNav from "../../../components/common/Navbar/GobackNav";
+import GobackNav from "../../../components/common/GoBackNav/GobackNav";
 import ChangeEmailImg from "../../../assets/images/ChangeEmail.svg";
 import * as S from "./ChangeEmailStyles";
 

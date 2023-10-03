@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./routes/Home/Home";
 import VortexSpinner from "./components/common/Vortex/Vortex";
 import ProtectedRoute from "./components/helpers/ProtectedRoute";
+import NavBar from "./components/NavBar/NavBar";
 
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
@@ -31,17 +32,19 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<VortexSpinner />}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="signup"
-              element={<ProtectedRoute component={SignUp} />}
-            />
-            <Route
-              path="signin"
-              element={<ProtectedRoute component={Signin} />}
-            />
-            <Route path="teamMembers" element={<TeamMembers />} />
-            <Route path="account/*">
+            <Route path="/" element={<NavBar />}>
+              <Route index element={<Home />} />
+              <Route
+                path="signup"
+                element={<ProtectedRoute component={SignUp} />}
+              />
+              <Route
+                path="signin"
+                element={<ProtectedRoute component={Signin} />}
+              />
+              <Route path="teamMembers" element={<TeamMembers />} />
+            </Route>
+            <Route path="account/*" element={<NavBar />}>
               <Route index element={<AccountSettings />} />
               <Route path="changeEmail" element={<ChangeEmail />} />
               <Route path="changePassword" element={<ChangePassword />} />

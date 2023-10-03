@@ -17,15 +17,17 @@ html {
 #root {
   max-width: 1280px;
   margin: 0 auto;
+ 
 }
 
  body {
   background-color: ${theme.color.primaryBackground} ;
-  margin: 0!;
-  padding-bottom: 3rem;
+  margin: 0;
+  padding-bottom: 10rem;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
   Arial, sans-serif;
   font-size: 1.4rem;
+  
 
   
 }

@@ -1,4 +1,4 @@
-import GobackNav from "../../components/common/Navbar/GobackNav";
+import GobackNav from "../../components/common/GoBackNav/GobackNav";
 import * as S from "./AccountSettingsStyles";
 import NavigationItem from "./NavigationButtons/NavigationButtons";
 import { FaRegEnvelope } from "react-icons/fa";

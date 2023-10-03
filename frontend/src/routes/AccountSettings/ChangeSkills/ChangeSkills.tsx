@@ -1,7 +1,7 @@
 import ChangeSkillsImg from "../../../assets/images/ChangeSkillsImg.svg";
 import Input from "../../../components/common/Input/Input";
 import * as S from "./ChangeSkillStyles";
-import GobackNav from "../../../components/common/Navbar/GobackNav";
+import GobackNav from "../../../components/common/GoBackNav/GobackNav";
 import { ChangeEmailContainer } from "../ChangeEmail/ChangeEmailStyles";
 import { useRef, useState } from "react";
 import Button from "../../../components/common/Button/Button";
