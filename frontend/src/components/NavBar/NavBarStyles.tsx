@@ -58,8 +58,3 @@ export const NavLinkDiv = styled.div<NavLinkProps>`
     }
   }
 `;
-
-export const NavSpan = styled.span<NavLinkProps>`
-  border-bottom: ${({ active }) =>
-    active ? `1px ${theme.color.primaryYellow} solid` : " none"};
-`;

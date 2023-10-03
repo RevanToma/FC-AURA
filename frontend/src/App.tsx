@@ -24,6 +24,7 @@ const ChangeProfileInfo = lazy(
 const ChangeSkills = lazy(
   () => import("./routes/AccountSettings/ChangeSkills/ChangeSkills")
 );
+const Member = lazy(() => import("./routes/TeamMembers/Member/Member"));
 const TeamMembers = lazy(() => import("./routes/TeamMembers/TeamMembers"));
 function App() {
   return (
@@ -42,7 +43,8 @@ function App() {
                 path="signin"
                 element={<ProtectedRoute component={Signin} />}
               />
-              <Route path="teamMembers" element={<TeamMembers />} />
+              <Route path="teamMembers/" element={<TeamMembers />} />
+              <Route path="teamMembers/:id" element={<Member />} />
             </Route>
             <Route path="account/*" element={<NavBar />}>
               <Route index element={<AccountSettings />} />

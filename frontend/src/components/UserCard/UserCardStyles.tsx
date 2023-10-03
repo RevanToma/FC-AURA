@@ -7,11 +7,9 @@ export const UserCardContainer = styled.div`
   gap: 1rem;
   align-items: center;
   position: relative;
-  padding: 1rem;
+  padding: 2rem;
   margin-top: 2rem;
   width: 32rem;
-  min-height: 40rem;
-  max-height: 50rem;
 
   border-bottom: 20px ${theme.color.primaryYellow} solid;
 
@@ -66,7 +64,7 @@ export const UserCardDiv = styled.div`
 export const UserProp = styled.div`
   display: flex;
   align-items: center;
-
+  padding-top: 1rem;
   gap: 1rem;
 
   p {

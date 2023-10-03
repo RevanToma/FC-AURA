@@ -110,6 +110,23 @@ export const GET_TEAMMEMBERS = gql`
       instagram
       lastName
       teamMember
+      id
+    }
+  }
+`;
+
+export const GET_USER = gql`
+  query GetUser($getUserId: ID!) {
+    getUser(id: $getUserId) {
+      id
+      name
+      lastName
+      weight
+      length
+      instagram
+      bio
+      skills
+      position
     }
   }
 `;

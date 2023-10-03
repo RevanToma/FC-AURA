@@ -16,7 +16,7 @@ const NavBar = () => {
               <span>Hem</span>
             </S.NavLink>
           </S.NavLinkDiv>
-          <S.NavLinkDiv active={pathname === "/teamMembers"}>
+          <S.NavLinkDiv active={pathname.startsWith("/teamMembers")}>
             <S.NavLink to="/teamMembers">
               {<FaUsers size={37} />}
               <span>Medlemmar</span>
