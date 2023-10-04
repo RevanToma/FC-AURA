@@ -30,4 +30,10 @@ export const ChangeEmailContainer = styled.div`
   form {
     box-shadow: none;
   }
+  img {
+    width: 20rem;
+  }
+  svg {
+    font-size: 20rem;
+  }
 `;

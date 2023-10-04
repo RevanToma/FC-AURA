@@ -106,7 +106,7 @@ const ChangeProfileInfo = () => {
       // handle response
       if (response.data) {
         navigate("/account");
-        window.location.reload();
+        // window.location.reload();
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

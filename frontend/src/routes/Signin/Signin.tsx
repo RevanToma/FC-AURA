@@ -32,6 +32,7 @@ const Signin = () => {
       if (data && data.loginUser) {
         auth.login(data.loginUser);
         navigate("/");
+        window.location.reload();
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

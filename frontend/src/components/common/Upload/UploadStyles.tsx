@@ -2,17 +2,12 @@ import styled from "styled-components";
 import { theme } from "../../../theme/Theme";
 
 export const ImageContainer = styled.div`
-  border: 2px solid black;
   display: flex;
-  flex-direction: column;
-  position: relative;
 
-  align-items: center;
-  justify-content: center;
   border-radius: 50%;
   overflow: hidden;
-  height: 16rem;
-  aspect-ratio: 1 / 1;
+  height: 18rem;
+  width: 18rem;
 
   border: 1px ${theme.color.primaryYellow} solid;
   cursor: pointer;
@@ -21,8 +16,11 @@ export const ImageContainer = styled.div`
     display: none;
   }
 
+  svg {
+    font-size: 16rem;
+  }
   img {
-    width: 100%;
+    object-fit: cover;
   }
 
   .custom-file-upload {

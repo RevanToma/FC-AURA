@@ -31,11 +31,13 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
       <S.UserCardContainer>
         <img src={FCAURALOGO} alt="fc aura logo" />
         {user.image ? (
-          <S.Userimg
-            src={`${process.env.REACT_APP_IMAGE}${user.image}`}
-            alt="profile"
-            className="userimg"
-          />
+          <S.UserImgDiv>
+            <S.Userimg
+              src={`${process.env.REACT_APP_IMAGE}${user.image}`}
+              alt="profile"
+              className="userimg"
+            />
+          </S.UserImgDiv>
         ) : (
           <PiSoccerBallThin color="white" />
         )}

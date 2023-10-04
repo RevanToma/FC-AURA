@@ -92,10 +92,20 @@ export const UserHeader = styled.div`
 `;
 
 export const Userimg = styled.img`
-  width: 15rem;
-  height: 15rem;
-  padding: 1em;
-  border: 1px ${theme.color.primaryYellow} solid;
+  width: 100%;
+`;
+
+export const UserImgDiv = styled.div`
+  width: 20rem;
+  height: 20rem;
+  display: flex;
   border-radius: 50%;
   margin-bottom: 2rem;
+
+  border: 1px ${theme.color.primaryYellow} solid;
+
+  img {
+    object-fit: cover;
+    border-radius: 50%;
+  }
 `;

@@ -6,6 +6,7 @@ import { FC } from "react";
 import { GET_IMAGE } from "../../../Mutations/Mutations";
 import * as S from "./UploadStyles";
 import { convertToBase64 } from "../../helpers/ConvertToBase64";
+import { PiSoccerBallThin } from "react-icons/pi";
 
 type UploadProps = {
   setFile: React.Dispatch<React.SetStateAction<string>>;
@@ -27,7 +28,12 @@ const Upload: FC<UploadProps> = ({ setFile, file }) => {
         alert("Please upload a valid image file!");
         return;
       }
-
+      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      if (file.size > maxSize) {
+        console.log("to big size");
+        alert("Image size is too large! Please upload an image less than 5MB.");
+        return;
+      }
       const base64 = await convertToBase64(file);
       setFile(base64);
     }
@@ -48,11 +54,7 @@ const Upload: FC<UploadProps> = ({ setFile, file }) => {
             alt="User"
           />
         ) : (
-          <>
-            <label htmlFor="file-upload" className="custom-file-upload">
-              Välj en bild
-            </label>
-          </>
+          <PiSoccerBallThin color="white" />
         )}
         <input
           type="file"
