@@ -11,6 +11,7 @@ import {
 import { catchAsyncResolver } from "../../../utils/catchAsync";
 import path from "path";
 import fs from "fs";
+import bcrypt from "bcryptjs";
 
 const UserResolvers = {
   Query: {
@@ -121,12 +122,17 @@ const UserResolvers = {
         if (input.image) {
           user.image = input.image;
         }
+        if (input.password) {
+          input.password = await bcrypt.hash(input.password, 12);
+        }
 
         const updatedUser = await User.findByIdAndUpdate(
           user.id, // use the ID from the token
           { ...input },
+
           { new: true } // This option returns the updated document
         );
+        console.log(updatedUser);
 
         if (!updatedUser) {
           throw new Error("User not found");
