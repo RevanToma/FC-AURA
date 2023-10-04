@@ -9,6 +9,7 @@ import cors from "cors";
 import { graphqlUploadExpress } from "graphql-upload";
 import path from "path";
 import fs from "fs";
+import bodyParser from "body-parser";
 const app = express();
 app.use(
   cors({
@@ -27,7 +28,7 @@ const server = new ApolloServer({
 });
 
 const IMAGES_DIRECTORY = path.join(__dirname, "..", "photos");
-
+app.use(bodyParser.json({ limit: "10mb" }));
 app.use(cookieParser());
 app.use(express.json());
 
