@@ -92,7 +92,13 @@ export const CURRENT_USER_QUERY = gql`
       id
       name
       email
-      teamMember
+      lastName
+      weight
+      length
+      instagram
+      bio
+      skills
+      position
       image
     }
   }

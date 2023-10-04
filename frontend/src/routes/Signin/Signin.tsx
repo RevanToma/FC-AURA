@@ -12,6 +12,7 @@ import { useForm } from "../../hooks/useForm";
 import { LOGIN_MUTATION } from "../../Mutations/Mutations";
 import Button from "../../components/common/Button/Button";
 import { ButtonType } from "../../components/common/Button/ButtonTypes";
+import VortexSpinner from "../../components/common/Vortex/Vortex";
 
 const Signin = () => {
   const [signinMutation, { error, loading }] = useMutation(LOGIN_MUTATION);
@@ -33,8 +34,7 @@ const Signin = () => {
       });
       if (data && data.loginUser) {
         auth.login(data.loginUser);
-        navigate("/");
-        window.location.reload();
+        console.log(data);
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
@@ -46,7 +46,7 @@ const Signin = () => {
       <img src={Logo} alt="fcaura logo" />
       <S.SigninHeader>Logga in med Email och Lösenord</S.SigninHeader>
 
-      {/* {loading && <VortexSpinner />} */}
+      {loading && <VortexSpinner />}
 
       <ReusableForm
         fields={[

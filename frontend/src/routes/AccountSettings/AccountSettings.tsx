@@ -16,26 +16,20 @@ import { CURRENT_USER_QUERY } from "../../Mutations/Mutations";
 const AccountSettings = () => {
   const auth = useAuth();
   const navigate = useNavigate();
-  const { data, loading } = useQuery(CURRENT_USER_QUERY, {
-    fetchPolicy: "cache-and-network",
-  });
+  const { data, loading } = useQuery(CURRENT_USER_QUERY);
+
   const handleLogout = () => {
     auth.logout();
     navigate("/");
   };
 
-  if (loading) return null;
-  if (!auth.user) return null;
+  if (loading) return <p>Loading...</p>;
 
   return (
     <>
       <GobackNav title="Inställningar" />
       <S.AccountSettingsContainer>
-        <Card
-          name={data.me.name}
-          email={data.me.email}
-          image={auth.user.image}
-        />
+        <Card name={data.me.name} email={data.me.email} image={data.me.image} />
         <S.NavigationItems>
           <h4>Konto</h4>
           <NavigationItem

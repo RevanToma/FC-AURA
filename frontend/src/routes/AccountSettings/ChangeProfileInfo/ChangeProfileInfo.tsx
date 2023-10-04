@@ -4,12 +4,7 @@ import { ChangeEmailContainer } from "../ChangeEmail/ChangeEmailStyles";
 import ReusableForm from "../../../components/common/Form/ReusableForm";
 import { InputType, UpdateUserInput } from "../../../types/types";
 import { useForm } from "../../../hooks/useForm";
-import {
-  ApolloError,
-  useApolloClient,
-  useMutation,
-  useQuery,
-} from "@apollo/client";
+import { ApolloError, useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -121,9 +116,9 @@ const ChangeProfileInfo = () => {
       if (response.data) {
         navigate("/account");
 
-        if (oldImage !== response.data.updateUser.image) {
-          window.location.reload();
-        }
+        // if (oldImage !== response.data.updateUser.image) {
+        //   window.location.reload();
+        // }
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

@@ -8,10 +8,12 @@ import { ApolloError, gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { CREATE_USER } from "../../Mutations/Mutations";
+import { useAuth } from "../../context/auth/auth";
 
 const SignUp = () => {
   const [createUser, { error, loading }] = useMutation(CREATE_USER);
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
     "firstName",
@@ -40,8 +42,7 @@ const SignUp = () => {
       // handle response
       if (response.data) {
         navigate("/");
-        window.location.reload();
-        // Maybe navigate the user to a different page or store the token somewhere
+        auth.login(response.data);
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

@@ -7,7 +7,6 @@ const Member = () => {
   const { id } = useParams();
   const { data, loading } = useQuery(GET_USER, {
     variables: { getUserId: id },
-    fetchPolicy: "cache-and-network",
   });
   if (loading) return null;
 
