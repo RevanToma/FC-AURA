@@ -8,6 +8,7 @@ export const CHANGE_PROFILE_INFO = gql`
       length
       instagram
       position
+      image
     }
   }
 `;
@@ -20,6 +21,7 @@ export const GET_PROFILE_INFO = gql`
       length
       instagram
       position
+      image
     }
   }
 `;
@@ -129,6 +131,19 @@ export const GET_USER = gql`
       bio
       skills
       position
+    }
+  }
+`;
+export const UPLOAD_FILE = gql`
+  mutation UploadFile($file: String!) {
+    uploadFile(file: $file)
+  }
+`;
+
+export const GET_IMAGE = gql`
+  query GetUser($getUserId: ID!) {
+    getUser(id: $getUserId) {
+      image
     }
   }
 `;

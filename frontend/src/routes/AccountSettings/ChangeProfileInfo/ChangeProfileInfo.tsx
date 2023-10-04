@@ -4,13 +4,15 @@ import { ChangeEmailContainer } from "../ChangeEmail/ChangeEmailStyles";
 import ReusableForm from "../../../components/common/Form/ReusableForm";
 import { InputType, UpdateUserInput } from "../../../types/types";
 import { useForm } from "../../../hooks/useForm";
-import { ApolloError, gql, useMutation, useQuery } from "@apollo/client";
+import { ApolloError, useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   CHANGE_PROFILE_INFO,
   GET_PROFILE_INFO,
 } from "../../../Mutations/Mutations";
+import Upload from "../../../components/common/Upload/Upload";
+import useUploadFile from "../../../hooks/useUploadFile";
 
 const ChangeProfileInfo = () => {
   const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
@@ -19,15 +21,21 @@ const ChangeProfileInfo = () => {
     "length",
     "instagram",
     "position",
+    "image",
   ]);
+  // In ChangeProfileInfo
+  const [file, setFile] = useState<string>("");
+
   const navigate = useNavigate();
   const [changeProfileInfo, { error, loading }] =
     useMutation(CHANGE_PROFILE_INFO);
+
   const {
     data: userProfileData,
 
     refetch,
-  } = useQuery(GET_PROFILE_INFO);
+  } = useQuery(GET_PROFILE_INFO, { fetchPolicy: "cache-and-network" });
+  const uploadFile = useUploadFile();
 
   useEffect(() => {
     if (userProfileData) {
@@ -37,10 +45,10 @@ const ChangeProfileInfo = () => {
         length: userProfileData.me.length || "",
         instagram: userProfileData.me.instagram || "",
         position: userProfileData.me.position || "",
+        image: userProfileData.me.image || "",
       });
     }
     refetch();
-    console.log(userProfileData);
   }, [userProfileData]);
 
   const handleSubmit = async (formData: Record<string, string | boolean>) => {
@@ -85,16 +93,20 @@ const ChangeProfileInfo = () => {
       ) {
         input.position = formData.position as string;
       }
+      if (file) {
+        await uploadFile(file);
+      }
 
       const response = await changeProfileInfo({
         variables: {
-          input: input,
+          input,
         },
       });
 
       // handle response
       if (response.data) {
         navigate("/account");
+        window.location.reload();
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
@@ -108,6 +120,7 @@ const ChangeProfileInfo = () => {
       <div>
         <ChangeEmailContainer>
           <img src={ChangePorfileInfoImg} alt="change profile" />
+          <Upload setFile={setFile} file={file} />
 
           <ReusableForm
             fields={[
@@ -118,6 +131,7 @@ const ChangeProfileInfo = () => {
                 placeholder: "Din Bio",
                 value: formData.bio,
               },
+
               {
                 label: "Din vikt",
                 type: InputType.number,
@@ -142,6 +156,12 @@ const ChangeProfileInfo = () => {
               },
               {
                 label: "Din Position",
+                type: InputType.text,
+                name: InputType.position,
+                placeholder: "Din Position",
+                value: formData.position,
+              },
+              {
                 type: InputType.text,
                 name: InputType.position,
                 placeholder: "Din Position",
