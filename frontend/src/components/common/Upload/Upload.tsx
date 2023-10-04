@@ -1,10 +1,11 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 import { useAuth } from "../../../context/auth/auth";
-import { FC, useState } from "react";
-import { convertToBase64 } from "../../../helper/ConvertToBase64";
+import { FC } from "react";
+
 import { GET_IMAGE } from "../../../Mutations/Mutations";
 import * as S from "./UploadStyles";
+import { convertToBase64 } from "../../helpers/ConvertToBase64";
 
 type UploadProps = {
   setFile: React.Dispatch<React.SetStateAction<string>>;
@@ -46,14 +47,20 @@ const Upload: FC<UploadProps> = ({ setFile, file }) => {
             <label htmlFor="file-upload" className="custom-file-upload">
               Välj en bild
             </label>
-            <div>click here to add an image</div>
           </>
         )}
-        <input type="file" id="file-upload" onChange={handleFileUpload} />
+        <input
+          type="file"
+          id="file-upload"
+          onChange={handleFileUpload}
+          className="inputNone"
+        />
       </S.ImageContainer>
-      <S.LabelDiv>
-        <label htmlFor="file-upload">Ändra bild</label>
-      </S.LabelDiv>
+      {file && (
+        <S.LabelDiv>
+          <label htmlFor="file-upload">Ändra bild</label>
+        </S.LabelDiv>
+      )}
     </>
   );
 };
