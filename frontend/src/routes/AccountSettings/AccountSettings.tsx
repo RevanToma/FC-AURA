@@ -9,10 +9,14 @@ import { ButtonType } from "../../components/common/Button/ButtonTypes";
 import Button from "../../components/common/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth/auth";
+import Card from "../../components/common/Card/Card";
 const AccountSettings = () => {
   const auth = useAuth();
   const navigate = useNavigate();
 
+  console.log(auth.user?.name);
+  console.log(auth.user?.email);
+  console.log(auth.user?.image);
   const handleLogout = () => {
     auth.logout();
     navigate("/");
@@ -24,6 +28,11 @@ const AccountSettings = () => {
     <>
       <GobackNav title="Inställningar" />
       <S.AccountSettingsContainer>
+        <Card
+          name={auth.user.name}
+          email={auth.user.email}
+          image={auth.user.image}
+        />
         <S.NavigationItems>
           <h4>Konto</h4>
           <NavigationItem

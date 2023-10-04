@@ -17,6 +17,9 @@ export const GenericSignContainer = styled.div`
     color: #ffffff;
     ${theme.h1}
   }
+  button {
+    width: 35rem;
+  }
 `;
 
 export const Footer = styled.footer`

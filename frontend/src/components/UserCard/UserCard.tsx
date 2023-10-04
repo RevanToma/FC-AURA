@@ -6,6 +6,7 @@ import { GiWeight } from "react-icons/gi";
 import Tall from "../../assets/images/Tall.svg";
 import ProfileImg from "../../assets/images/ProfileImg.svg";
 import { PiSoccerBallThin } from "react-icons/pi";
+import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter";
 type UserCardProps = {
   user: {
     name: string;
@@ -20,11 +21,6 @@ type UserCardProps = {
 };
 
 const UserCard: FC<UserCardProps> = ({ user }) => {
-  const capitalizeFirstLetter = (str: string) => {
-    if (str) {
-      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    }
-  };
   console.log(user);
   return (
     <S.UserCardDiv>

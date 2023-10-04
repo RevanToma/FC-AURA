@@ -3,9 +3,13 @@ import * as S from "./NavBarStyles";
 import FCAURALOGO from "../../assets/images/FCAURA-Logo.png";
 import { FiSettings } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa";
+import { useAuth } from "../../context/auth/auth";
+import { VscSignIn } from "react-icons/vsc";
 
 const NavBar = () => {
   const { pathname } = useLocation();
+
+  const auth = useAuth();
 
   return (
     <>
@@ -23,12 +27,21 @@ const NavBar = () => {
               <span>Medlemmar</span>
             </S.NavLink>
           </S.NavLinkDiv>
-          <S.NavLinkDiv active={pathname.startsWith("/account")}>
-            <S.NavLink to="/account">
-              {<FiSettings size={37} />}
-              <span>Inställningar</span>
-            </S.NavLink>
-          </S.NavLinkDiv>
+          {auth.user ? (
+            <S.NavLinkDiv active={pathname.startsWith("/account")}>
+              <S.NavLink to="/account">
+                {<FiSettings size={37} />}
+                <span>Inställningar</span>
+              </S.NavLink>
+            </S.NavLinkDiv>
+          ) : (
+            <S.NavLinkDiv active={pathname.startsWith("/signin")}>
+              <S.NavLink to="/signin">
+                {<VscSignIn size={37} />}
+                <span>Logga in</span>
+              </S.NavLink>
+            </S.NavLinkDiv>
+          )}
         </S.NavBarList>
       </S.NavBarContainer>
       <Outlet />

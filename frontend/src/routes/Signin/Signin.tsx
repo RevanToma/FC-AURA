@@ -10,6 +10,8 @@ import { useAuth } from "../../context/auth/auth";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { LOGIN_MUTATION } from "../../Mutations/Mutations";
+import Button from "../../components/common/Button/Button";
+import { ButtonType } from "../../components/common/Button/ButtonTypes";
 
 const Signin = () => {
   const [signinMutation, { error, loading }] = useMutation(LOGIN_MUTATION);
@@ -66,6 +68,12 @@ const Signin = () => {
         onSubmit={handleSubmit}
         submitButtonText="Logga in"
       />
+      <Button
+        buttontypes={ButtonType.AddSkill}
+        onClick={() => navigate("/signup")}
+      >
+        Skapa konto
+      </Button>
 
       <Footer>
         <h6>eller logga in med</h6>

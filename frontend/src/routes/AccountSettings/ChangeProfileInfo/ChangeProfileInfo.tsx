@@ -112,7 +112,7 @@ const ChangeProfileInfo = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return null;
   return (
     <>
       <GobackNav title="Ändra profil info" />
