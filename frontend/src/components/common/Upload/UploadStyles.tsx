@@ -20,7 +20,7 @@ export const ImageContainer = styled.div`
     font-size: 16rem;
   }
   img {
-    object-fit: cover;
+    object-fit: fill;
   }
 
   .custom-file-upload {

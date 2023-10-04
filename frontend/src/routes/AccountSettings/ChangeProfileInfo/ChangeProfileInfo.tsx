@@ -21,7 +21,6 @@ const ChangeProfileInfo = () => {
     "length",
     "instagram",
     "position",
-    "image",
   ]);
   // In ChangeProfileInfo
   const [file, setFile] = useState<string>("");
@@ -45,10 +44,10 @@ const ChangeProfileInfo = () => {
         length: userProfileData.me.length || "",
         instagram: userProfileData.me.instagram || "",
         position: userProfileData.me.position || "",
-        image: userProfileData.me.image || "",
       });
     }
     refetch();
+    console.log(userProfileData);
   }, [userProfileData]);
 
   const handleSubmit = async (formData: Record<string, string | boolean>) => {
@@ -106,7 +105,7 @@ const ChangeProfileInfo = () => {
       // handle response
       if (response.data) {
         navigate("/account");
-        // window.location.reload();
+        window.location.reload();
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

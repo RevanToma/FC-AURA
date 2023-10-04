@@ -105,7 +105,7 @@ export const UserImgDiv = styled.div`
   border: 1px ${theme.color.primaryYellow} solid;
 
   img {
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 50%;
   }
 `;
