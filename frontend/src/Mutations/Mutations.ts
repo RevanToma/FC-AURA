@@ -115,6 +115,7 @@ export const GET_TEAMMEMBERS = gql`
       lastName
       teamMember
       id
+      image
     }
   }
 `;
@@ -131,6 +132,7 @@ export const GET_USER = gql`
       bio
       skills
       position
+      image
     }
   }
 `;

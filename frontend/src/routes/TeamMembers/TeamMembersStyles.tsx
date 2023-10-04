@@ -28,9 +28,18 @@ export const ProfilDiv = styled.div`
 
   img {
     width: 10rem;
+    height: 10rem;
     padding: 1rem;
+    border: 1px ${theme.color.primaryYellow} solid;
+    border-radius: 50%;
+    object-fit: object-fit;
   }
-
+  svg {
+    font-size: 7em;
+    border: 1px ${theme.color.primaryYellow} solid;
+    border-radius: 50%;
+    color: white;
+  }
   h4 {
     color: #f1d202;
     font-size: 16px;

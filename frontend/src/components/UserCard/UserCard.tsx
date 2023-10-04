@@ -5,6 +5,7 @@ import instagram from "../../assets/images/instagram.svg";
 import { GiWeight } from "react-icons/gi";
 import Tall from "../../assets/images/Tall.svg";
 import ProfileImg from "../../assets/images/ProfileImg.svg";
+import { PiSoccerBallThin } from "react-icons/pi";
 type UserCardProps = {
   user: {
     name: string;
@@ -14,18 +15,33 @@ type UserCardProps = {
     instagram: string;
     position: string;
     skills: string[];
+    image: string;
   };
 };
 
 const UserCard: FC<UserCardProps> = ({ user }) => {
+  const capitalizeFirstLetter = (str: string) => {
+    if (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+  };
+  console.log(user);
   return (
     <S.UserCardDiv>
       <S.UserCardContainer>
         <img src={FCAURALOGO} alt="fc aura logo" />
-        <S.Userimg src={ProfileImg} alt="profile" className="userimg" />
+        {user.image ? (
+          <S.Userimg
+            src={`${process.env.REACT_APP_IMAGE}${user.image}`}
+            alt="profile"
+            className="userimg"
+          />
+        ) : (
+          <PiSoccerBallThin color="white" />
+        )}
         <S.UserHeader>
-          <h4>{user.name}</h4>
-          <h6>{user.position}</h6>
+          <h4>{capitalizeFirstLetter(user.name)}</h4>
+          <h6>{capitalizeFirstLetter(user.position)}</h6>
           <p>{user.bio}</p>
         </S.UserHeader>
 

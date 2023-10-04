@@ -9,13 +9,19 @@ export const UserCardContainer = styled.div`
   position: relative;
   padding: 2rem;
   margin-top: 2rem;
-  width: 32rem;
-
+  width: 100%;
+  max-width: 32rem;
   border-bottom: 20px ${theme.color.primaryYellow} solid;
 
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
 
+  svg {
+    font-size: 10rem;
+    border: 1px ${theme.color.primaryYellow} solid;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+  }
   img:not(.userimg) {
     width: 6rem;
     align-self: flex-start;
@@ -74,13 +80,22 @@ export const UserProp = styled.div`
 
 export const UserHeader = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
+
   gap: 1rem;
+
+  p {
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
 `;
 
 export const Userimg = styled.img`
-  width: 100%;
-
-  height: 13rem;
+  width: 15rem;
+  height: 15rem;
+  padding: 1em;
+  border: 1px ${theme.color.primaryYellow} solid;
+  border-radius: 50%;
+  margin-bottom: 2rem;
 `;

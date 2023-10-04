@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { GET_TEAMMEMBERS } from "../../Mutations/Mutations";
 import ProfileImg from "../../assets/images/ProfileImg.svg";
-
+import { PiSoccerBallThin } from "react-icons/pi";
 import * as S from "./TeamMembersStyles";
 import Button from "../../components/common/Button/Button";
 import { ButtonType } from "../../components/common/Button/ButtonTypes";
@@ -16,18 +16,27 @@ type User = {
   skills: string[];
   teamMember: boolean;
   id: string;
+  image: string;
 };
 const TeamMembers = () => {
   const { data, loading } = useQuery(GET_TEAMMEMBERS);
   const isTeamMember = data?.users?.filter((usr: any) => usr.teamMember) || [];
 
+  console.log(isTeamMember);
   if (loading) return null;
   return (
     <S.TeamMemberContainer>
       {isTeamMember.map((user: User) => {
         return (
           <S.ProfilDiv key={user.id}>
-            <img src={ProfileImg} alt="profile" />
+            {user.image ? (
+              <img
+                src={`${process.env.REACT_APP_IMAGE}${user.image}`}
+                alt="profile"
+              />
+            ) : (
+              <PiSoccerBallThin />
+            )}
             <h4>{user.name}</h4>
             <S.SkillsContainer>
               {user.skills.map((skill, indx) => {
