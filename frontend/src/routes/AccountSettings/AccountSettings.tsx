@@ -16,7 +16,9 @@ import { CURRENT_USER_QUERY } from "../../Mutations/Mutations";
 const AccountSettings = () => {
   const auth = useAuth();
   const navigate = useNavigate();
-  const { data, loading } = useQuery(CURRENT_USER_QUERY);
+  const { data, loading } = useQuery(CURRENT_USER_QUERY, {
+    fetchPolicy: "network-only",
+  });
 
   const handleLogout = () => {
     auth.logout();

@@ -13,6 +13,8 @@ import { LOGIN_MUTATION } from "../../Mutations/Mutations";
 import Button from "../../components/common/Button/Button";
 import { ButtonType } from "../../components/common/Button/ButtonTypes";
 import VortexSpinner from "../../components/common/Vortex/Vortex";
+import { toast } from "sonner";
+import { login } from "./../../../../Backend/src/utils/auth";
 
 const Signin = () => {
   const [signinMutation, { error, loading }] = useMutation(LOGIN_MUTATION);
@@ -34,10 +36,13 @@ const Signin = () => {
       });
       if (data && data.loginUser) {
         auth.login(data.loginUser);
+
         console.log(data);
+        toast.success(`Välkommen ${data.loginUser.user.name}`);
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
+      toast.error(error.message);
     }
   };
 

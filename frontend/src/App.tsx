@@ -1,7 +1,7 @@
 import { GlobalStyles } from "./theme/GlobalStyles";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { Toaster } from "sonner";
 import Home from "./routes/Home/Home";
 import VortexSpinner from "./components/common/Vortex/Vortex";
 import ProtectedRoute from "./components/helpers/ProtectedRoute";
@@ -54,6 +54,16 @@ function App() {
               <Route path="ChangeSkills" element={<ChangeSkills />} />
             </Route>
           </Routes>
+          <Toaster
+            position="top-center"
+            richColors
+            toastOptions={{
+              style: {
+                fontSize: "1.5rem",
+                gap: "1rem",
+              },
+            }}
+          />
         </Suspense>
       </BrowserRouter>
     </>

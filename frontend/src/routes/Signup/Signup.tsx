@@ -21,7 +21,6 @@ const SignUp = () => {
     "email",
     "password",
     "passwordConfirm",
-    "teamMember",
   ]);
 
   const handleSubmit = async (formData: Record<string, string | boolean>) => {

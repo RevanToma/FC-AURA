@@ -26,9 +26,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const client = useApolloClient();
 
   const login = (userData: User) => {
-    console.log(userData);
     setUser(userData);
-    console.log(user);
   };
 
   const logout = async () => {
