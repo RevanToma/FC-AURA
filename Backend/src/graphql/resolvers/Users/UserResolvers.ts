@@ -108,6 +108,7 @@ const UserResolvers = {
         _info: any
       ) => {
         const { input } = args;
+        const existingUser = await User.findOne({ email: input.email });
 
         const tokenString = context.req.headers.cookie;
         if (!tokenString) {
@@ -125,6 +126,9 @@ const UserResolvers = {
         if (input.password) {
           input.password = await bcrypt.hash(input.password, 12);
         }
+        if (existingUser) {
+          throw new Error("Email används redan");
+        }
 
         const updatedUser = await User.findByIdAndUpdate(
           user.id, // use the ID from the token
@@ -132,7 +136,6 @@ const UserResolvers = {
 
           { new: true } // This option returns the updated document
         );
-        console.log(updatedUser);
 
         if (!updatedUser) {
           throw new Error("User not found");
@@ -155,6 +158,7 @@ const UserResolvers = {
         _info: any
       ) => {
         const { res } = context;
+
         const {
           input: {
             name,
