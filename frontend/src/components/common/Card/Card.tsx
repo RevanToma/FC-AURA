@@ -2,6 +2,7 @@ import { FC } from "react";
 import * as S from "./CardStyles";
 import { PiSoccerBallThin } from "react-icons/pi";
 import { capitalizeFirstLetter } from "../../helpers/capitalizeFirstLetter";
+import { useApolloClient } from "@apollo/client";
 type CardProps = {
   name: string;
   email: string;
@@ -10,12 +11,13 @@ type CardProps = {
 
 const Card: FC<CardProps> = ({ name, email, image }: CardProps) => {
   //   `${process.env.REACT_APP_IMAGE}${image}`;
+
   return (
     <S.CardContainer>
       {image ? (
         <img src={`${process.env.REACT_APP_IMAGE}${image}`} alt="profile" />
       ) : (
-        <PiSoccerBallThin />
+        <PiSoccerBallThin size={50} />
       )}
 
       <div>

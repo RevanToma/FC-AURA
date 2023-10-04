@@ -4,17 +4,28 @@ import { ChangeEmailContainer } from "../ChangeEmail/ChangeEmailStyles";
 import ReusableForm from "../../../components/common/Form/ReusableForm";
 import { InputType, UpdateUserInput } from "../../../types/types";
 import { useForm } from "../../../hooks/useForm";
-import { ApolloError, useMutation, useQuery } from "@apollo/client";
+import {
+  ApolloError,
+  useApolloClient,
+  useMutation,
+  useQuery,
+} from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   CHANGE_PROFILE_INFO,
   GET_PROFILE_INFO,
+  GET_USER,
 } from "../../../Mutations/Mutations";
 import Upload from "../../../components/common/Upload/Upload";
 import useUploadFile from "../../../hooks/useUploadFile";
+import { useAuth } from "../../../context/auth/auth";
 
 const ChangeProfileInfo = () => {
+  const [oldImage, setOldImage] = useState<string | undefined>(undefined); // Store the old image URL
+
+  const auth = useAuth();
+  const getUserId = auth.user?.id;
   const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
     "bio",
     "weight",
@@ -26,8 +37,12 @@ const ChangeProfileInfo = () => {
   const [file, setFile] = useState<string>("");
 
   const navigate = useNavigate();
-  const [changeProfileInfo, { error, loading }] =
-    useMutation(CHANGE_PROFILE_INFO);
+  const [changeProfileInfo, { error, loading }] = useMutation(
+    CHANGE_PROFILE_INFO,
+    {
+      refetchQueries: [{ query: GET_USER, variables: { getUserId } }],
+    }
+  );
 
   const {
     data: userProfileData,
@@ -45,9 +60,9 @@ const ChangeProfileInfo = () => {
         instagram: userProfileData.me.instagram || "",
         position: userProfileData.me.position || "",
       });
+      setOldImage(userProfileData.me.image);
     }
     refetch();
-    console.log(userProfileData);
   }, [userProfileData]);
 
   const handleSubmit = async (formData: Record<string, string | boolean>) => {
@@ -105,7 +120,10 @@ const ChangeProfileInfo = () => {
       // handle response
       if (response.data) {
         navigate("/account");
-        window.location.reload();
+
+        if (oldImage !== response.data.updateUser.image) {
+          window.location.reload();
+        }
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
@@ -155,12 +173,6 @@ const ChangeProfileInfo = () => {
               },
               {
                 label: "Din Position",
-                type: InputType.text,
-                name: InputType.position,
-                placeholder: "Din Position",
-                value: formData.position,
-              },
-              {
                 type: InputType.text,
                 name: InputType.position,
                 placeholder: "Din Position",

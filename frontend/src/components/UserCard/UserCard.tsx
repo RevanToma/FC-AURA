@@ -21,7 +21,6 @@ type UserCardProps = {
 };
 
 const UserCard: FC<UserCardProps> = ({ user }) => {
-  console.log(user);
   return (
     <S.UserCardDiv>
       <S.UserCardContainer>

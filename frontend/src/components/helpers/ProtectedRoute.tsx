@@ -5,7 +5,6 @@ function ProtectedRoute({ component: Component }: any) {
   const auth = useAuth();
 
   if (auth.isLoggedIn()) {
-    console.log("user");
     return <Component />;
   } else {
     return <Navigate to="/" replace />;

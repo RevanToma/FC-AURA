@@ -5,11 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { AuthProvider } from "./context/auth/auth";
-import { createUploadLink } from "apollo-upload-client";
-// const link = createUploadLink({
-//   uri: process.env.REACT_APP_URL,
-//   credentials: "include",
-// });
+
 const client = new ApolloClient({
   uri: process.env.REACT_APP_URL,
   cache: new InMemoryCache(),

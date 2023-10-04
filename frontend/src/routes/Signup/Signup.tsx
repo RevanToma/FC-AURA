@@ -40,6 +40,7 @@ const SignUp = () => {
       // handle response
       if (response.data) {
         navigate("/");
+        window.location.reload();
         // Maybe navigate the user to a different page or store the token somewhere
       }
     } catch (error: ApolloError | any) {

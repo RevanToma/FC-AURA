@@ -3,7 +3,8 @@ import { theme } from "../../../theme/Theme";
 
 export const ImageContainer = styled.div`
   display: flex;
-
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   overflow: hidden;
   height: 18rem;

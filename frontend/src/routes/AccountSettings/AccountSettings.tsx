@@ -10,18 +10,21 @@ import Button from "../../components/common/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth/auth";
 import Card from "../../components/common/Card/Card";
+import { useQuery } from "@apollo/client";
+import { CURRENT_USER_QUERY } from "../../Mutations/Mutations";
+
 const AccountSettings = () => {
   const auth = useAuth();
   const navigate = useNavigate();
-
-  console.log(auth.user?.name);
-  console.log(auth.user?.email);
-  console.log(auth.user?.image);
+  const { data, loading } = useQuery(CURRENT_USER_QUERY, {
+    fetchPolicy: "cache-and-network",
+  });
   const handleLogout = () => {
     auth.logout();
     navigate("/");
   };
 
+  if (loading) return null;
   if (!auth.user) return null;
 
   return (
@@ -29,8 +32,8 @@ const AccountSettings = () => {
       <GobackNav title="Inställningar" />
       <S.AccountSettingsContainer>
         <Card
-          name={auth.user.name}
-          email={auth.user.email}
+          name={data.me.name}
+          email={data.me.email}
           image={auth.user.image}
         />
         <S.NavigationItems>

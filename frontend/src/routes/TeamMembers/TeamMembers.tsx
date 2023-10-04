@@ -19,10 +19,11 @@ type User = {
   image: string;
 };
 const TeamMembers = () => {
-  const { data, loading } = useQuery(GET_TEAMMEMBERS);
+  const { data, loading } = useQuery(GET_TEAMMEMBERS, {
+    fetchPolicy: "cache-and-network",
+  });
   const isTeamMember = data?.users?.filter((usr: any) => usr.teamMember) || [];
 
-  console.log(isTeamMember);
   if (loading) return null;
   return (
     <S.TeamMemberContainer>
