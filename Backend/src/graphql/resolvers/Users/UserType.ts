@@ -50,6 +50,7 @@ const UserType = gql`
     bio: String
     skills: [String]
     position: String
+    image: String
   }
 
   type AuthPayload {
@@ -70,6 +71,7 @@ const UserType = gql`
     getSignedUrl(filename: String!, filetype: String!): String!
     updateUserImage(userId: ID!, imageUrl: String!): User!
     logout: Boolean
+    uploadFile(file: String!): Boolean
   }
 
   type Query {

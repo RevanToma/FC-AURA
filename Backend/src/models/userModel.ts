@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
+
 export interface UserDocument extends Document {
   id: string;
   name: string;

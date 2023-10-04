@@ -11,6 +11,7 @@ export interface UpdateUserInput {
   instagram?: string;
   bio?: string;
   skills?: string[];
+  image?: string;
 }
 
 export type LoginInput = {

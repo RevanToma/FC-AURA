@@ -1,8 +1,8 @@
 // ... (other imports)
 import multer from "multer";
-import { CustomRequest } from "../../utils/expressInterfaces";
-import { INumberObject, IPostReqBody } from "../../types";
-import { catchAsync } from "../../utils/catchAsync";
+import { CustomRequest } from "../utils/expressInterfaces";
+import { INumberObject, IPostReqBody } from "../types";
+import { catchAsync } from "../utils/catchAsync";
 import { NextFunction } from "express";
 import sharp from "sharp";
 
@@ -44,7 +44,7 @@ export const resizePhoto = catchAsync(
     next: NextFunction
   ): Promise<void> => {
     if (!req.file) return next();
-
+    console.log(req.headers);
     // set filename for next middleware if only in buffer
     const filename = `user-${req.user.id}-${Date.now()}.jpeg`;
     req.filename = filename; // Saving the filename to the request for use in subsequent middleware
