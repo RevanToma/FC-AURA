@@ -23,6 +23,11 @@ const Upload: FC<UploadProps> = ({ setFile, file }) => {
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (!file.type.startsWith("image/")) {
+        alert("Please upload a valid image file!");
+        return;
+      }
+
       const base64 = await convertToBase64(file);
       setFile(base64);
     }
@@ -54,13 +59,13 @@ const Upload: FC<UploadProps> = ({ setFile, file }) => {
           id="file-upload"
           onChange={handleFileUpload}
           className="inputNone"
+          accept="image/*"
         />
       </S.ImageContainer>
-      {file && (
-        <S.LabelDiv>
-          <label htmlFor="file-upload">Ändra bild</label>
-        </S.LabelDiv>
-      )}
+
+      <S.LabelDiv>
+        <label htmlFor="file-upload">Ändra bild</label>
+      </S.LabelDiv>
     </>
   );
 };
