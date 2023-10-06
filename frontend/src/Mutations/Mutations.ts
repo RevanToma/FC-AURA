@@ -108,6 +108,7 @@ export const CURRENT_USER_QUERY = gql`
       position
       image
       setupCompleted
+      registrationStatus
     }
   }
 `;
@@ -131,6 +132,21 @@ export const GET_TEAMMEMBERS = gql`
       teamMember
       id
       image
+      registrationStatus
+    }
+  }
+`;
+
+export const GET_ALL_TEAMMEMBERS = gql`
+  query TeamMembers {
+    teamMembers {
+      name
+      id
+      email
+      lastName
+      position
+      teamMember
+      registrationStatus
     }
   }
 `;
@@ -163,6 +179,17 @@ export const GET_IMAGE = gql`
   query GetUser($getUserId: ID!) {
     getUser(id: $getUserId) {
       image
+    }
+  }
+`;
+
+export const UPDATE_USER_REGISTRATION = gql`
+  mutation UpdateUserRegistrationStatus(
+    $input: UpdateUserRegistrationStatusInput!
+  ) {
+    updateUserRegistrationStatus(input: $input) {
+      id
+      registrationStatus
     }
   }
 `;

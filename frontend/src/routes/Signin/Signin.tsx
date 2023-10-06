@@ -37,7 +37,6 @@ const Signin = () => {
       if (data && data.loginUser) {
         auth.login(data.loginUser);
 
-        console.log(data);
         toast.success(`Välkommen ${data.loginUser.user.name}`);
       }
     } catch (error: ApolloError | any) {

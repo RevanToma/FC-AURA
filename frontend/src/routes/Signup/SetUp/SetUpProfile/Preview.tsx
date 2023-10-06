@@ -1,11 +1,7 @@
 import { ApolloError, useMutation, useQuery } from "@apollo/client";
 
 import { useAuth } from "../../../../context/auth/auth";
-import {
-  CHANGE_PROFILE_INFO,
-  GET_USER,
-  SETUP_COMPLETED,
-} from "../../../../Mutations/Mutations";
+import { GET_USER, SETUP_COMPLETED } from "../../../../Mutations/Mutations";
 import UserCard from "../../../../components/UserCard/UserCard";
 
 import GobackNav from "../../../../components/common/GoBackNav/GobackNav";
@@ -40,6 +36,7 @@ const SetupPreview = () => {
 
       if (data.getUser.teamMember) {
         navigate("/member-review");
+        localStorage.removeItem("setUpProfileData");
       } else {
         navigate("/");
       }

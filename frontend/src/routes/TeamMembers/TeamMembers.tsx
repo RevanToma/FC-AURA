@@ -64,8 +64,15 @@ const TeamMembers = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [data, loading]);
-  const isTeamMember = data?.users?.filter((usr: any) => usr.teamMember) || [];
+  const isTeamMember =
+    data?.users
+      ?.filter((usr: any) => usr.teamMember)
+      .filter((user: any) => user.registrationStatus === "Accepted") || [];
 
+  const acceptedMember = isTeamMember.filter(
+    (user: any) => user.registrationStatus === "Accepted"
+  );
+  console.log(acceptedMember);
   if (loading) return null;
   return (
     <S.TeamMemberContainer>

@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/helpers/ProtectedRoute";
 import NavBar from "./components/NavBar/NavBar";
 
 import SetupPreview from "./routes/Signup/SetUp/SetUpProfile/Preview";
+import Dashboard from "./Dashboard/Dashboard";
 
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
@@ -120,6 +121,8 @@ function App() {
                 element={<ProtectedRoute component={ChangeSkills} />}
               />
             </Route>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="*" element={<h1>404</h1>} />
           </Routes>
           <Toaster
             position="top-center"
