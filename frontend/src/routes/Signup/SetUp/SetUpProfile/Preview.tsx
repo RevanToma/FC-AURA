@@ -13,7 +13,6 @@ import {
 import Button from "../../../../components/common/Button/Button";
 import { ButtonType } from "../../../../components/common/Button/ButtonTypes";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const SetupPreview = () => {
   const navigate = useNavigate();
@@ -41,7 +40,7 @@ const SetupPreview = () => {
         navigate("/");
       }
     } catch (error: ApolloError | any) {
-      console.log(error);
+      console.log(ApolloError);
     }
   };
   if (loading) return null;

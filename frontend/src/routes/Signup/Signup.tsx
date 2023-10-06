@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 
 import * as S from "./SignupStyles";
 import { InputType } from "../../types/types";
-import { ApolloError, gql, useMutation } from "@apollo/client";
+import { ApolloError, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { CREATE_USER } from "../../Mutations/Mutations";
@@ -58,6 +58,7 @@ const SignUp = () => {
 
     return err;
   };
+  if (loading) return <p>Loading...</p>;
 
   return (
     <S.GenericSignContainer>

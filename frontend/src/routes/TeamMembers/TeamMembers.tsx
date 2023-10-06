@@ -6,18 +6,8 @@ import Button from "../../components/common/Button/Button";
 import { ButtonType } from "../../components/common/Button/ButtonTypes";
 import { Link, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
-type User = {
-  name: string;
-  bio: string;
-  weight: number;
-  length: number;
-  instagram: string;
-  position: string;
-  skills: string[];
-  teamMember: boolean;
-  id: string;
-  image: string;
-};
+import { TTeamMembers } from "../../types/types";
+
 const TeamMembers = () => {
   const { data, loading, fetchMore } = useQuery(GET_TEAMMEMBERS, {
     variables: {
@@ -42,8 +32,10 @@ const TeamMembers = () => {
 
           // Filter out duplicates based on ID
           const newUsers = fetchMoreResult.users.filter(
-            (newUser: User) =>
-              !prev.users.some((prevUser: User) => prevUser.id === newUser.id)
+            (newUser: TTeamMembers) =>
+              !prev.users.some(
+                (prevUser: TTeamMembers) => prevUser.id === newUser.id
+              )
           );
 
           if (newUsers.length < 11) {
@@ -69,14 +61,10 @@ const TeamMembers = () => {
       ?.filter((usr: any) => usr.teamMember)
       .filter((user: any) => user.registrationStatus === "Accepted") || [];
 
-  const acceptedMember = isTeamMember.filter(
-    (user: any) => user.registrationStatus === "Accepted"
-  );
-  console.log(acceptedMember);
   if (loading) return null;
   return (
     <S.TeamMemberContainer>
-      {isTeamMember.map((user: User) => {
+      {isTeamMember.map((user: TTeamMembers) => {
         return (
           <S.ProfilDiv key={user.id}>
             {user.image ? (

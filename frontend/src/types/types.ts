@@ -47,3 +47,16 @@ export type UpdateUserInput = {
   position?: string;
   image?: string;
 };
+
+export type TTeamMembers = {
+  name: string;
+  bio: string;
+  weight: number;
+  length: number;
+  instagram: string;
+  position: string;
+  skills: string[];
+  teamMember: boolean;
+  id: string;
+  image: string;
+};

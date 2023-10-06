@@ -1,10 +1,7 @@
 import { useForm } from "react-hook-form";
 import Input from "../../../../components/common/Input/Input";
 import { InputType } from "./../../../../types/types";
-import {
-  Form,
-  Label,
-} from "../../../../components/common/Form/ReusableFormStyles";
+import { Label } from "../../../../components/common/Form/ReusableFormStyles";
 import Upload from "../../../../components/common/Upload/Upload";
 import * as S from "./SetUpProfileStyles";
 import { FC, useEffect, useState } from "react";
@@ -25,8 +22,7 @@ interface SetUpProfileProps {
 const SetUpProfile: FC<SetUpProfileProps> = () => {
   const uploadFile = useUploadFile();
   const navigate = useNavigate();
-  const [changeProfileInfo, { error, loading }] =
-    useMutation(CHANGE_PROFILE_INFO);
+  const [changeProfileInfo, { loading }] = useMutation(CHANGE_PROFILE_INFO);
 
   const [file, setFile] = useState<string>("");
 

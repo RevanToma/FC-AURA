@@ -14,7 +14,7 @@ export const AccountSettingsContainer = styled.div`
     font-weight: 500 !important;
   }
   button.signOut {
-    margin-top: 10rem;
+    margin-top: 7rem;
   }
   h4 {
     ${theme.label}

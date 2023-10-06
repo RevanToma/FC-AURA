@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../theme/Theme";
 
-type StatusProps = {
-  status: "Rejected" | "Pending" | "Accepted";
-};
-
 export const StatusIndicator = styled.span<{
   $status: "Rejected" | "Pending" | "Accepted";
 }>`

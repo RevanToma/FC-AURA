@@ -2,20 +2,21 @@ import { GlobalStyles } from "./theme/GlobalStyles";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
-import Home from "./routes/Home/Home";
 import VortexSpinner from "./components/common/Vortex/Vortex";
 import ProtectedRoute from "./components/helpers/ProtectedRoute";
 import NavBar from "./components/NavBar/NavBar";
 
-import SetupPreview from "./routes/Signup/SetUp/SetUpProfile/Preview";
-import Dashboard from "./Dashboard/Dashboard";
-
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
 const SetUp = lazy(() => import("./routes/Signup/SetUp/SetUp"));
+const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
+const SetupPreview = lazy(
+  () => import("./routes/Signup/SetUp/SetUpProfile/Preview")
+);
 const SetUpSkills = lazy(
   () => import("./routes/Signup/SetUp/SetUpProfile/SetUpSkills")
 );
+const Home = lazy(() => import("./routes/Home/Home"));
 
 const AccountSettings = lazy(
   () => import("./routes/AccountSettings/AccountSettings")

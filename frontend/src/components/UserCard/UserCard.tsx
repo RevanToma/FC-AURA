@@ -43,7 +43,7 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
 
         <div>
           <S.UserProp>
-            <GiWeight color="black" size={30} />
+            <GiWeight color="black" size={40} />
             <p>{user.weight}kg</p>
             <img src={Tall} alt="tall " />
             <p>{user.length}cm</p>
