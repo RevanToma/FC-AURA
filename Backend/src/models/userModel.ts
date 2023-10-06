@@ -21,6 +21,7 @@ export interface UserDocument extends Document {
   teamMember: boolean;
   image: string;
   setupCompleted: boolean;
+  role: "user" | "admin";
   registrationStatus: "Pending" | "Accepted" | "Rejected" | null;
 
   correctPassword(
@@ -31,6 +32,11 @@ export interface UserDocument extends Document {
 
 const userSchema = new Schema<UserDocument>(
   {
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
     registrationStatus: {
       type: String,
       enum: ["Pending", "Accepted", "Rejected"],

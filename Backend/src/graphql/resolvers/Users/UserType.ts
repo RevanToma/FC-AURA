@@ -23,6 +23,7 @@ const UserType = gql`
     image: String
     setupCompleted: Boolean
     registrationStatus: String
+    role: String
   }
 
   input CreateUserInput {

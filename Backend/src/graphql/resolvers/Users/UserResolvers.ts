@@ -208,6 +208,7 @@ const UserResolvers = {
             skills,
             teamMember,
             image,
+            role = "user",
           },
         } = args;
 
@@ -227,6 +228,7 @@ const UserResolvers = {
           skills,
           teamMember,
           image,
+          role,
         });
         const token = signToken(user._id.toString());
         setTokenInCookie(res, token);
