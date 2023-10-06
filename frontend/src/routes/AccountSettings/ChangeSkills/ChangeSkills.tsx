@@ -13,7 +13,7 @@ import { ADD_SKILLS } from "../../../Mutations/Mutations";
 import { useNavigate } from "react-router-dom";
 import { preDefinedSkills } from "../../../components/helpers/capitalizeFirstLetter";
 
-const ChangeSkills = ({ onComplete }: { onComplete: () => void }) => {
+const ChangeSkills = () => {
   const [inputSkill, setInputSkill] = useState<string>("");
   const selectRef = useRef<HTMLSelectElement>(null);
   const [addSkills] = useMutation(ADD_SKILLS);
@@ -50,7 +50,6 @@ const ChangeSkills = ({ onComplete }: { onComplete: () => void }) => {
       // handle response
       if (response.data) {
         navigate("/account");
-        onComplete();
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

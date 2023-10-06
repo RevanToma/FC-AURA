@@ -49,6 +49,11 @@ export const SetUpProfileContainer = styled(ChangeEmailContainer)`
     letter-spacing: 0.2rem;
     padding: 1rem 1rem;
   }
+
+  p{
+    color: #ddd073;
+    ${theme.label}
+  }
 `;
 
 export const SetUpProfileNav = styled.div`
@@ -62,6 +67,7 @@ export const PreviewH2 = styled.h2`
   text-align: center;
   color: white;
   font-weight: 500;
+  color: ${theme.color.primaryYellow};
 `;
 
 export const PreviewContainer = styled.div`

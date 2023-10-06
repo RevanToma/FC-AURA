@@ -9,10 +9,17 @@ export const CHANGE_PROFILE_INFO = gql`
       instagram
       position
       image
+      setupCompleted
     }
   }
 `;
-
+export const SETUP_COMPLETED = gql`
+  mutation UpdateUser($input: UpdateUserInput!) {
+    updateUser(input: $input) {
+      setupCompleted
+    }
+  }
+`;
 export const GET_PROFILE_INFO = gql`
   query CurrentUser {
     me {
@@ -100,6 +107,7 @@ export const CURRENT_USER_QUERY = gql`
       skills
       position
       image
+      setupCompleted
     }
   }
 `;
@@ -141,6 +149,7 @@ export const GET_USER = gql`
       position
       image
       teamMember
+      setupCompleted
     }
   }
 `;

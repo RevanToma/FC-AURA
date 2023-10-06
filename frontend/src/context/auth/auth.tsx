@@ -64,13 +64,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const isLoggedIn = () => {
     return !!user;
   };
+  const isSetupCompleted = user?.setupCompleted;
 
   if (loading) {
     return <VortexSpinner />;
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoggedIn }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+        isLoggedIn,
+        isSetupCompleted,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

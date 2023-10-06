@@ -16,7 +16,7 @@ import Upload from "../../../components/common/Upload/Upload";
 import useUploadFile from "../../../hooks/useUploadFile";
 import { useAuth } from "../../../context/auth/auth";
 
-const ChangeProfileInfo = ({ onComplete }: { onComplete: () => void }) => {
+const ChangeProfileInfo = () => {
   // const [oldImage, setOldImage] = useState<string | undefined>(undefined); // Store the old image URL
 
   const auth = useAuth();
@@ -115,7 +115,6 @@ const ChangeProfileInfo = ({ onComplete }: { onComplete: () => void }) => {
       // handle response
       if (response.data) {
         navigate("/account");
-        onComplete();
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

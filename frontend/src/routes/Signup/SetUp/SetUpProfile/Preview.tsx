@@ -1,7 +1,11 @@
-import { useQuery } from "@apollo/client";
+import { ApolloError, useMutation, useQuery } from "@apollo/client";
 
 import { useAuth } from "../../../../context/auth/auth";
-import { GET_USER } from "../../../../Mutations/Mutations";
+import {
+  CHANGE_PROFILE_INFO,
+  GET_USER,
+  SETUP_COMPLETED,
+} from "../../../../Mutations/Mutations";
 import UserCard from "../../../../components/UserCard/UserCard";
 
 import GobackNav from "../../../../components/common/GoBackNav/GobackNav";
@@ -13,6 +17,7 @@ import {
 import Button from "../../../../components/common/Button/Button";
 import { ButtonType } from "../../../../components/common/Button/ButtonTypes";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SetupPreview = () => {
   const navigate = useNavigate();
@@ -20,10 +25,26 @@ const SetupPreview = () => {
   const { data, loading } = useQuery(GET_USER, {
     variables: { getUserId: auth.user?.id },
   });
+  const [setupCompleted] = useMutation(SETUP_COMPLETED);
 
-  const handleCreateProfile = () => {
-    if (data.getUser.teamMember) {
-      navigate("/member-review");
+  const handleCreateProfile = async () => {
+    try {
+      await setupCompleted({
+        variables: {
+          input: {
+            id: auth.user?.id,
+            setupCompleted: true,
+          },
+        },
+      });
+
+      if (data.getUser.teamMember) {
+        navigate("/member-review");
+      } else {
+        navigate("/");
+      }
+    } catch (error: ApolloError | any) {
+      console.log(error);
     }
   };
   if (loading) return null;

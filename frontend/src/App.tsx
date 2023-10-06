@@ -6,14 +6,16 @@ import Home from "./routes/Home/Home";
 import VortexSpinner from "./components/common/Vortex/Vortex";
 import ProtectedRoute from "./components/helpers/ProtectedRoute";
 import NavBar from "./components/NavBar/NavBar";
-import SetUp from "./routes/Signup/SetUp/SetUp";
-
-import SetUpSkills from "./routes/Signup/SetUp/SetUpProfile/SetUpSkills";
 
 import SetupPreview from "./routes/Signup/SetUp/SetUpProfile/Preview";
 
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
+const SetUp = lazy(() => import("./routes/Signup/SetUp/SetUp"));
+const SetUpSkills = lazy(
+  () => import("./routes/Signup/SetUp/SetUpProfile/SetUpSkills")
+);
+
 const AccountSettings = lazy(
   () => import("./routes/AccountSettings/AccountSettings")
 );
@@ -52,19 +54,39 @@ function App() {
 
               <Route
                 path="setup-info"
-                element={<ProtectedRoute component={SetUp} />}
+                element={
+                  <ProtectedRoute
+                    component={SetUp}
+                    preventIfProfileCompleted={true}
+                  />
+                }
               />
               <Route
                 path="setup-skills"
-                element={<ProtectedRoute component={SetUpSkills} />}
+                element={
+                  <ProtectedRoute
+                    component={SetUpSkills}
+                    preventIfProfileCompleted={true}
+                  />
+                }
               />
               <Route
                 path="preview"
-                element={<ProtectedRoute component={SetupPreview} />}
+                element={
+                  <ProtectedRoute
+                    component={SetupPreview}
+                    preventIfProfileCompleted={true}
+                  />
+                }
               />
               <Route
                 path="member-review"
-                element={<ProtectedRoute component={MemberReview} />}
+                element={
+                  <ProtectedRoute
+                    component={MemberReview}
+                    preventIfProfileCompleted={true}
+                  />
+                }
               />
 
               <Route

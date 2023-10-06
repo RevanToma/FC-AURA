@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CHANGE_PROFILE_INFO } from "../../../../Mutations/Mutations";
 import GobackNav from "../../../../components/common/GoBackNav/GobackNav";
+import ChangePorfileInfoImg from "../../../../assets/images/ChangePorfileInfoImg.svg";
 interface SetUpProfileProps {
   setCurrentStep: (step: number) => void;
 }
@@ -26,6 +27,7 @@ const SetUpProfile: FC<SetUpProfileProps> = () => {
   const navigate = useNavigate();
   const [changeProfileInfo, { error, loading }] =
     useMutation(CHANGE_PROFILE_INFO);
+
   const [file, setFile] = useState<string>("");
 
   const {
@@ -57,6 +59,7 @@ const SetUpProfile: FC<SetUpProfileProps> = () => {
       }
 
       // 4. Run the mutation
+
       await changeProfileInfo({ variables: { input } });
 
       // 5. Navigate the user to the next step
@@ -84,9 +87,10 @@ const SetUpProfile: FC<SetUpProfileProps> = () => {
   return (
     <>
       <S.SetUpProfileNav>
-        <GobackNav title="Skapa profil" />;
+        <GobackNav title="Skapa profil" goBack={false} />;
       </S.SetUpProfileNav>
       <S.SetUpProfileContainer>
+        <img src={ChangePorfileInfoImg} alt="change profile" />
         <Upload setFile={setFile} file={file} />
         <S.SetUpProfileForm onSubmit={handleSubmit(handleNavigationClick)}>
           <div>
@@ -142,7 +146,7 @@ const SetUpProfile: FC<SetUpProfileProps> = () => {
 
             <Input
               type={InputType.text}
-              placeholder="Din Position"
+              placeholder="Position"
               {...register("position", {
                 required: "Fyll i din position",
                 pattern: {
@@ -158,7 +162,7 @@ const SetUpProfile: FC<SetUpProfileProps> = () => {
 
             <Input
               type={InputType.text}
-              placeholder="Din Instagram"
+              placeholder="Instagram"
               {...register("instagram")}
             />
           </div>

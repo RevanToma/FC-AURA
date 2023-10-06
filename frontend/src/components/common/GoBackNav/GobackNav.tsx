@@ -8,7 +8,11 @@ type NavBarProps = {
   goBack?: boolean;
 };
 
-const GobackNav: FC<NavBarProps> = ({ title, size, goBack }: NavBarProps) => {
+const GobackNav: FC<NavBarProps> = ({
+  title,
+  size,
+  goBack = true,
+}: NavBarProps) => {
   return (
     <GoBackNav>
       {goBack && (

@@ -3,7 +3,6 @@ import Button from "../../../../components/common/Button/Button";
 import { ButtonType } from "../../../../components/common/Button/ButtonTypes";
 import GobackNav from "../../../../components/common/GoBackNav/GobackNav";
 import useUserSkills from "../../../../hooks/useUserSkills";
-import { ChangeEmailContainer } from "../../../AccountSettings/ChangeEmail/ChangeEmailStyles";
 import { SkillsContainer } from "../../../TeamMembers/TeamMembersStyles";
 import Input from "../../../../components/common/Input/Input";
 import { useRef, useState } from "react";
@@ -16,6 +15,7 @@ import { ADD_SKILLS } from "../../../../Mutations/Mutations";
 import { ApolloError, useMutation } from "@apollo/client";
 import { SetUpProfileContainer } from "./SetUpProfileStyles";
 import { useNavigate } from "react-router-dom";
+import AddSkillsImg from "../../../../assets/images/ChangeSkillsImg.svg";
 
 const SetUpSkills = () => {
   const { selectedSkills, setSelectedSkills } = useUserSkills();
@@ -60,6 +60,7 @@ const SetUpSkills = () => {
       <GobackNav title="Skapa profil" goBack={true} />
 
       <SetUpProfileContainer>
+        <img src={AddSkillsImg} alt="add skills" />
         <SkillsContainer>
           {selectedSkills.map((skill, indx) => (
             <Button
