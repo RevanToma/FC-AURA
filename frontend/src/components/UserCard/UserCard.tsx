@@ -4,19 +4,18 @@ import FCAURALOGO from "../../assets/images/FCAURA-Logo.png";
 import instagram from "../../assets/images/instagram.svg";
 import { GiWeight } from "react-icons/gi";
 import Tall from "../../assets/images/Tall.svg";
-import ProfileImg from "../../assets/images/ProfileImg.svg";
 import { PiSoccerBallThin } from "react-icons/pi";
 import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter";
 type UserCardProps = {
   user: {
     name: string;
-    bio: string;
-    weight: number;
-    length: number;
-    instagram: string;
-    position: string;
-    skills: string[];
-    image: string;
+    bio?: string;
+    weight?: number;
+    length?: number;
+    instagram?: string;
+    position?: string;
+    skills?: string[];
+    image?: string;
   };
 };
 
@@ -38,7 +37,7 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
         )}
         <S.UserHeader>
           <h4>{capitalizeFirstLetter(user.name)}</h4>
-          <h6>{capitalizeFirstLetter(user.position)}</h6>
+          <h6>{capitalizeFirstLetter(user.position!)}</h6>
           <p>{user.bio}</p>
         </S.UserHeader>
 
@@ -59,7 +58,7 @@ const UserCard: FC<UserCardProps> = ({ user }) => {
           </S.UserProp>
 
           <ul>
-            {user.skills.map((skill) => {
+            {user.skills?.map((skill) => {
               return <li key={skill}>{skill}</li>;
             })}
           </ul>

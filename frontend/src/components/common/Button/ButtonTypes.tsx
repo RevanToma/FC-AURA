@@ -9,6 +9,8 @@ export enum ButtonType {
   Settings = "settings",
   Skills = "skills",
   AddSkill = "addskills",
+  Reject = "reject",
+  Accept = "accept",
 }
 
 interface Buttons {
@@ -34,6 +36,24 @@ export const buttons: Buttons = {
   signout: {
     background: theme.color.primaryRed,
   },
+  reject: {
+    background: theme.color.primaryRed,
+    width: "10rem",
+    fontFamily: "Poppins",
+    fontWeight: 500,
+    fontSize: "1.5rem",
+    letterSpacing: "0.1rem",
+    hoverBackground: "rgba(241, 2, 2, 0.8)",
+  },
+  accept: {
+    background: theme.color.primaryGreen,
+    width: "10rem",
+    fontFamily: "Poppins",
+    fontWeight: 500,
+    fontSize: "1.5rem",
+    letterSpacing: "0.1rem",
+    hoverBackground: "rgba(38, 152, 70, 0.8)",
+  },
 
   signIn: {
     background: theme.color.primaryGreen,
@@ -44,6 +64,7 @@ export const buttons: Buttons = {
     letterSpacing: "0.1rem",
     hoverBackground: "rgba(38, 152, 70, 0.8)",
   },
+
   settings: {
     background: theme.color.primarySettingsColor,
     width: "35rem",

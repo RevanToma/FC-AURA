@@ -66,7 +66,7 @@ const AccountSettings = () => {
 
             <NavigationItem
               text="Dashboard"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("dashboard")}
               icon={<LuLayoutDashboard />}
             />
           </S.NavigationItems>

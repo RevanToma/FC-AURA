@@ -120,13 +120,13 @@ function App() {
                 path="ChangeSkills"
                 element={<ProtectedRoute component={ChangeSkills} />}
               />
+              <Route
+                path="dashboard"
+                element={
+                  <ProtectedRoute component={Dashboard} adminOnly={true} />
+                }
+              />
             </Route>
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute component={Dashboard} adminOnly={true} />
-              }
-            />
 
             <Route path="*" element={<h1>404</h1>} />
           </Routes>
