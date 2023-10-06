@@ -28,11 +28,11 @@ const UserResolvers = {
     },
     users: async (
       _parent: any,
-      _args: any,
+      args: { offset: number; limit: number },
       context: UserDocument,
       _info: any
     ) => {
-      const users = await User.find();
+      const users = await User.find().skip(args.offset).limit(args.limit);
       return users;
     },
     me: async (
