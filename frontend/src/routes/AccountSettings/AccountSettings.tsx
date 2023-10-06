@@ -4,7 +4,7 @@ import NavigationItem from "./NavigationButtons/NavigationButtons";
 import { FaRegEnvelope } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { ImProfile } from "react-icons/im";
-import { LuWand } from "react-icons/lu";
+import { LuLayoutDashboard, LuWand } from "react-icons/lu";
 import { ButtonType } from "../../components/common/Button/ButtonTypes";
 import Button from "../../components/common/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -59,6 +59,18 @@ const AccountSettings = () => {
             icon={<LuWand />}
           />
         </S.NavigationItems>
+
+        {data.me.role === "admin" && (
+          <S.NavigationItems>
+            <h4>Dashboard</h4>
+
+            <NavigationItem
+              text="Dashboard"
+              onClick={() => navigate("/dashboard")}
+              icon={<LuLayoutDashboard />}
+            />
+          </S.NavigationItems>
+        )}
 
         <Button
           buttontypes={ButtonType.SignOut}

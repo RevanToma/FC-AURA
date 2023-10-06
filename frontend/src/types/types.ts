@@ -5,6 +5,7 @@ export type User = {
   email: string;
   image: string;
   setupCompleted?: boolean;
+  role?: string;
 };
 
 export type AuthContextType = {
@@ -13,6 +14,7 @@ export type AuthContextType = {
   logout: () => void;
   isLoggedIn: () => boolean;
   isSetupCompleted: boolean | undefined;
+  isAdmin: () => boolean;
 };
 export type AuthProviderProps = {
   children: ReactNode;

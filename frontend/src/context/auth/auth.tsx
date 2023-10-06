@@ -38,6 +38,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error("Error logging out:", error);
     }
   };
+  const isAdmin = () => {
+    return user?.role === "admin";
+  };
 
   useEffect(() => {
     async function fetchCurrentUser() {
@@ -78,6 +81,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         logout,
         isLoggedIn,
         isSetupCompleted,
+        isAdmin,
       }}
     >
       {children}

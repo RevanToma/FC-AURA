@@ -121,7 +121,13 @@ function App() {
                 element={<ProtectedRoute component={ChangeSkills} />}
               />
             </Route>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute component={Dashboard} adminOnly={true} />
+              }
+            />
+
             <Route path="*" element={<h1>404</h1>} />
           </Routes>
           <Toaster

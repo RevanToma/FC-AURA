@@ -6,7 +6,7 @@ import {
 import { StatusIndicator } from "./DashboardStyles";
 
 const Dashboard = () => {
-  const { data, loading, fetchMore } = useQuery(GET_ALL_TEAMMEMBERS);
+  const { data, loading } = useQuery(GET_ALL_TEAMMEMBERS);
   const [changeRegistrationStatus] = useMutation(UPDATE_USER_REGISTRATION);
 
   const handleStatus = async (id: string, status: string) => {
