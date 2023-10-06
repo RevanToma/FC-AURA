@@ -35,6 +35,22 @@ const UserResolvers = {
       const users = await User.find().skip(args.offset).limit(args.limit);
       return users;
     },
+    teamMembers: async (
+      _parent: any,
+      _args: any,
+      context: MyGraphQLContext,
+      _info: any
+    ) => {
+      const user = await getCurrentUserFromContext(
+        context?.req.headers.cookie!
+      );
+      if (!user) {
+        throw new Error("Not authenticated");
+      }
+
+      const teamMembers = await User.find({ teamMember: true });
+      return teamMembers;
+    },
     me: async (
       _parent: any,
       _args: any,
@@ -55,6 +71,20 @@ const UserResolvers = {
     },
   },
   Mutation: {
+    updateUserRegistrationStatus: async (
+      _1: any,
+      args: any,
+      context: MyGraphQLContext,
+      _: any
+    ) => {
+      const { registrationStatus, id } = args.input;
+      const user = await User.findByIdAndUpdate(
+        id,
+        { registrationStatus },
+        { new: true }
+      );
+      return user;
+    },
     uploadFile: catchAsyncResolver(async (_: any, args: any, context: any) => {
       const userId = await getCurrentUserFromContext(
         context.req.headers.cookie!
@@ -108,7 +138,7 @@ const UserResolvers = {
         _info: any
       ) => {
         const { input } = args;
-        console.log(input);
+
         const existingUser = await User.findOne({ email: input.email });
 
         const tokenString = context.req.headers.cookie;

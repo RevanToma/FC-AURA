@@ -21,6 +21,8 @@ export interface UserDocument extends Document {
   teamMember: boolean;
   image: string;
   setupCompleted: boolean;
+  registrationStatus: "Pending" | "Accepted" | "Rejected" | null;
+
   correctPassword(
     candidatePassword: string,
     userPassword: string
@@ -29,6 +31,11 @@ export interface UserDocument extends Document {
 
 const userSchema = new Schema<UserDocument>(
   {
+    registrationStatus: {
+      type: String,
+      enum: ["Pending", "Accepted", "Rejected"],
+      default: "Pending",
+    },
     setupCompleted: Boolean,
     name: {
       type: String,
@@ -107,6 +114,13 @@ userSchema.methods.correctPassword = async function (
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
+
+userSchema.pre("save", function (next) {
+  if (!this.teamMember) {
+    this.registrationStatus = null;
+  }
+  next();
+});
 
 const User = mongoose.model<UserDocument>("User", userSchema);
 export default User;

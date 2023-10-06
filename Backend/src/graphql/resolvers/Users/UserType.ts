@@ -22,6 +22,7 @@ const UserType = gql`
     teamMember: Boolean
     image: String
     setupCompleted: Boolean
+    registrationStatus: String
   }
 
   input CreateUserInput {
@@ -55,6 +56,10 @@ const UserType = gql`
     image: String
     setupCompleted: Boolean
   }
+  input UpdateUserRegistrationStatusInput {
+    id: ID!
+    registrationStatus: String!
+  }
 
   type AuthPayload {
     status: String!
@@ -75,12 +80,16 @@ const UserType = gql`
     updateUserImage(userId: ID!, imageUrl: String!): User!
     logout: Boolean
     uploadFile(file: String!): Boolean
+    updateUserRegistrationStatus(
+      input: UpdateUserRegistrationStatusInput!
+    ): User
   }
 
   type Query {
     getUser(id: ID!): User
-    users(offset: Int, limit: Int): [User!]
+    users(registrationStatus: String, offset: Int, limit: Int): [User!]
     me: User
+    teamMembers: [User!]
   }
 `;
 
