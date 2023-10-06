@@ -16,8 +16,8 @@ import Upload from "../../../components/common/Upload/Upload";
 import useUploadFile from "../../../hooks/useUploadFile";
 import { useAuth } from "../../../context/auth/auth";
 
-const ChangeProfileInfo = () => {
-  const [oldImage, setOldImage] = useState<string | undefined>(undefined); // Store the old image URL
+const ChangeProfileInfo = ({ onComplete }: { onComplete: () => void }) => {
+  // const [oldImage, setOldImage] = useState<string | undefined>(undefined); // Store the old image URL
 
   const auth = useAuth();
   const getUserId = auth.user?.id;
@@ -55,7 +55,7 @@ const ChangeProfileInfo = () => {
         instagram: userProfileData.me.instagram || "",
         position: userProfileData.me.position || "",
       });
-      setOldImage(userProfileData.me.image);
+      // setOldImage(userProfileData.me.image);
     }
     refetch();
   }, [userProfileData]);
@@ -115,10 +115,7 @@ const ChangeProfileInfo = () => {
       // handle response
       if (response.data) {
         navigate("/account");
-
-        // if (oldImage !== response.data.updateUser.image) {
-        //   window.location.reload();
-        // }
+        onComplete();
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

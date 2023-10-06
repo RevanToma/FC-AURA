@@ -12,7 +12,7 @@ import useUserSkills from "../../../hooks/useUserSkills";
 import { ADD_SKILLS } from "../../../Mutations/Mutations";
 import { useNavigate } from "react-router-dom";
 
-const ChangeSkills = () => {
+const ChangeSkills = ({ onComplete }: { onComplete: () => void }) => {
   const [inputSkill, setInputSkill] = useState<string>("");
   const selectRef = useRef<HTMLSelectElement>(null);
   const [addSkills] = useMutation(ADD_SKILLS);
@@ -72,6 +72,7 @@ const ChangeSkills = () => {
       // handle response
       if (response.data) {
         navigate("/account");
+        onComplete();
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

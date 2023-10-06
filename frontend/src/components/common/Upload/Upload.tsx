@@ -9,8 +9,8 @@ import { convertToBase64 } from "../../helpers/ConvertToBase64";
 import { PiSoccerBallThin } from "react-icons/pi";
 
 type UploadProps = {
-  setFile: React.Dispatch<React.SetStateAction<string>>;
-  file: string;
+  setFile?: React.Dispatch<React.SetStateAction<string>>;
+  file?: string;
 };
 
 const Upload: FC<UploadProps> = ({ setFile, file }) => {
@@ -35,6 +35,7 @@ const Upload: FC<UploadProps> = ({ setFile, file }) => {
         return;
       }
       const base64 = await convertToBase64(file);
+      if (!setFile) return console.log("No setFile");
       setFile(base64);
     }
   };

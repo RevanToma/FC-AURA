@@ -40,8 +40,8 @@ const SignUp = () => {
 
       // handle response
       if (response.data) {
-        navigate("/");
         auth.login(response.data);
+        navigate("/setup");
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);

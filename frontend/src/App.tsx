@@ -6,6 +6,9 @@ import Home from "./routes/Home/Home";
 import VortexSpinner from "./components/common/Vortex/Vortex";
 import ProtectedRoute from "./components/helpers/ProtectedRoute";
 import NavBar from "./components/NavBar/NavBar";
+import SetUp from "./routes/Signup/SetUp/SetUp";
+
+import SetUpSkills from "./routes/Signup/SetUp/SetUpProfile/SetUpSkills";
 
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
@@ -41,6 +44,16 @@ function App() {
                   <ProtectedRoute component={SignUp} redirectIfAuthenticated />
                 }
               />
+
+              <Route
+                path="setup-info"
+                element={<ProtectedRoute component={SetUp} />}
+              />
+              <Route
+                path="setup-skills"
+                element={<ProtectedRoute component={SetUpSkills} />}
+              />
+
               <Route
                 path="signin"
                 element={
