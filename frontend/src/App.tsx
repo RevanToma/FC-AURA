@@ -56,7 +56,6 @@ function App() {
           </Routes>
           <Toaster
             position="top-center"
-            richColors
             toastOptions={{
               style: {
                 fontSize: "1.5rem",

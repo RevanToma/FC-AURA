@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { GET_TEAMMEMBERS } from "../../Mutations/Mutations";
-import ProfileImg from "../../assets/images/ProfileImg.svg";
 import { PiSoccerBallThin } from "react-icons/pi";
 import * as S from "./TeamMembersStyles";
 import Button from "../../components/common/Button/Button";
 import { ButtonType } from "../../components/common/Button/ButtonTypes";
 import { Link, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
 type User = {
   name: string;
   bio: string;
@@ -19,7 +19,51 @@ type User = {
   image: string;
 };
 const TeamMembers = () => {
-  const { data, loading } = useQuery(GET_TEAMMEMBERS);
+  const { data, loading, fetchMore } = useQuery(GET_TEAMMEMBERS, {
+    variables: {
+      offset: 0,
+      limit: 10,
+    },
+  });
+  const [hasMoreData, setHasMoreData] = useState(true);
+  const handleScroll = () => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
+      !loading &&
+      hasMoreData
+    ) {
+      fetchMore({
+        variables: {
+          offset: data?.users?.length,
+          limit: 10,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev;
+
+          // Filter out duplicates based on ID
+          const newUsers = fetchMoreResult.users.filter(
+            (newUser: User) =>
+              !prev.users.some((prevUser: User) => prevUser.id === newUser.id)
+          );
+
+          if (newUsers.length < 11) {
+            setHasMoreData(false);
+          } else {
+            setHasMoreData(true);
+          }
+
+          return {
+            ...prev,
+            users: [...prev.users, ...newUsers],
+          };
+        },
+      });
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [data, loading]);
   const isTeamMember = data?.users?.filter((usr: any) => usr.teamMember) || [];
 
   if (loading) return null;
@@ -48,6 +92,8 @@ const TeamMembers = () => {
           </S.ProfilDiv>
         );
       })}
+      {!hasMoreData && <h6>Du har nått slutet av listan!</h6>}
+
       <Outlet />
     </S.TeamMemberContainer>
   );

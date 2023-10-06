@@ -75,7 +75,6 @@ const ReusableForm: FC<FormProps> = ({
     if (onFormDataChange) onFormDataChange(updatedFormData);
   };
 
-  console.log(formData);
   return (
     <>
       <S.Form>

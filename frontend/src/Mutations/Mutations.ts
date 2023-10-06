@@ -110,8 +110,8 @@ export const LOGOUT_USER_MUTATION = gql`
 `;
 
 export const GET_TEAMMEMBERS = gql`
-  query Users {
-    users {
+  query Users($offset: Int!, $limit: Int!) {
+    users(offset: $offset, limit: $limit) {
       name
       bio
       position

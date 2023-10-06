@@ -15,6 +15,11 @@ export const TeamMemberContainer = styled.div`
     font-size: 1.7rem;
     width: 11rem;
   }
+  h6 {
+    ${theme.footerH6}
+    color: white;
+    font-weight: 550;
+  }
 `;
 
 export const ProfilDiv = styled.div`
