@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [user, client]);
 
   const isLoggedIn = () => {
-    return !user;
+    return !!user;
   };
 
   if (loading) {

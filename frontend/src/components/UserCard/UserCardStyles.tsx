@@ -16,7 +16,7 @@ export const UserCardContainer = styled.div`
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
 
-  svg {
+  svg:nth-child(2) {
     font-size: 10rem;
     border: 1px ${theme.color.primaryYellow} solid;
     border-radius: 50%;

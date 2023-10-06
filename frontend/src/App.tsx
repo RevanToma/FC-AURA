@@ -37,21 +37,40 @@ function App() {
               <Route index element={<Home />} />
               <Route
                 path="signup"
-                element={<ProtectedRoute component={SignUp} />}
+                element={
+                  <ProtectedRoute component={SignUp} redirectIfAuthenticated />
+                }
               />
               <Route
                 path="signin"
-                element={<ProtectedRoute component={Signin} />}
+                element={
+                  <ProtectedRoute component={Signin} redirectIfAuthenticated />
+                }
               />
               <Route path="teamMembers/" element={<TeamMembers />} />
               <Route path="teamMembers/:id" element={<Member />} />
             </Route>
             <Route path="account/*" element={<NavBar />}>
-              <Route index element={<AccountSettings />} />
-              <Route path="changeEmail" element={<ChangeEmail />} />
-              <Route path="changePassword" element={<ChangePassword />} />
-              <Route path="ChangeProfileInfo" element={<ChangeProfileInfo />} />
-              <Route path="ChangeSkills" element={<ChangeSkills />} />
+              <Route
+                index
+                element={<ProtectedRoute component={AccountSettings} />}
+              />
+              <Route
+                path="changeEmail"
+                element={<ProtectedRoute component={ChangeEmail} />}
+              />
+              <Route
+                path="changePassword"
+                element={<ProtectedRoute component={ChangePassword} />}
+              />
+              <Route
+                path="ChangeProfileInfo"
+                element={<ProtectedRoute component={ChangeProfileInfo} />}
+              />
+              <Route
+                path="ChangeSkills"
+                element={<ProtectedRoute component={ChangeSkills} />}
+              />
             </Route>
           </Routes>
           <Toaster
