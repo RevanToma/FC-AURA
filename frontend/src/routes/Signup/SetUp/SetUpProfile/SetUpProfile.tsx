@@ -164,9 +164,17 @@ const SetUpProfile: FC<SetUpProfileProps> = () => {
           </div>
           <Button type="submit" buttontypes={ButtonType.SignIn}>
             Gå till steg 2
-            <BsArrowRight size={30} />
+            <BsArrowRight size={25} />
           </Button>
         </S.SetUpProfileForm>
+        <Button
+          type="submit"
+          buttontypes={ButtonType.AddSkill}
+          className="createLater"
+          onClick={() => navigate("/")}
+        >
+          Skapa profil senare
+        </Button>
       </S.SetUpProfileContainer>
     </>
   );

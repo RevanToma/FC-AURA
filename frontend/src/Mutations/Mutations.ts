@@ -140,6 +140,7 @@ export const GET_USER = gql`
       skills
       position
       image
+      teamMember
     }
   }
 `;

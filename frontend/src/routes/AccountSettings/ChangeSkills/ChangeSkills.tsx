@@ -7,10 +7,11 @@ import { useRef, useState } from "react";
 import Button from "../../../components/common/Button/Button";
 import { ButtonType } from "../../../components/common/Button/ButtonTypes";
 import { RiDeleteBack2Line } from "react-icons/ri";
-import { ApolloError, gql, useMutation } from "@apollo/client";
+import { ApolloError, useMutation } from "@apollo/client";
 import useUserSkills from "../../../hooks/useUserSkills";
 import { ADD_SKILLS } from "../../../Mutations/Mutations";
 import { useNavigate } from "react-router-dom";
+import { preDefinedSkills } from "../../../components/helpers/capitalizeFirstLetter";
 
 const ChangeSkills = ({ onComplete }: { onComplete: () => void }) => {
   const [inputSkill, setInputSkill] = useState<string>("");
@@ -19,29 +20,6 @@ const ChangeSkills = ({ onComplete }: { onComplete: () => void }) => {
   const { selectedSkills, setSelectedSkills } = useUserSkills();
 
   const navigate = useNavigate();
-
-  const preDefinedSkills: string[] = [
-    "Dribbling", // Dribbling remains similar in many languages
-    "Passning", // Passing
-    "Skott", // Shooting
-    "Skallning", // Tackling
-    "Bollkontroll", // Ball Control
-    "Inlägg", // Crossing
-    "Nickning", // Heading
-    "Frisparkar", // Free Kicks
-    "Straffar", // Penalties
-    "Uppfattning", // Vision
-    "Fart", // Pace
-    "Uthållighet", // Endurance
-    "Styrka", // Strength
-    "Taktisk Medvetenhet", // Tactical Awareness
-    "Positionering", // Positioning
-    "Arbetskapacitet", // Work Rate
-    "Lagspel", // Teamwork
-    "Rörelse utan boll", // Off-the-ball Movement
-    "Press", // Pressing
-    "Beslutsfattande", // Decision Making
-  ];
 
   const addSkill = (skill: string) => {
     if (!selectedSkills.includes(skill) && skill.trim() !== "") {

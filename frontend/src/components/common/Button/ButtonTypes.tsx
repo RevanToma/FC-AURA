@@ -67,6 +67,8 @@ export const buttons: Buttons = {
   addskills: {
     background: theme.color.primaryYellow,
     color: theme.color.primaryBackground,
+    hoverBackground: "rgba(241, 210, 2, 0.8)",
+    hoverColor: "#323232",
     width: "100%",
   },
 };

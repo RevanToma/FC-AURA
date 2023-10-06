@@ -10,6 +10,8 @@ import SetUp from "./routes/Signup/SetUp/SetUp";
 
 import SetUpSkills from "./routes/Signup/SetUp/SetUpProfile/SetUpSkills";
 
+import SetupPreview from "./routes/Signup/SetUp/SetUpProfile/Preview";
+
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
 const AccountSettings = lazy(
@@ -29,6 +31,9 @@ const ChangeSkills = lazy(
 );
 const Member = lazy(() => import("./routes/TeamMembers/Member/Member"));
 const TeamMembers = lazy(() => import("./routes/TeamMembers/TeamMembers"));
+const MemberReview = lazy(
+  () => import("./routes/Signup/SetUp/MemberReview/MemberReview")
+);
 function App() {
   return (
     <>
@@ -52,6 +57,14 @@ function App() {
               <Route
                 path="setup-skills"
                 element={<ProtectedRoute component={SetUpSkills} />}
+              />
+              <Route
+                path="preview"
+                element={<ProtectedRoute component={SetupPreview} />}
+              />
+              <Route
+                path="member-review"
+                element={<ProtectedRoute component={MemberReview} />}
               />
 
               <Route

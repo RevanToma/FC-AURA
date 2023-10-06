@@ -2,6 +2,7 @@ import { Form } from "../../../../components/common/Form/ReusableFormStyles";
 import styled from "styled-components";
 import { ChangeEmailContainer } from "../../../AccountSettings/ChangeEmail/ChangeEmailStyles";
 import GobackNav from "../../../../components/common/GoBackNav/GobackNav";
+import { theme } from "../../../../theme/Theme";
 
 export const SetUpProfileForm = styled(Form)`
   gap: 1rem;
@@ -28,16 +29,48 @@ export const SetUpProfileContainer = styled(ChangeEmailContainer)`
     color: white;
     font-size: 2rem;
     font-family: Roboto;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     line-height: 24px;
     letter-spacing: 1.2px;
   }
+
   h6 {
     margin-bottom: 2rem;
+  }
+
+  .createLater {
+    color: #323232;
+    font-weight: 600 !important;
+  }import { theme } from './../../../../theme/Theme';
+
+  .skillsBtn {
+    width: fit-content;
+    font-size: 1.4rem;
+    letter-spacing: 0.2rem;
+    padding: 1rem 1rem;
   }
 `;
 
 export const SetUpProfileNav = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const PreviewH2 = styled.h2`
+  ${theme.h1}
+  width: 35rem;
+  text-align: center;
+  color: white;
+  font-weight: 500;
+`;
+
+export const PreviewContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+
+  button {
+    width: 35rem;
+  }
 `;

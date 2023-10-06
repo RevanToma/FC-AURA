@@ -1,7 +1,8 @@
 import { Vortex } from "react-loader-spinner";
 import { VortexContainer } from "./VortexStyles";
+import { FC } from "react";
 
-const VortexSpinner = () => {
+const VortexSpinner: FC = () => {
   return (
     <VortexContainer>
       <Vortex
