@@ -21,6 +21,7 @@ const UserType = gql`
     skills: [String]
     teamMember: Boolean
     image: String
+    setupCompleted: Boolean
   }
 
   input CreateUserInput {
@@ -39,6 +40,7 @@ const UserType = gql`
     skills: [String]
     teamMember: Boolean
     image: String
+    setupCompleted: Boolean
   }
   input UpdateUserInput {
     id: ID
@@ -51,6 +53,7 @@ const UserType = gql`
     skills: [String]
     position: String
     image: String
+    setupCompleted: Boolean
   }
 
   type AuthPayload {

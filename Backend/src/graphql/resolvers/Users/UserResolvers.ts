@@ -108,6 +108,7 @@ const UserResolvers = {
         _info: any
       ) => {
         const { input } = args;
+        console.log(input);
         const existingUser = await User.findOne({ email: input.email });
 
         const tokenString = context.req.headers.cookie;
@@ -132,6 +133,7 @@ const UserResolvers = {
 
         const updatedUser = await User.findByIdAndUpdate(
           user.id, // use the ID from the token
+
           { ...input },
 
           { new: true } // This option returns the updated document

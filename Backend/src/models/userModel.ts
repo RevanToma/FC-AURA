@@ -20,6 +20,7 @@ export interface UserDocument extends Document {
   skills: string[];
   teamMember: boolean;
   image: string;
+  setupCompleted: boolean;
   correctPassword(
     candidatePassword: string,
     userPassword: string
@@ -28,6 +29,7 @@ export interface UserDocument extends Document {
 
 const userSchema = new Schema<UserDocument>(
   {
+    setupCompleted: Boolean,
     name: {
       type: String,
       required: [true, "Please tell us your name!"],
