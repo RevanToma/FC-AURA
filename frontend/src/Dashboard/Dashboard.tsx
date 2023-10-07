@@ -8,6 +8,7 @@ import * as S from "./DashboardStyles";
 import Button from "../components/common/Button/Button";
 import { ButtonType } from "../components/common/Button/ButtonTypes";
 import { useState } from "react";
+import GobackNav from "../components/common/GoBackNav/GobackNav";
 const Dashboard = () => {
   const { data, loading } = useQuery(GET_ALL_TEAMMEMBERS);
   const [changeRegistrationStatus] = useMutation(UPDATE_USER_REGISTRATION);
@@ -67,49 +68,57 @@ const Dashboard = () => {
   });
 
   return (
-    <S.DashboardContainer>
-      <h1>Dashboard</h1>
-      <>
-        {sortedData.map((teamMemb: any) => {
-          return (
-            <S.DashBoardTable key={teamMemb.id}>
-              <h4>{teamMemb.name}</h4>
-              <p>{teamMemb.email}</p>
-              <S.DashboardBtnDiv>
-                <Button
-                  buttontypes={ButtonType.Reject}
-                  onClick={() => handleStatus(teamMemb.id, "Rejected")}
-                >
-                  Avvisa
-                </Button>
-                <Button
-                  buttontypes={ButtonType.Accept}
-                  onClick={() => handleStatus(teamMemb.id, "Accepted")}
-                >
-                  Acceptera
-                </Button>
-                <StatusIndicator $status={teamMemb.registrationStatus} />
-              </S.DashboardBtnDiv>
-            </S.DashBoardTable>
-          );
-        })}
-        {popup && (
-          <S.Backdrop>
-            <S.ConfirmDiv>
-              <h4>Är du säker ?</h4>
-              <S.DashboardBtnDiv>
-                <Button buttontypes={ButtonType.Reject} onClick={cancelAction}>
-                  Nej
-                </Button>
-                <Button buttontypes={ButtonType.Accept} onClick={confirmAction}>
-                  Ja
-                </Button>
-              </S.DashboardBtnDiv>
-            </S.ConfirmDiv>
-          </S.Backdrop>
-        )}
-      </>
-    </S.DashboardContainer>
+    <>
+      <GobackNav title="Dashboard" />
+      <S.DashboardContainer>
+        <>
+          {sortedData.map((teamMemb: any) => {
+            return (
+              <S.DashBoardTable key={teamMemb.id}>
+                <h4>{teamMemb.name}</h4>
+                <p>{teamMemb.email}</p>
+                <S.DashboardBtnDiv>
+                  <Button
+                    buttontypes={ButtonType.Reject}
+                    onClick={() => handleStatus(teamMemb.id, "Rejected")}
+                  >
+                    Avvisa
+                  </Button>
+                  <Button
+                    buttontypes={ButtonType.Accept}
+                    onClick={() => handleStatus(teamMemb.id, "Accepted")}
+                  >
+                    Acceptera
+                  </Button>
+                  <StatusIndicator $status={teamMemb.registrationStatus} />
+                </S.DashboardBtnDiv>
+              </S.DashBoardTable>
+            );
+          })}
+          {popup && (
+            <S.Backdrop>
+              <S.ConfirmDiv>
+                <h4>Är du säker ?</h4>
+                <S.DashboardBtnDiv>
+                  <Button
+                    buttontypes={ButtonType.Reject}
+                    onClick={cancelAction}
+                  >
+                    Nej
+                  </Button>
+                  <Button
+                    buttontypes={ButtonType.Accept}
+                    onClick={confirmAction}
+                  >
+                    Ja
+                  </Button>
+                </S.DashboardBtnDiv>
+              </S.ConfirmDiv>
+            </S.Backdrop>
+          )}
+        </>
+      </S.DashboardContainer>
+    </>
   );
 };
 
