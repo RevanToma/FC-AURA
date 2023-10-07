@@ -29,7 +29,7 @@ const UserResolvers = {
     users: async (
       _parent: any,
       args: { offset: number; limit: number },
-      context: UserDocument,
+      _context: any,
       _info: any
     ) => {
       const users = await User.find().skip(args.offset).limit(args.limit);
@@ -73,10 +73,18 @@ const UserResolvers = {
   Mutation: {
     updateUserRegistrationStatus: async (
       _1: any,
-      args: any,
+      args: { input: { registrationStatus: string; id: string } },
       context: MyGraphQLContext,
       _: any
     ) => {
+      const userId = await getCurrentUserFromContext(
+        context.req.headers.cookie!
+      );
+      const userIsAdmin = await User.findById(userId).select("role");
+
+      if (!userId || userIsAdmin?.role !== "admin") {
+        throw new Error("User not authenticated!");
+      }
       const { registrationStatus, id } = args.input;
       const user = await User.findByIdAndUpdate(
         id,
@@ -85,51 +93,60 @@ const UserResolvers = {
       );
       return user;
     },
-    uploadFile: catchAsyncResolver(async (_: any, args: any, context: any) => {
-      const userId = await getCurrentUserFromContext(
-        context.req.headers.cookie!
-      );
+    uploadFile: catchAsyncResolver(
+      async (_: any, args: any, context: MyGraphQLContext) => {
+        const userId = await getCurrentUserFromContext(
+          context.req.headers.cookie!
+        );
 
-      if (!userId) {
-        throw new Error("User not authenticated!");
+        if (!userId) {
+          throw new Error("User not authenticated!");
+        }
+
+        const mime = args.file.split(";base64,")[0].split(":")[1] as MimeTypes;
+
+        type MimeTypes = "image/png" | "image/jpeg" | "image/svg+xml"; // Add more as required
+
+        const extensionMap: Record<MimeTypes, string> = {
+          "image/png": ".png",
+          "image/jpeg": ".jpg",
+          "image/svg+xml": ".svg",
+          // ... add other mime types and their extensions as needed
+        };
+        const extension = extensionMap[mime] || ".png"; // get the file extension using the mime type
+
+        const base64Image = args.file.split(";base64,").pop();
+
+        const filename = `image-${Date.now()}${extension}`;
+        const targetDir = path.join(
+          __dirname,
+          "..",
+          "..",
+          "..",
+          "..",
+          "photos"
+        );
+        const filePath = path.join(targetDir, filename);
+
+        const relativePath = `/photos/${filename}`;
+
+        if (!fs.existsSync(targetDir)) {
+          fs.mkdirSync(targetDir, { recursive: true });
+        }
+
+        fs.writeFileSync(filePath, base64Image, {
+          encoding: "base64",
+        });
+
+        const updatedUser = await User.findByIdAndUpdate(
+          userId,
+          { image: relativePath }, // assuming you want to save the path and not the base64 string
+          { new: true }
+        );
+
+        return !!updatedUser; // will return true if user was updated, false otherwise
       }
-
-      const mime = args.file.split(";base64,")[0].split(":")[1] as MimeTypes;
-
-      type MimeTypes = "image/png" | "image/jpeg" | "image/svg+xml"; // Add more as required
-
-      const extensionMap: Record<MimeTypes, string> = {
-        "image/png": ".png",
-        "image/jpeg": ".jpg",
-        "image/svg+xml": ".svg",
-        // ... add other mime types and their extensions as needed
-      };
-      const extension = extensionMap[mime] || ".png"; // get the file extension using the mime type
-
-      const base64Image = args.file.split(";base64,").pop();
-
-      const filename = `image-${Date.now()}${extension}`;
-      const targetDir = path.join(__dirname, "..", "..", "..", "..", "photos");
-      const filePath = path.join(targetDir, filename);
-
-      const relativePath = `/photos/${filename}`;
-
-      if (!fs.existsSync(targetDir)) {
-        fs.mkdirSync(targetDir, { recursive: true });
-      }
-
-      fs.writeFileSync(filePath, base64Image, {
-        encoding: "base64",
-      });
-
-      const updatedUser = await User.findByIdAndUpdate(
-        userId,
-        { image: relativePath }, // assuming you want to save the path and not the base64 string
-        { new: true }
-      );
-
-      return !!updatedUser; // will return true if user was updated, false otherwise
-    }),
+    ),
     updateUser: catchAsyncResolver(
       async (
         _parent: any,
@@ -186,7 +203,7 @@ const UserResolvers = {
       async (
         _parent: any,
         args: { input: UserDocument },
-        context: any,
+        context: MyGraphQLContext,
         _info: any
       ) => {
         const { res } = context;
