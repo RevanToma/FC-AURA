@@ -68,6 +68,9 @@ const ReusableForm: FC<FormProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
+    fields.forEach((field) => {
+      propFieldValidity[field.name] = false;
+    });
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {

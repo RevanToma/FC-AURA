@@ -44,6 +44,9 @@ const Signin = () => {
       toast.error(error.message);
     }
   };
+  const handleGoogleSignIn = () => {
+    window.location.href = "http://localhost:4000/auth/google"; // This URL should match the route you've set up in your backend.
+  };
 
   return (
     <GenericSignContainer>
@@ -81,7 +84,7 @@ const Signin = () => {
 
       <Footer>
         <h6>eller logga in med</h6>
-        <FcGoogle size={40} />
+        <FcGoogle size={40} onClick={handleGoogleSignIn} />
       </Footer>
     </GenericSignContainer>
   );

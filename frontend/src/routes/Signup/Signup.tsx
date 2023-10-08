@@ -9,9 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import { CREATE_USER } from "../../Mutations/Mutations";
 import { useAuth } from "../../context/auth/auth";
+import { toast } from "sonner";
+import { ReactNode, useEffect, useState } from "react";
 
 const SignUp = () => {
   const [createUser, { error, loading }] = useMutation(CREATE_USER);
+  const [toastError, setToastError] = useState<string | null>(null);
   const navigate = useNavigate();
   const auth = useAuth();
 
@@ -56,16 +59,28 @@ const SignUp = () => {
       err = "Något gick fel";
     }
 
-    return err;
+    setToastError(err);
+    toast.error(err);
+    setToastError(null);
   };
+
+  useEffect(() => {
+    if (error) {
+      handleError(error);
+    }
+  }, [error]);
+
+  const handleGoogleSignIn = () => {
+    window.location.href = "http://localhost:4000/auth/google"; // This URL should match the route you've set up in your backend.
+  };
+
   if (loading) return <p>Loading...</p>;
 
   return (
     <S.GenericSignContainer>
       <img src={Logo} alt="fcaura logo" />
+      <h1>Registrering till FC Aura</h1>
 
-      <h1>Registrering till Aura FC</h1>
-      <p>{error && handleError(error)}</p>
       <ReusableForm
         fields={[
           {
@@ -105,7 +120,7 @@ const SignUp = () => {
 
       <S.Footer>
         <h6>eller skapa konto med</h6>
-        <FcGoogle size={40} />
+        <FcGoogle size={40} onClick={handleGoogleSignIn} />
       </S.Footer>
     </S.GenericSignContainer>
   );

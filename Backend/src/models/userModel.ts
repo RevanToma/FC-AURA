@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 
 export interface UserDocument extends Document {
   id: string;
+  googleId: number;
   name: string;
   lastName: string;
   email: string;
@@ -13,7 +14,6 @@ export interface UserDocument extends Document {
   instagram: string;
   password: string | undefined;
   passwordConfirm: string | undefined;
-  googleId?: string;
   bio: string;
   position: string;
   method: "password" | "google";
@@ -23,7 +23,6 @@ export interface UserDocument extends Document {
   setupCompleted: boolean;
   role: "user" | "admin";
   registrationStatus: "Pending" | "Accepted" | "Rejected" | null;
-
   correctPassword(
     candidatePassword: string,
     userPassword: string
@@ -75,7 +74,9 @@ const userSchema = new Schema<UserDocument>(
       type: String,
       default: "password",
     },
-    googleId: String,
+    googleId: {
+      type: Number,
+    },
     password: {
       type: String,
       minlength: [8, "Password must be at least 8 characters"],

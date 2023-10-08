@@ -11,6 +11,7 @@ export const GlobalStyles = createGlobalStyle`
 
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
   
 }
   
@@ -23,6 +24,7 @@ html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
   Arial, sans-serif;
   font-size: 1.4rem;
+  scroll-behavior: smooth;
   
 
   

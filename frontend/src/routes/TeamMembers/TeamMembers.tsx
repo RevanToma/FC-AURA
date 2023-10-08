@@ -16,6 +16,7 @@ const TeamMembers = () => {
     },
   });
   const [hasMoreData, setHasMoreData] = useState(true);
+
   const handleScroll = () => {
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&

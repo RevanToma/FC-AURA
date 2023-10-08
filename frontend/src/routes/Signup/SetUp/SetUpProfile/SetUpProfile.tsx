@@ -15,6 +15,7 @@ import { useMutation } from "@apollo/client";
 import { CHANGE_PROFILE_INFO } from "../../../../Mutations/Mutations";
 import GobackNav from "../../../../components/common/GoBackNav/GobackNav";
 import ChangePorfileInfoImg from "../../../../assets/images/ChangePorfileInfoImg.svg";
+import useHandleCreateProfile from "../../../../hooks/useHandleCreateProfile";
 interface SetUpProfileProps {
   setCurrentStep: (step: number) => void;
 }
@@ -23,6 +24,7 @@ const SetUpProfile: FC<SetUpProfileProps> = () => {
   const uploadFile = useUploadFile();
   const navigate = useNavigate();
   const [changeProfileInfo, { loading }] = useMutation(CHANGE_PROFILE_INFO);
+  const { handleCreateProfile } = useHandleCreateProfile();
 
   const [file, setFile] = useState<string>("");
 
@@ -171,7 +173,7 @@ const SetUpProfile: FC<SetUpProfileProps> = () => {
           type="submit"
           buttontypes={ButtonType.AddSkill}
           className="createLater"
-          onClick={() => navigate("/")}
+          onClick={handleCreateProfile}
         >
           Skapa profil senare
         </Button>

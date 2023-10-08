@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request } from "express";
 import { ApolloServer } from "apollo-server-express";
 import { connectToMongoDB } from "./db/db";
 import typeDefs from "./graphql/typeDefs";
@@ -6,11 +6,13 @@ import resolvers from "./graphql/resolvers";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-import { graphqlUploadExpress } from "graphql-upload";
-import path from "path";
-import fs from "fs";
 import bodyParser from "body-parser";
+import expressSession from "express-session";
+import { setupPassport } from "./utils/passportConfig";
+
+import routes from "./route/routes";
 const app = express();
+
 app.use(
   cors({
     origin: ["http://localhost:3000", "https://studio.apollographql.com"],
@@ -23,25 +25,23 @@ const server = new ApolloServer({
   resolvers,
 
   context: ({ req, res }) => {
-    return { req, res };
+    return { req, res, user: req.user };
   },
 });
 
-const IMAGES_DIRECTORY = path.join(__dirname, "..", "photos");
 app.use(bodyParser.json({ limit: "10mb" }));
-app.use(cookieParser());
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+  expressSession({
+    secret: process.env.CLIENT_SECRET!,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+setupPassport(app);
+app.use(routes);
 
-app.use("/photos", express.static(IMAGES_DIRECTORY));
-
-app.get("/check-dir", (req, res) => {
-  fs.readdir(IMAGES_DIRECTORY, (err: any, files: any) => {
-    if (err) {
-      return res.send("Unable to read directory. Error: " + err.message);
-    }
-    res.send(files);
-  });
-});
 const startServer = async () => {
   try {
     //  Connect to MongoDB.

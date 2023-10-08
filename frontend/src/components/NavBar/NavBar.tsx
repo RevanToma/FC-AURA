@@ -5,7 +5,7 @@ import { FiSettings } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa";
 import { useAuth } from "../../context/auth/auth";
 import { VscSignIn } from "react-icons/vsc";
-
+import { AiFillWechat } from "react-icons/ai";
 const NavBar = () => {
   const { pathname } = useLocation();
 
@@ -19,6 +19,12 @@ const NavBar = () => {
             <S.NavLink to="/">
               <img src={FCAURALOGO} alt="FC aura" />
               <span>Hem</span>
+            </S.NavLink>
+          </S.NavLinkDiv>
+          <S.NavLinkDiv active={pathname.startsWith("/chat")}>
+            <S.NavLink to="/chat">
+              {<AiFillWechat size={37} />}
+              <span>Chatt</span>
             </S.NavLink>
           </S.NavLinkDiv>
           <S.NavLinkDiv active={pathname.startsWith("/teamMembers")}>
