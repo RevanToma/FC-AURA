@@ -193,3 +193,37 @@ export const UPDATE_USER_REGISTRATION = gql`
     }
   }
 `;
+
+export const SEND_MESSAGE = gql`
+  mutation SendMessage($content: String!, $createdAt: String!) {
+    sendMessage(content: $content, createdAt: $createdAt) {
+      content
+      createdAt
+    }
+  }
+`;
+export const GET_MESSAGES = gql`
+  query ChatMessages {
+    chatMessages {
+      content
+      createdAt
+      time
+
+      sender {
+        name
+        id
+      }
+    }
+  }
+`;
+
+export const MESSAGE_ADDED_SUBSCRIPTION = gql`
+  subscription OnMessageAdded {
+    messageAdded {
+      content
+      sender {
+        name
+      }
+    }
+  }
+`;

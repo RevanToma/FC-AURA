@@ -61,6 +61,17 @@ const UserType = gql`
     id: ID!
     registrationStatus: String!
   }
+  type Subscription {
+    messageAdded: Message!
+  }
+
+  type Chat {
+    id: ID!
+    users: [User!]!
+    messages: [Message!]!
+    createdAt: Date!
+    updatedAt: Date!
+  }
 
   type AuthPayload {
     status: String!
@@ -71,6 +82,14 @@ const UserType = gql`
   input UserLoginInput {
     email: String!
     password: String!
+  }
+  type Message {
+    id: ID!
+    content: String!
+    sender: User!
+    createdAt: Date!
+    updatedAt: Date!
+    time: String!
   }
 
   type Mutation {
@@ -84,6 +103,8 @@ const UserType = gql`
     updateUserRegistrationStatus(
       input: UpdateUserRegistrationStatusInput!
     ): User
+    sendMessage(content: String!, createdAt: String!): Message!
+    createChatRoom: Chat!
   }
 
   type Query {
@@ -91,6 +112,7 @@ const UserType = gql`
     users(registrationStatus: String, offset: Int, limit: Int): [User!]
     me: User
     teamMembers: [User!]
+    chatMessages: [Message!]!
   }
 `;
 

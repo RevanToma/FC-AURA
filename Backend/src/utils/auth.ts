@@ -70,8 +70,8 @@ export const decodeToken = async (token: string): Promise<DecodedJwt> => {
   return decoded;
 };
 
-export const getCurrentUserFromContext = async (authToken: string) => {
-  const token = extractTokenFromCookie(authToken);
+export const getCurrentUserFromContext = async (authorization: string) => {
+  const token = extractTokenFromCookie(authorization);
 
   if (!token) {
     return null; // No user is authenticated if there's no token

@@ -4,7 +4,7 @@ import * as S from "./ChangeEmailStyles";
 
 import ReusableForm from "../../../components/common/Form/ReusableForm";
 import { InputType } from "../../../types/types";
-import { ApolloError, gql, useMutation } from "@apollo/client";
+import { ApolloError, useMutation } from "@apollo/client";
 import { useForm } from "../../../hooks/useForm";
 import { useNavigate } from "react-router-dom";
 import { CHANGE_EMAIL } from "../../../Mutations/Mutations";

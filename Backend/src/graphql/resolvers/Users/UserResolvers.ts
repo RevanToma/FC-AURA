@@ -1,8 +1,11 @@
 import { createWriteStream } from "fs";
 import User, { UserDocument } from "../../../models/userModel";
-import { MyGraphQLContext, UpdateUserInput } from "../../../types";
 import {
-  decodeToken,
+  MyGraphQLContext,
+  SendMessageArgs,
+  UpdateUserInput,
+} from "../../../types";
+import {
   getCurrentUserFromContext,
   login,
   setTokenInCookie,
@@ -12,9 +15,27 @@ import { catchAsyncResolver } from "../../../utils/catchAsync";
 import path from "path";
 import fs from "fs";
 import bcrypt from "bcryptjs";
+import Chat from "../../../models/chatModel";
+
+// ... your other code ...
 
 const UserResolvers = {
   Query: {
+    chatMessages: async (
+      _parent: any,
+      _args: any,
+      _context: any,
+      _info: any
+    ) => {
+      const chatRoom = await Chat.findOne({})
+        .populate("messages.sender")
+        .exec(); // Assumes there's only one chat room for simplicity
+      if (!chatRoom) {
+        throw new Error("Chat room not found!");
+      }
+
+      return chatRoom.messages;
+    },
     // ... (other query resolvers)
     getUser: async (
       _parent: any,
@@ -42,8 +63,9 @@ const UserResolvers = {
       _info: any
     ) => {
       const user = await getCurrentUserFromContext(
-        context?.req.headers.cookie!
+        context?.req.headers.authorization!
       );
+
       if (!user) {
         throw new Error("Not authenticated");
       }
@@ -71,6 +93,47 @@ const UserResolvers = {
     },
   },
   Mutation: {
+    createChatRoom: async (_: any, __: any, _context: any) => {
+      const existingChat = await Chat.findOne();
+      if (existingChat) {
+        throw new Error("Chat room already exists");
+      }
+      const newChat = new Chat();
+      await newChat.save();
+      return newChat;
+    },
+    sendMessage: async (
+      _1: any,
+      args: SendMessageArgs,
+      context: MyGraphQLContext,
+      _info: any
+    ) => {
+      const user = await getCurrentUserFromContext(
+        context?.req.headers.cookie!
+      );
+
+      if (!user || !user.teamMember) {
+        throw new Error("Not authenticated");
+      }
+      const chatRoom = await Chat.findOne({});
+
+      if (!chatRoom) {
+        throw new Error("Chat room not found!");
+      }
+      const { content, createdAt } = args;
+
+      const message = {
+        content,
+        sender: user?.id,
+        createdAt: new Date(),
+        time: createdAt,
+      };
+
+      chatRoom.messages.push(message);
+      await chatRoom.save();
+
+      return message;
+    },
     updateUserRegistrationStatus: async (
       _1: any,
       args: { input: { registrationStatus: string; id: string } },

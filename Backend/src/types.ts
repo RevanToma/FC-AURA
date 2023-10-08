@@ -56,3 +56,8 @@ export interface MyGraphQLContext {
   req: Request;
   res: Response;
 }
+
+export interface SendMessageArgs {
+  content: string;
+  createdAt: string;
+}
