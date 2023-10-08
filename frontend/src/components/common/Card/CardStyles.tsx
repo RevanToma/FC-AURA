@@ -15,6 +15,7 @@ export const CardContainer = styled.div`
   img {
     aspect-ratio: 1/1;
     height: 5rem;
+    border-radius: 50%;
   }
   div {
     display: flex;

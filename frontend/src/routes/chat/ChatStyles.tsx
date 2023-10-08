@@ -122,9 +122,16 @@ export const MessageInDiv = styled.div`
 
 export const MsgContent = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
   position: relative;
+
+  img {
+    width: 2.5rem;
+    border-radius: 50%;
+
+    align-self: flex-start;
+  }
 
   .time {
     font-size: 1rem;
