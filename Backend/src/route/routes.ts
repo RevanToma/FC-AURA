@@ -42,7 +42,7 @@ router.get(
     setTokenInCookie(res, token);
 
     //Redirect back to frontend with JWT token
-    res.redirect(`http://localhost:3000/setup-info`);
+    res.redirect(process.env.CLIENT_REDIRECT!);
   }
 );
 export default router;

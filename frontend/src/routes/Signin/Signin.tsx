@@ -45,7 +45,7 @@ const Signin = () => {
     }
   };
   const handleGoogleSignIn = () => {
-    window.location.href = "http://localhost:4000/auth/google"; // This URL should match the route you've set up in your backend.
+    window.location.href = "http://localhost:4000/auth/google";
   };
 
   return (

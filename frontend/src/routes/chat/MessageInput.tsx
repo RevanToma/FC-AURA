@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { GET_MESSAGES, SEND_MESSAGE } from "../../Mutations/Mutations";
+import { IoIosSend } from "react-icons/io";
+import Button from "../../components/common/Button/Button";
+import { ButtonType } from "../../components/common/Button/ButtonTypes";
 
 function MessageInput() {
   const [sendMessage, { error, loading }] = useMutation(SEND_MESSAGE, {
     refetchQueries: [{ query: GET_MESSAGES }],
   });
+
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,13 +37,17 @@ function MessageInput() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type your message..."
-        />
-        <button type="submit">Send</button>
+        <div>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Skriv ditt medelande..."
+          />
+          <Button
+            buttontypes={ButtonType.Skills}
+            iconLeft={<IoIosSend color="white" size={30} />}
+          ></Button>
+        </div>
       </form>
 
       {loading && <p>Sending...</p>}

@@ -50,7 +50,7 @@ function App() {
               <Route index element={<Home />} />
               <Route
                 path="chat"
-                element={<ProtectedRoute component={Chat} adminOnly={true} />}
+                element={<ProtectedRoute component={Chat} adminOnly={false} />}
               />
               <Route
                 path="signup"
