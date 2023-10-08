@@ -144,7 +144,6 @@ export const GET_ALL_TEAMMEMBERS = gql`
       name
       id
       email
-
       teamMember
       registrationStatus
     }

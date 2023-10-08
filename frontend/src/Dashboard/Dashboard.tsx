@@ -50,6 +50,7 @@ const Dashboard = () => {
     setPendingAction(null);
     document.body.style.overflow = "auto"; // Re-enable scrolling
   };
+
   if (loading) return <p>...Loading</p>;
   const sortedData = [...data?.teamMembers].sort((a, b) => {
     if (

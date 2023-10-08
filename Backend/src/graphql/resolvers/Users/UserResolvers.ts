@@ -63,7 +63,7 @@ const UserResolvers = {
       _info: any
     ) => {
       const user = await getCurrentUserFromContext(
-        context?.req.headers.authorization!
+        context?.req.headers.cookie!
       );
 
       if (!user) {
