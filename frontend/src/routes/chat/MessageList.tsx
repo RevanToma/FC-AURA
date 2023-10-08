@@ -3,6 +3,7 @@ import { GET_MESSAGES } from "../../Mutations/Mutations";
 import { useAuth } from "../../context/auth/auth";
 import { ChatLi, MsgContent } from "./ChatStyles";
 import { useEffect, useRef } from "react";
+import { MsgType } from "../../types/types";
 
 function MessageList() {
   const lastMessageRef = useRef<HTMLLIElement | null>(null);
@@ -29,13 +30,13 @@ function MessageList() {
 
   return (
     <ul>
-      {messagesData?.chatMessages.map((msg: any, index: number) => {
+      {messagesData?.chatMessages.map((msg: MsgType, index: number) => {
         const isSentByMe = msg.sender.id === userId;
         const isLastMessage = index === messagesData.chatMessages.length - 1;
 
         return (
           <ChatLi
-            key={msg.id}
+            key={index}
             $isSentByMe={isSentByMe}
             ref={isLastMessage ? lastMessageRef : null}
           >

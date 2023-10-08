@@ -60,3 +60,13 @@ export type TTeamMembers = {
   id: string;
   image: string;
 };
+
+export type MsgType = {
+  content: string;
+  createdAt: string;
+  sender: {
+    id: string;
+    name: string;
+  };
+  time: string;
+};

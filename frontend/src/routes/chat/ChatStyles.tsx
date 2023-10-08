@@ -26,7 +26,9 @@ export const ChatContainer = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  position: absolute;
+  position: fixed;
+  background: #343541;
+  z-index: 1;
 
   gap: 8rem;
   width: 100%;
