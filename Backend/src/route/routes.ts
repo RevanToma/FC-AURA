@@ -16,7 +16,7 @@ router.get(
 
 router.use("/photos", express.static(IMAGES_DIRECTORY));
 
-router.get("/check-dir", (req, res) => {
+router.get("/check-dir", (_req, res) => {
   fs.readdir(IMAGES_DIRECTORY, (err: any, files: any) => {
     if (err) {
       return res.send("Unable to read directory. Error: " + err.message);

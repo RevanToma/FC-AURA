@@ -1,10 +1,10 @@
-import { createWriteStream } from "fs";
 import User, { UserDocument } from "../../../models/userModel";
 import {
   MyGraphQLContext,
   SendMessageArgs,
   UpdateUserInput,
 } from "../../../types";
+
 import {
   getCurrentUserFromContext,
   login,
@@ -16,9 +16,9 @@ import path from "path";
 import fs from "fs";
 import bcrypt from "bcryptjs";
 import Chat from "../../../models/chatModel";
-import messageSchema from "../../../models/messageModel";
+import { PubSub } from "graphql-subscriptions";
 
-// ... your other code ...
+export const pubsub = new PubSub();
 
 const UserResolvers = {
   Query: {
@@ -44,6 +44,7 @@ const UserResolvers = {
 
       return validMessages;
     },
+
     // ... (other query resolvers)
     getUser: async (
       _parent: any,
@@ -100,16 +101,17 @@ const UserResolvers = {
       return user;
     },
   },
+
   Mutation: {
-    createChatRoom: async (_: any, __: any, _context: any) => {
-      const existingChat = await Chat.findOne();
-      if (existingChat) {
-        throw new Error("Chat room already exists");
-      }
-      const newChat = new Chat();
-      await newChat.save();
-      return newChat;
-    },
+    // createChatRoom: async (_: any, __: any, _context: any) => {
+    //   const existingChat = await Chat.findOne();
+    //   if (existingChat) {
+    //     throw new Error("Chat room already exists");
+    //   }
+    //   const newChat = new Chat();
+    //   await newChat.save();
+    //   return newChat;
+    // },
     sendMessage: async (
       _1: any,
       args: SendMessageArgs,
@@ -138,6 +140,7 @@ const UserResolvers = {
       };
 
       chatRoom.messages.push(message);
+
       await chatRoom.save();
 
       return message;

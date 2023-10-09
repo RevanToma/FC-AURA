@@ -61,9 +61,6 @@ const UserType = gql`
     id: ID!
     registrationStatus: String!
   }
-  type Subscription {
-    messageAdded: Message!
-  }
 
   type Chat {
     id: ID!
