@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { theme } from "../../theme/Theme";
 
 export const ChatContainer = styled.div`
-  background-color: #343541;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -15,6 +14,7 @@ export const ChatContainer = styled.div`
   font-family: "Roboto", sans-serif;
   letter-spacing: 0.1rem;
   color: white;
+  background: #323232;
 
   ul {
     display: flex;
@@ -65,13 +65,14 @@ export const MessageInDiv = styled.div`
 
   form {
     position: absolute;
-    background-color: #343541;
+    background: #323232;
 
     bottom: 0;
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    border-radius: 1rem 1rem 0 0;
 
     div {
       display: flex;
@@ -81,6 +82,7 @@ export const MessageInDiv = styled.div`
       width: 100%;
       padding-top: 2rem;
       padding-bottom: 2rem;
+      border-radius: 5rem;
       button {
         position: relative;
         background: none;
@@ -90,7 +92,7 @@ export const MessageInDiv = styled.div`
           position: absolute;
           top: 0;
           left: 0;
-          transform: translate(50%, 20%);
+          transform: translate(50%);
         }
       }
 

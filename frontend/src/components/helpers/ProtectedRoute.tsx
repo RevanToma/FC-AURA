@@ -5,6 +5,7 @@ function ProtectedRoute({
   component: Component,
   redirectIfAuthenticated = false,
   preventIfProfileCompleted = false,
+
   adminOnly = false,
 }: any) {
   const auth = useAuth();

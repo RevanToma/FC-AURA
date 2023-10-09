@@ -5,8 +5,8 @@ import { Toaster } from "sonner";
 import VortexSpinner from "./components/common/Vortex/Vortex";
 import ProtectedRoute from "./components/helpers/ProtectedRoute";
 import NavBar from "./components/NavBar/NavBar";
-import Chat from "./routes/chat/Chat";
 
+const Chat = lazy(() => import("./routes/chat/Chat"));
 const SignUp = lazy(() => import("./routes/Signup/Signup"));
 const Signin = lazy(() => import("./routes/Signin/Signin"));
 const SetUp = lazy(() => import("./routes/Signup/SetUp/SetUp"));
@@ -50,7 +50,7 @@ function App() {
               <Route index element={<Home />} />
               <Route
                 path="chat"
-                element={<ProtectedRoute component={Chat} adminOnly={false} />}
+                element={<ProtectedRoute component={Chat} registrationStatus />}
               />
               <Route
                 path="signup"

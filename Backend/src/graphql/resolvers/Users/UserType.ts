@@ -112,7 +112,7 @@ const UserType = gql`
     users(registrationStatus: String, offset: Int, limit: Int): [User!]
     me: User
     teamMembers: [User!]
-    chatMessages: [Message!]!
+    chatMessages: [Message!]
   }
 `;
 

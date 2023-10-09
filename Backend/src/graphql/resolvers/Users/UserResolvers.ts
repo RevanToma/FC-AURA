@@ -16,6 +16,7 @@ import path from "path";
 import fs from "fs";
 import bcrypt from "bcryptjs";
 import Chat from "../../../models/chatModel";
+import messageSchema from "../../../models/messageModel";
 
 // ... your other code ...
 
@@ -28,13 +29,20 @@ const UserResolvers = {
       _info: any
     ) => {
       const chatRoom = await Chat.findOne({})
-        .populate("messages.sender")
-        .exec(); // Assumes there's only one chat room for simplicity
+        .populate({
+          path: "messages.sender",
+          match: { _id: { $ne: null } },
+        })
+        .exec();
+
       if (!chatRoom) {
         throw new Error("Chat room not found!");
       }
+      const validMessages = chatRoom.messages.filter(
+        (message) => message.sender !== null
+      );
 
-      return chatRoom.messages;
+      return validMessages;
     },
     // ... (other query resolvers)
     getUser: async (

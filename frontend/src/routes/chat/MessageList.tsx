@@ -14,18 +14,17 @@ function MessageList() {
     loading: messagesLoading,
     error: messagesError,
   } = useQuery(GET_MESSAGES);
-
   const auth = useAuth();
-  const userId = auth.user?.id;
-  console.log(auth.user?.image);
+
   const userImg = auth.user?.image;
-  console.log(messagesData);
-  console.log(messagesData?.chatMessages[40].sender.id);
+
   useEffect(() => {
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messagesData]);
+  console.log("MSG DATA", messagesData);
+  const userId = auth.user?.id;
 
   if (!messagesData) return <p>No messages</p>;
   if (messagesLoading) return <p>Loading messages...</p>;

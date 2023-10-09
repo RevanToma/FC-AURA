@@ -207,7 +207,6 @@ export const GET_MESSAGES = gql`
       content
       createdAt
       time
-
       sender {
         name
         id

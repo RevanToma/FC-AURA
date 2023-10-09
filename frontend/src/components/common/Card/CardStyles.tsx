@@ -6,9 +6,9 @@ export const CardContainer = styled.div`
   align-items: center;
   background: ${theme.color.primarySettingsColor};
   border-radius: 15px;
-  gap: 4rem;
+  gap: 2rem;
   padding: 2rem;
-  width: 33rem;
+  width: 34rem;
   height: 7rem;
   color: white;
 

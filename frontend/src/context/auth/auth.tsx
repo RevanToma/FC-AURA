@@ -67,6 +67,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const isLoggedIn = () => {
     return !!user;
   };
+
   const isSetupCompleted = user?.setupCompleted;
 
   if (loading) {

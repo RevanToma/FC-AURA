@@ -21,12 +21,14 @@ const NavBar = () => {
               <span>Hem</span>
             </S.NavLink>
           </S.NavLinkDiv>
-          <S.NavLinkDiv active={pathname.startsWith("/chat")}>
-            <S.NavLink to="/chat">
-              {<AiFillWechat size={37} />}
-              <span>Chatt</span>
-            </S.NavLink>
-          </S.NavLinkDiv>
+          {auth.user?.registrationStatus === "Accepted" && (
+            <S.NavLinkDiv active={pathname.startsWith("/chat")}>
+              <S.NavLink to="/chat">
+                {<AiFillWechat size={37} />}
+                <span>Chatt</span>
+              </S.NavLink>
+            </S.NavLinkDiv>
+          )}
           <S.NavLinkDiv active={pathname.startsWith("/teamMembers")}>
             <S.NavLink to="/teamMembers">
               {<FaUsers size={37} />}
