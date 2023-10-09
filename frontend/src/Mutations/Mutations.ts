@@ -207,9 +207,14 @@ export const GET_MESSAGES = gql`
       content
       createdAt
       time
+      id
+
       sender {
         name
         id
+      }
+      reactions {
+        emoji
       }
     }
   }

@@ -59,9 +59,11 @@ export const ChatLi = styled.li<{ $isSentByMe: boolean }>`
 
 export const MessageInDiv = styled.div`
   position: fixed;
-  height: 81vh;
+
   width: 100%;
   margin-top: 7.4rem;
+  bottom: 4rem;
+  transform: translateY(-20px);
 
   form {
     position: absolute;
@@ -138,5 +140,23 @@ export const MsgContent = styled.div`
   .time {
     font-size: 1rem;
     align-self: end;
+  }
+
+  .reactions {
+    display: flex;
+    position: absolute;
+    align-items: center;
+
+    bottom: 0;
+    transform: translate(0, 120%);
+  }
+  .reactions span {
+    background: #323232;
+    padding: 0.3rem;
+    box-shadow: ${theme.primaryShadow};
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
   }
 `;

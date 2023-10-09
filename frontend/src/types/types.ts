@@ -62,6 +62,9 @@ export type TTeamMembers = {
   image: string;
 };
 
+export type ReactionType = {
+  emoji: string;
+};
 export type MsgType = {
   content: string;
   createdAt: string;
@@ -70,4 +73,6 @@ export type MsgType = {
     name: string;
   };
   time: string;
+  id: string;
+  reactions: ReactionType[];
 };
