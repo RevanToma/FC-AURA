@@ -80,6 +80,10 @@ const UserType = gql`
     email: String!
     password: String!
   }
+  type Reaction {
+    emoji: String!
+  }
+
   type Message {
     id: ID!
     content: String!
@@ -87,6 +91,7 @@ const UserType = gql`
     createdAt: Date!
     updatedAt: Date!
     time: String!
+    reactions: [Reaction!]
   }
 
   type Mutation {
@@ -102,6 +107,7 @@ const UserType = gql`
     ): User
     sendMessage(content: String!, createdAt: String!): Message!
     createChatRoom: Chat!
+    addReactionToMessage(messageId: ID!, emoji: String!): Message!
   }
 
   type Query {

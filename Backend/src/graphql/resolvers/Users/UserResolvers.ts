@@ -1,6 +1,8 @@
 import User, { UserDocument } from "../../../models/userModel";
 import {
+  Message,
   MyGraphQLContext,
+  Reaction,
   SendMessageArgs,
   UpdateUserInput,
 } from "../../../types";
@@ -17,6 +19,8 @@ import fs from "fs";
 import bcrypt from "bcryptjs";
 import Chat from "../../../models/chatModel";
 import { PubSub } from "graphql-subscriptions";
+import messageSchema from "./../../../models/messageModel";
+import mongoose from "mongoose";
 
 export const pubsub = new PubSub();
 
@@ -29,10 +33,16 @@ const UserResolvers = {
       _info: any
     ) => {
       const chatRoom = await Chat.findOne({})
-        .populate({
-          path: "messages.sender",
-          match: { _id: { $ne: null } },
-        })
+        .populate([
+          {
+            path: "messages.sender",
+            match: { _id: { $ne: null } },
+          },
+          {
+            path: "messages.reactions.user",
+            match: { _id: { $ne: null } },
+          },
+        ])
         .exec();
 
       if (!chatRoom) {
@@ -112,6 +122,43 @@ const UserResolvers = {
     //   await newChat.save();
     //   return newChat;
     // },
+    addReactionToMessage: async (
+      _: any,
+      args: { messageId: string; emoji: string },
+      context: MyGraphQLContext
+    ) => {
+      const { messageId, emoji } = args;
+      const user = await getCurrentUserFromContext(
+        context?.req.headers.cookie!
+      );
+      const chat = await Chat.findOne({});
+
+      const message = chat?.messages.find(
+        (m) => m._id.toString() === messageId.toString()
+      ) as unknown as Message;
+
+      if (!message) {
+        throw new Error("Message not found!");
+      }
+
+      const existingReaction = message?.reactions.findIndex(
+        (r: any) =>
+          r.emoji === emoji && r.user.toString() === user?.id.toString()
+      );
+
+      if (existingReaction !== -1) {
+        message.reactions.splice(existingReaction, 1);
+      } else {
+        const userId = user?.id || new mongoose.Types.ObjectId();
+        message.reactions.push({
+          emoji: emoji,
+          user: userId,
+        });
+      }
+
+      await chat?.save();
+      return message;
+    },
     sendMessage: async (
       _1: any,
       args: SendMessageArgs,
@@ -137,6 +184,7 @@ const UserResolvers = {
         sender: user?.id,
         createdAt: new Date(),
         time: createdAt,
+        _id: new mongoose.Types.ObjectId(),
       };
 
       chatRoom.messages.push(message);

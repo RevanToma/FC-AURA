@@ -1,6 +1,17 @@
 import mongoose, { Schema } from "mongoose";
+import { Message, Reaction } from "../types";
 
-const messageSchema = new Schema({
+const reactionSchema = new Schema<Reaction>({
+  emoji: String,
+
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+});
+
+const messageSchema = new Schema<Message>({
   sender: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -17,6 +28,7 @@ const messageSchema = new Schema({
   time: {
     type: String,
   },
+  reactions: [reactionSchema],
 });
 
 export default messageSchema;

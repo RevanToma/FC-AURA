@@ -4,10 +4,14 @@ import messageSchema from "./messageModel";
 export interface ChatDocument extends Document {
   id: string;
   messages: {
-    sender: { type: mongoose.Schema.Types.ObjectId; ref: "User" };
+    sender: {
+      type: mongoose.Schema.Types.ObjectId;
+      ref: "User";
+    };
     content: string;
     createdAt: Date;
     time: string;
+    _id: mongoose.Types.ObjectId;
   }[];
   createdAt: Date;
   updatedAt: Date;

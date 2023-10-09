@@ -1,6 +1,7 @@
 import { ReadStream } from "fs";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 
 export interface UpdateUserInput {
   email?: string;
@@ -60,4 +61,18 @@ export interface MyGraphQLContext {
 export interface SendMessageArgs {
   content: string;
   createdAt: string;
+}
+
+export interface Reaction {
+  emoji: string;
+  user: mongoose.Schema.Types.ObjectId;
+}
+
+export interface Message {
+  sender: mongoose.Schema.Types.ObjectId;
+  content: string;
+  createdAt: Date;
+  time: string;
+  _id: mongoose.Types.ObjectId;
+  reactions: Reaction[];
 }
