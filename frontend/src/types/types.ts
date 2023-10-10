@@ -14,9 +14,9 @@ export type AuthContextType = {
   user: User | null;
   login: (userData: User) => void;
   logout: () => void;
-  isLoggedIn: () => boolean;
+  isLoggedIn: boolean;
   isSetupCompleted: boolean | undefined;
-  isAdmin: () => boolean;
+  isAdmin: boolean;
 };
 export type AuthProviderProps = {
   children: ReactNode;

@@ -7,6 +7,7 @@ import {
   CURRENT_USER_QUERY,
   LOGOUT_USER_MUTATION,
 } from "../../Mutations/Mutations";
+import { toast } from "sonner";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -32,14 +33,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = async () => {
     try {
       await logoutMutation();
-
+      await client.resetStore();
       setUser(null);
+
+      toast.success(`Du är utloggad, ses snart igen!`);
     } catch (error) {
       console.error("Error logging out:", error);
     }
-  };
-  const isAdmin = () => {
-    return user?.role === "admin";
   };
 
   useEffect(() => {
@@ -62,11 +62,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     fetchCurrentUser();
-  }, [user, client]);
+  }, []);
 
-  const isLoggedIn = () => {
-    return !!user;
-  };
+  const isLoggedIn = !!user;
+  const isAdmin = user?.role === "admin";
 
   const isSetupCompleted = user?.setupCompleted;
 

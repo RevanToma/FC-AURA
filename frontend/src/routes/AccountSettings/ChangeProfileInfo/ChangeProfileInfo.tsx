@@ -125,10 +125,12 @@ const ChangeProfileInfo = () => {
             />
 
             <S.Label>Din Längd</S.Label>
-            {errors.length && <span>something</span>}
+            {errors.length && (
+              <span>Kontrollera din längd. Det verkar lite högt!</span>
+            )}
             <Input
               type="number"
-              {...register("length")}
+              {...register("length", { required: true, max: 210 })}
               placeholder="Din Längd i cm"
             />
 

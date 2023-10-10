@@ -10,11 +10,11 @@ function ProtectedRoute({
 }: any) {
   const auth = useAuth();
 
-  if (redirectIfAuthenticated && auth.isLoggedIn()) {
+  if (redirectIfAuthenticated && auth.isLoggedIn) {
     return <Navigate to="/" replace />;
-  } else if (adminOnly && !auth.isAdmin()) {
+  } else if (adminOnly && !auth.isAdmin) {
     return <Navigate to="/" replace />;
-  } else if (!redirectIfAuthenticated && !auth.isLoggedIn()) {
+  } else if (!redirectIfAuthenticated && !auth.isLoggedIn) {
     return <Navigate to="/" replace />;
   } else if (preventIfProfileCompleted && auth.isSetupCompleted) {
     return <Navigate to="/" replace />;

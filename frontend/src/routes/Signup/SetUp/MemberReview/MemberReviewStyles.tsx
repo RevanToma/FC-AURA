@@ -32,7 +32,7 @@ export const ReviewParagraphDiv = styled.div`
     font-size: 1.7rem;
     font-family: Poppins;
     font-weight: 500;
-    letter-spacing: 0.4px;
+    letter-spacing: 1px;
     line-height: 2.5rem;
   }
 `;

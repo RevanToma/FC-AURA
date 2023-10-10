@@ -11,6 +11,7 @@ import { CREATE_USER } from "../../Mutations/Mutations";
 import { useAuth } from "../../context/auth/auth";
 import { toast } from "sonner";
 import { ReactNode, useEffect, useState } from "react";
+import VortexSpinner from "../../components/common/Vortex/Vortex";
 
 const SignUp = () => {
   const [createUser, { error, loading }] = useMutation(CREATE_USER);
@@ -74,7 +75,7 @@ const SignUp = () => {
     window.location.href = process.env.REACT_APP_GOOGLE!; // This URL should match the route you've set up in your backend.
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <VortexSpinner />;
 
   return (
     <S.GenericSignContainer>
