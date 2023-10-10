@@ -34,7 +34,6 @@ const ReusableForm: FC<FormProps> = ({
   propFieldValidity,
   onFormDataChange,
   onFieldValidityChange,
-  value,
 }) => {
   const isValidEmail = (email: string): boolean => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -51,9 +50,9 @@ const ReusableForm: FC<FormProps> = ({
 
     // Determine the validity of the changed field
     let isValid = false;
-    if (name === "name" || name === "lastName") {
+    if (name.trim() === "name" || name === "lastName") {
       isValid = value.length >= 3;
-    } else if (name === "email") {
+    } else if (name.trim() === "email") {
       isValid = isValidEmail(value);
     } else if (name === "password" || name === "passwordConfirm") {
       isValid = value.length >= 8;

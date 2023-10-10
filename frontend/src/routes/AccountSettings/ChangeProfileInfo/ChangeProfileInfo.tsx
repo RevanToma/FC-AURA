@@ -1,9 +1,7 @@
 import GobackNav from "../../../components/common/GoBackNav/GobackNav";
 import ChangePorfileInfoImg from "../../../assets/images/ChangePorfileInfoImg.svg";
 import { ChangeEmailContainer } from "../ChangeEmail/ChangeEmailStyles";
-import ReusableForm from "../../../components/common/Form/ReusableForm";
-import { InputType, UpdateUserInput } from "../../../types/types";
-import { useForm } from "../../../hooks/useForm";
+
 import { ApolloError, useMutation, useQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -15,93 +13,71 @@ import {
 import Upload from "../../../components/common/Upload/Upload";
 import useUploadFile from "../../../hooks/useUploadFile";
 import { useAuth } from "../../../context/auth/auth";
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import VortexSpinner from "../../../components/common/Vortex/Vortex";
+import * as S from "../ChangeEmail/ChangeEmailStyles";
+import { UpdateUserInput } from "../../../types/types";
+import Input from "../../../components/common/Input/Input";
+import Button from "../../../components/common/Button/Button";
+import { ButtonType } from "../../../components/common/Button/ButtonTypes";
 
 const ChangeProfileInfo = () => {
-  // const [oldImage, setOldImage] = useState<string | undefined>(undefined); // Store the old image URL
-
   const auth = useAuth();
   const getUserId = auth.user?.id;
-  const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
-    "bio",
-    "weight",
-    "length",
-    "instagram",
-    "position",
-  ]);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm();
   // In ChangeProfileInfo
   const [file, setFile] = useState<string>("");
 
   const navigate = useNavigate();
-  const [changeProfileInfo, { error, loading }] = useMutation(
-    CHANGE_PROFILE_INFO,
-    {
-      refetchQueries: [{ query: GET_USER, variables: { getUserId } }],
-    }
-  );
+  const [changeProfileInfo, { error, loading }] =
+    useMutation(CHANGE_PROFILE_INFO);
 
-  const {
-    data: userProfileData,
-
-    refetch,
-  } = useQuery(GET_PROFILE_INFO, { fetchPolicy: "cache-and-network" });
+  const { data: userProfileData } = useQuery(GET_PROFILE_INFO);
   const uploadFile = useUploadFile();
 
   useEffect(() => {
     if (userProfileData) {
-      setFormData({
-        bio: userProfileData.me.bio || "",
-        weight: userProfileData.me.weight || "",
-        length: userProfileData.me.length || "",
-        instagram: userProfileData.me.instagram || "",
-        position: userProfileData.me.position || "",
-      });
-      // setOldImage(userProfileData.me.image);
+      const { me } = userProfileData;
+      setValue("bio", me.bio || "");
+      setValue("weight", me.weight || "");
+      setValue("length", me.length || "");
+      setValue("instagram", me.instagram || "");
+      setValue("position", me.position || "");
     }
-    refetch();
-  }, [userProfileData]);
+  }, [userProfileData, setValue]);
 
-  const handleSubmit = async (formData: Record<string, string | boolean>) => {
+  const onSubmit = async () => {
+    const formData = getValues();
+
     try {
       const input: UpdateUserInput = {};
 
-      if (
-        formData.bio !== undefined &&
-        formData.bio !== null &&
-        formData.bio !== ""
-      ) {
-        input.bio = formData.bio as string;
-      }
+      const keys = [
+        "bio",
+        "weight",
+        "length",
+        "instagram",
+        "position",
+      ] as const;
 
-      if (
-        formData.weight !== undefined &&
-        formData.weight !== null &&
-        formData.weight !== ""
-      ) {
-        input.weight = parseFloat(formData.weight as string);
-      }
-
-      if (
-        formData.length !== undefined &&
-        formData.length !== null &&
-        formData.length !== ""
-      ) {
-        input.length = parseFloat(formData.length as string);
-      }
-
-      if (
-        formData.instagram !== undefined &&
-        formData.instagram !== null &&
-        formData.instagram !== ""
-      ) {
-        input.instagram = formData.instagram as string;
-      }
-      if (
-        formData.position !== undefined &&
-        formData.position !== null &&
-        formData.position !== ""
-      ) {
-        input.position = formData.position as string;
-      }
+      keys.forEach((key) => {
+        const value = formData[key];
+        if (value) {
+          if (key === "weight" || key === "length") {
+            (input[key] as any) = parseFloat(value as string);
+          } else {
+            (input[key] as any) = value;
+          }
+        }
+      });
       if (file) {
         await uploadFile(file);
       }
@@ -115,13 +91,14 @@ const ChangeProfileInfo = () => {
       // handle response
       if (response.data) {
         navigate("/account");
+        toast.success(`Profil info ändrad`);
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
     }
   };
 
-  if (loading) return null;
+  if (loading) return <VortexSpinner />;
   return (
     <>
       <GobackNav title="Ändra profil info" />
@@ -130,53 +107,43 @@ const ChangeProfileInfo = () => {
           <img src={ChangePorfileInfoImg} alt="change profile" />
           <Upload setFile={setFile} file={file} />
 
-          <ReusableForm
-            fields={[
-              {
-                label: "Din Bio",
-                type: InputType.textarea,
-                name: InputType.bio,
-                placeholder: "Din Bio",
-                value: formData.bio,
-              },
+          <S.ChangeEmailForm onSubmit={handleSubmit(onSubmit)}>
+            <S.Label>Din Bio</S.Label>
+            {errors.bio && <span>Måste innehålla minst 10 tecken.</span>}
+            <Input
+              type="textarea"
+              {...register("bio", { required: true, minLength: 10 })}
+              placeholder="Din Bio"
+            />
 
-              {
-                label: "Din vikt",
-                type: InputType.number,
-                name: InputType.weight,
-                placeholder: "Din vikt i kg",
-                value: formData.weight,
-              },
+            <S.Label>Din vikt</S.Label>
+            {errors.weight && <span>something</span>}
+            <Input
+              type="number"
+              {...register("weight")}
+              placeholder="Din vikt i kg"
+            />
 
-              {
-                label: "Din Längd",
-                type: InputType.number,
-                name: InputType.length,
-                placeholder: "Din Längd i cm",
-                value: formData.length,
-              },
-              {
-                label: "Din Instagram",
-                type: InputType.text,
-                name: InputType.instagram,
-                placeholder: "Din Instagram",
-                value: formData.instagram,
-              },
-              {
-                label: "Din Position",
-                type: InputType.text,
-                name: InputType.position,
-                placeholder: "Din Position",
-                value: formData.position,
-              },
-            ]}
-            formData={formData}
-            onFormDataChange={setFormData}
-            propFieldValidity={fieldValidity}
-            onFieldValidityChange={setFieldValidity}
-            submitButtonText="Bekfräfta"
-            onSubmit={handleSubmit}
-          />
+            <S.Label>Din Längd</S.Label>
+            {errors.length && <span>something</span>}
+            <Input
+              type="number"
+              {...register("length")}
+              placeholder="Din Längd i cm"
+            />
+
+            <S.Label>Din Instagram</S.Label>
+            {errors.instagram && <span>something</span>}
+            <Input {...register("instagram")} placeholder="Din Instagram" />
+
+            <S.Label>Din Position</S.Label>
+            {errors.position && <span>something</span>}
+            <Input {...register("position")} placeholder="Din Position" />
+
+            <Button buttontypes={ButtonType.SignIn} type="submit">
+              Spara
+            </Button>
+          </S.ChangeEmailForm>
         </ChangeEmailContainer>
       </div>
     </>

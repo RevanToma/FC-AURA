@@ -67,4 +67,12 @@ export const theme = {
     font-size: 1.6rem;
     letter-spacing: 2px;
   `,
+  settingsFont: css`
+    font-family: "Poppins";
+    letter-spacing: 0.1rem;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+    color: white;
+  `,
 };

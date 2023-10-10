@@ -37,3 +37,32 @@ export const ChangeEmailContainer = styled.div`
     font-size: 20rem;
   }
 `;
+
+export const Label = styled.label`
+  color: #a8a2a2;
+  ${theme.label}
+  padding-left: 0.5rem;
+  align-items: center;
+  align-self: flex-start;
+`;
+
+export const ChangeEmailForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  min-width: 37rem;
+  max-width: 50rem;
+  align-items: center;
+  border-radius: 5px;
+  gap: 1rem;
+
+  padding: 1.5rem;
+  button {
+    margin-top: 2rem;
+  }
+  span {
+    color: #ffa500;
+  }
+  textarea {
+    resize: none;
+  }
+`;

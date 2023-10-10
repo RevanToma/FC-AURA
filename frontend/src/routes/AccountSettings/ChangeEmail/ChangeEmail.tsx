@@ -2,36 +2,45 @@ import GobackNav from "../../../components/common/GoBackNav/GobackNav";
 import ChangeEmailImg from "../../../assets/images/ChangeEmail.svg";
 import * as S from "./ChangeEmailStyles";
 
-import ReusableForm from "../../../components/common/Form/ReusableForm";
-import { InputType } from "../../../types/types";
 import { ApolloError, useMutation } from "@apollo/client";
-import { useForm } from "../../../hooks/useForm";
+
 import { useNavigate } from "react-router-dom";
 import { CHANGE_EMAIL } from "../../../Mutations/Mutations";
 import { toast } from "sonner";
 import { useAuth } from "../../../context/auth/auth";
+import { useForm } from "react-hook-form";
+import Input from "../../../components/common/Input/Input";
+import Button from "../../../components/common/Button/Button";
+import { ButtonType } from "../../../components/common/Button/ButtonTypes";
+import VortexSpinner from "../../../components/common/Vortex/Vortex";
 const ChangeEmail = () => {
   const auth = useAuth();
   const navigate = useNavigate();
-  const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
-    "email",
-  ]);
+
+  const {
+    register,
+    handleSubmit,
+
+    formState: { errors },
+  } = useForm();
 
   const [changeUserEmail, { error, loading }] = useMutation(CHANGE_EMAIL);
 
-  const handleSubmit = async (formData: Record<string, string | boolean>) => {
+  const onSubmit = async (data: Record<string, string>) => {
     try {
-      if (formData.email === auth.user?.email) {
+      if (error) {
         // Display a message to the user
-        toast.error("Du använder redan denna email", {
+        toast.error(error.message, {
           duration: 3000,
         });
+
         return; // Stop here and do not make the mutation request
       }
+
       const response = await changeUserEmail({
         variables: {
           input: {
-            email: formData.email,
+            email: data.email.trim(),
           },
         },
       });
@@ -40,25 +49,15 @@ const ChangeEmail = () => {
       if (response.data) {
         navigate("/account");
 
-        toast.success("Email ändrad");
+        toast.success(`Email ändrad till ${data.email}`);
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
       toast.error(error.message);
     }
   };
-  const handleError = (error: ApolloError | any) => {
-    let err;
 
-    if (error.message.includes("Duplicate field value")) {
-      err = "Email finns redan registrerad";
-    } else {
-      err = "Något gick fel";
-    }
-
-    return err;
-  };
-
+  if (loading) return <VortexSpinner />;
   return (
     <>
       <GobackNav title="Byt Email" />
@@ -66,23 +65,18 @@ const ChangeEmail = () => {
         <S.ChangeEmailContainer>
           <img src={ChangeEmailImg} alt="Change email" />
 
-          <ReusableForm
-            fields={[
-              {
-                label: "Din nya Email",
-                type: InputType.email,
-                name: InputType.email,
-              },
-            ]}
-            formData={formData}
-            propFieldValidity={fieldValidity}
-            onFormDataChange={setFormData}
-            onFieldValidityChange={setFieldValidity}
-            onSubmit={handleSubmit}
-            submitButtonText="Bekfräfta"
-          />
-
-          {/* <Button buttontypes={ButtonType.SignIn}>Bekräfta</Button> */}
+          <S.ChangeEmailForm onSubmit={handleSubmit(onSubmit)}>
+            <S.Label>Din nya Email</S.Label>
+            <Input
+              placeholder="Nya email"
+              type="email"
+              {...register("email", { required: true })}
+            />
+            {errors.email && <span>Detta fält är obligatoriskt</span>}
+            <Button type="submit" buttontypes={ButtonType.SignIn}>
+              Bekräfta
+            </Button>
+          </S.ChangeEmailForm>
         </S.ChangeEmailContainer>
       </div>
     </>

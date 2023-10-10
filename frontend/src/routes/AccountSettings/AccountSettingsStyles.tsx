@@ -17,9 +17,8 @@ export const AccountSettingsContainer = styled.div`
     margin-top: 7rem;
   }
   h4 {
-    ${theme.label}
-    font-size: 2rem;
-    color: white;
+    ${theme.settingsFont}
+
     margin-top: 2rem;
   }
 `;

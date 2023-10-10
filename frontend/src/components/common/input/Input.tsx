@@ -5,7 +5,7 @@ import { BsCheck2Circle } from "react-icons/bs";
 type InputElement = HTMLInputElement | HTMLTextAreaElement;
 
 interface IInput {
-  placeholder: string | undefined;
+  placeholder?: string | undefined;
   type?: string;
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -52,7 +52,7 @@ const Input: FC<IInput> = forwardRef<InputElement, IInput>(
             ref={ref as React.Ref<HTMLInputElement>}
             value={value?.toString()}
             placeholder={placeholder}
-            type={type}
+            type={type === "string" ? type.trim() : type}
             onChange={onChange}
             name={name}
             readOnly={readOnly}

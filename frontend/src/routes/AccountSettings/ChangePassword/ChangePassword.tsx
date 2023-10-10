@@ -1,31 +1,38 @@
 import { useNavigate } from "react-router-dom";
-import { useForm } from "../../../hooks/useForm";
+
 import GobackNav from "../../../components/common/GoBackNav/GobackNav";
 import ChangePasswordImg from "../../../assets/images/ChangePasswordImg.svg";
 import { ChangeEmailContainer } from "../ChangeEmail/ChangeEmailStyles";
-import ReusableForm from "../../../components/common/Form/ReusableForm";
-import { InputType } from "../../../types/types";
-import { ApolloError, gql, useMutation } from "@apollo/client";
-import { CHANGE_PASSWORD } from "../../../Mutations/Mutations";
 
+import { ApolloError, useMutation } from "@apollo/client";
+import { CHANGE_PASSWORD } from "../../../Mutations/Mutations";
+import { useForm } from "react-hook-form";
+import * as S from "../ChangeEmail/ChangeEmailStyles";
+import Input from "../../../components/common/Input/Input";
+import Button from "../../../components/common/Button/Button";
+import { ButtonType } from "../../../components/common/Button/ButtonTypes";
+import { toast } from "sonner";
+import VortexSpinner from "../../../components/common/Vortex/Vortex";
 const ChangePassowrd = () => {
   const navigate = useNavigate();
-  const { formData, setFormData, fieldValidity, setFieldValidity } = useForm([
-    "password",
-    "passwordConfirm",
-  ]);
-  const [changePassword, { error, loading }] = useMutation(CHANGE_PASSWORD);
 
-  const handleSubmit = async (formData: Record<string, string | boolean>) => {
-    if (formData.password !== formData.passwordConfirm) {
-      console.error("passwords do not match");
+  const [changePassword, { loading }] = useMutation(CHANGE_PASSWORD);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data: Record<string, string>) => {
+    if (data.password !== data.passwordConfirm) {
+      toast.error("Lösenorden matchar inte");
       return;
     }
     try {
       const response = await changePassword({
         variables: {
           input: {
-            password: formData.password,
+            password: data.password,
           },
         },
       });
@@ -33,11 +40,13 @@ const ChangePassowrd = () => {
       // handle response
       if (response.data) {
         navigate("/account");
+        toast.success(`Lösenord ändrat`);
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
     }
   };
+  if (loading) return <VortexSpinner />;
   return (
     <>
       <GobackNav title="Byt Lösenord" />
@@ -45,26 +54,26 @@ const ChangePassowrd = () => {
         <ChangeEmailContainer>
           <img src={ChangePasswordImg} alt="change password" />
 
-          <ReusableForm
-            fields={[
-              {
-                label: "Ditt nya Lösenord",
-                type: InputType.password,
-                name: InputType.password,
-              },
-              {
-                label: "Ditt nya Lösenord",
-                type: InputType.password,
-                name: InputType.passwordConfirm,
-              },
-            ]}
-            formData={formData}
-            onFormDataChange={setFormData}
-            propFieldValidity={fieldValidity}
-            onFieldValidityChange={setFieldValidity}
-            submitButtonText="Bekfräfta"
-            onSubmit={handleSubmit}
-          />
+          <S.ChangeEmailForm onSubmit={handleSubmit(onSubmit)}>
+            <S.Label>Ditt nya lösenord</S.Label>
+            <Input
+              type="password"
+              {...register("password", { required: true, minLength: 8 })}
+            />
+            {errors.password && (
+              <span>Lösenordet måste innehålla minst 8 tecken</span>
+            )}
+
+            <S.Label>Bekräfta lösenord</S.Label>
+
+            <Input
+              type="password"
+              {...register("passwordConfirm", { required: true })}
+            />
+            {errors.passwordConfirm && <span>Detta fält är obligatoriskt</span>}
+
+            <Button buttontypes={ButtonType.SignIn}>Bekrfäta</Button>
+          </S.ChangeEmailForm>
         </ChangeEmailContainer>
       </div>
     </>
