@@ -16,6 +16,7 @@ import { ApolloError, useMutation } from "@apollo/client";
 import { SetUpProfileContainer } from "./SetUpProfileStyles";
 import { useNavigate } from "react-router-dom";
 import AddSkillsImg from "../../../../assets/images/ChangeSkillsImg.svg";
+import { useAuth } from "../../../../context/auth/auth";
 
 const SetUpSkills = () => {
   const { selectedSkills, setSelectedSkills } = useUserSkills();
@@ -23,6 +24,8 @@ const SetUpSkills = () => {
   const selectRef = useRef<HTMLSelectElement>(null);
   const [addSkills] = useMutation(ADD_SKILLS);
   const navigate = useNavigate();
+  const auth = useAuth();
+  const isTeamMember = auth.user?.teamMember;
 
   const removeSkill = (skill: string) => {
     setSelectedSkills(selectedSkills.filter((s) => s !== skill));
@@ -49,7 +52,11 @@ const SetUpSkills = () => {
 
       // handle response
       if (response.data) {
-        navigate("/preview");
+        if (isTeamMember) {
+          navigate("/preview");
+        } else {
+          navigate("/");
+        }
       }
     } catch (error: ApolloError | any) {
       console.error("There was an error creating the user:", error);
@@ -111,7 +118,7 @@ const SetUpSkills = () => {
             Lägg till en egen Färdighet
           </Button>
           <Button buttontypes={ButtonType.SignIn} onClick={handleSubmit}>
-            Förhandsgranska
+            {isTeamMember ? "Förhandska" : "Skapa profil"}
           </Button>
         </ChangeSkillsContainer>
       </SetUpProfileContainer>

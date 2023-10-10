@@ -45,7 +45,7 @@ const Signin = () => {
     }
   };
   const handleGoogleSignIn = () => {
-    window.location.href = "http://localhost:4000/auth/google";
+    window.location.href = process.env.REACT_APP_GOOGLE!;
   };
 
   return (
@@ -84,7 +84,7 @@ const Signin = () => {
 
       <Footer>
         <h6>eller logga in med</h6>
-        <FcGoogle size={40} onClick={handleGoogleSignIn} />
+        <FcGoogle size={40} onClick={handleGoogleSignIn} target="_blank" />
       </Footer>
     </GenericSignContainer>
   );

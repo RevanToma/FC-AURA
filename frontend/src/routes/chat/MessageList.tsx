@@ -33,7 +33,7 @@ function MessageList() {
       lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messagesData]);
-  console.log("MSG DATA", messagesData);
+
   const userId = auth.user?.id;
 
   const handleEmojiIconClick = (messageId: string) => {
@@ -41,8 +41,6 @@ function MessageList() {
   };
 
   const handleEmojiSelect = (emoji: any, messageId: any) => {
-    console.log(emoji);
-
     reactToMsg({
       variables: {
         messageId,
@@ -60,61 +58,65 @@ function MessageList() {
     return <p>Error loading messages: {messagesError.message}</p>;
 
   return (
-    <>
-      <ul>
-        {messagesData?.chatMessages.map((msg: MsgType, index: number) => {
-          const isSentByMe = msg.sender.id === userId;
-          const isLastMessage = index === messagesData.chatMessages.length - 1;
+    <ul>
+      {messagesData?.chatMessages.map((msg: MsgType, index: number) => {
+        const isSentByMe = msg.sender.id === userId;
+        const isLastMessage = index === messagesData.chatMessages.length - 1;
 
-          const aggregatedReactions: { [emoji: string]: number } = {};
-          msg.reactions.forEach((reaction) => {
-            if (aggregatedReactions[reaction.emoji]) {
-              aggregatedReactions[reaction.emoji]++;
-            } else {
-              aggregatedReactions[reaction.emoji] = 1;
-            }
-          });
-          return (
-            <ChatLi
-              key={index}
-              $isSentByMe={isSentByMe}
-              ref={isLastMessage ? lastMessageRef : null}
-            >
-              <span>{msg.sender.name}: </span>
-              <MsgContent>
-                {userImg && isSentByMe ? (
-                  <img
-                    src={process.env.REACT_APP_IMAGE + userImg}
-                    alt="userimg"
-                  />
-                ) : (
-                  <PiSoccerBallThin size={10} />
-                )}
+        const aggregatedReactions: { [emoji: string]: number } = {};
+        msg.reactions.forEach((reaction) => {
+          if (aggregatedReactions[reaction.emoji]) {
+            aggregatedReactions[reaction.emoji]++;
+          } else {
+            aggregatedReactions[reaction.emoji] = 1;
+          }
+        });
 
-                {msg.content}
-                <div className="reactions">
-                  {Object.entries(aggregatedReactions).map(([emoji, count]) => {
-                    return (
-                      <span key={emoji}>
-                        {emoji}
-                        {count > 1 && <sub>{count}</sub>}
-                      </span>
-                    );
-                  })}
-                </div>
-                <span className="time">{msg.time}</span>
-                <span onClick={() => handleEmojiIconClick(msg.id)}>☺️</span>
-              </MsgContent>
-              {activeMessageId === msg.id && (
-                <EmojiPicker
-                  onEmojiClick={(emoji) => handleEmojiSelect(emoji, msg.id)}
+        return (
+          <ChatLi
+            key={index}
+            $isSentByMe={isSentByMe}
+            ref={isLastMessage ? lastMessageRef : null}
+          >
+            <span>{msg.sender.name}: </span>
+            <MsgContent>
+              {userImg && isSentByMe ? (
+                <img
+                  src={process.env.REACT_APP_IMAGE + userImg}
+                  alt="userimg"
                 />
+              ) : (
+                <PiSoccerBallThin size={10} />
               )}
-            </ChatLi>
-          );
-        })}
-      </ul>
-    </>
+
+              {msg.content}
+              <div className="reactions">
+                {Object.entries(aggregatedReactions).map(([emoji, count]) => {
+                  return (
+                    <span key={emoji}>
+                      {emoji}
+                      {count > 1 && <sub>{count}</sub>}
+                    </span>
+                  );
+                })}
+              </div>
+              <span
+                onClick={() => handleEmojiIconClick(msg.id)}
+                className="reactSpan"
+              >
+                ☺️
+              </span>
+              <span className="time">{msg.time}</span>
+            </MsgContent>
+            {activeMessageId === msg.id && (
+              <EmojiPicker
+                onEmojiClick={(emoji) => handleEmojiSelect(emoji, msg.id)}
+              />
+            )}
+          </ChatLi>
+        );
+      })}
+    </ul>
   );
 }
 

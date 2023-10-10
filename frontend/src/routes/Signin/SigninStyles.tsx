@@ -5,7 +5,7 @@ export const SigninHeader = styled.h1`
   color: #ffffff;
   ${theme.h1}
   text-align: center;
-  width: 22.5rem;
+  width: 25rem;
   line-height: 1.3;
 `;
 

@@ -40,9 +40,9 @@ export const theme = {
     letter-spacing: 0.1rem;
   `,
   h1: css`
-    font-family: "Poppins";
-    font-weight: semibold;
-    letter-spacing: 0.1rem;
+    font-family: "Roboto";
+    font-weight: 600;
+    letter-spacing: 2px;
     font-size: 2.4rem;
   `,
 
@@ -59,5 +59,12 @@ export const theme = {
     font-size: 1.6rem;
     letter-spacing: 0.1rem;
     line-height: 2.5rem;
+  `,
+  h4: css`
+    font-family: "Roboto";
+    color: #f1d202;
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
   `,
 };

@@ -27,7 +27,6 @@ function MessageInput() {
       });
       if (response.data) {
         setMessage("");
-        console.log(currentTime);
       }
     } catch (err) {
       console.error("Error sending message:", err);

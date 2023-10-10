@@ -58,7 +58,7 @@ export const buttons: Buttons = {
   signIn: {
     background: theme.color.primaryGreen,
     width: "35rem",
-    fontFamily: "Poppins",
+
     fontWeight: 500,
     fontSize: "2rem",
     letterSpacing: "0.1rem",
@@ -77,7 +77,7 @@ export const buttons: Buttons = {
     color: theme.color.darkWhite,
     background: theme.color.disabledButton,
     width: "35rem",
-    fontFamily: "Poppins",
+
     fontWeight: 500,
     fontSize: "2rem",
     letterSpacing: "0.1rem",

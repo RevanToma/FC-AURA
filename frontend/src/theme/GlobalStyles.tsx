@@ -21,7 +21,7 @@ html {
   background-color: ${theme.color.primaryBackground} ;
   margin: 0;
   padding-bottom: 10rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,Poppins,
   Arial, sans-serif;
   font-size: 1.4rem;
   scroll-behavior: smooth;
@@ -45,6 +45,7 @@ button {
   box-shadow: ${theme.primaryShadow};
   transition: ${theme.button.transition};
  padding: ${theme.button.padding};
+ font-family: "Roboto" !important ;
 }
 
 

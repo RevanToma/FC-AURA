@@ -21,6 +21,13 @@ export const ChatContainer = styled.div`
     flex-direction: column;
     width: 100%;
     margin-top: 5rem;
+    gap: 2rem;
+  }
+
+  .reactSpan {
+    position: absolute;
+    transform: translate(-100%, -200%);
+    font-size: 2rem;
   }
 `;
 
@@ -126,7 +133,7 @@ export const MessageInDiv = styled.div`
 
 export const MsgContent = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 1em;
   align-items: center;
   position: relative;
 
@@ -144,6 +151,7 @@ export const MsgContent = styled.div`
 
   .reactions {
     display: flex;
+    flex-wrap: wrap;
     position: absolute;
     align-items: center;
 

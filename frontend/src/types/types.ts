@@ -7,6 +7,7 @@ export type User = {
   setupCompleted?: boolean;
   role?: string;
   registrationStatus?: string;
+  teamMember?: boolean;
 };
 
 export type AuthContextType = {

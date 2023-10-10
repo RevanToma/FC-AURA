@@ -110,6 +110,7 @@ export const CURRENT_USER_QUERY = gql`
       setupCompleted
       registrationStatus
       role
+      teamMember
     }
   }
 `;

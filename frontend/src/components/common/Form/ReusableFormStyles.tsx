@@ -36,11 +36,7 @@ export const TeamMember = styled.div`
   align-items: center;
   gap: 4rem;
   h4 {
-    color: ${theme.color.primaryYellow};
-    font-family: "Poppins";
-    font-white: 500;
-    font-size: 1.6rem;
-    letter-spacing: 2%;
+    ${theme.h4};
   }
 `;
 
