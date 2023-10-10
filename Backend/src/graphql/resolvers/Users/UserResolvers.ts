@@ -280,12 +280,13 @@ const UserResolvers = {
 
         const existingUser = await User.findOne({ email: input.email });
 
-        const tokenString = context.req.headers.cookie;
-        if (!tokenString) {
+        const user = await getCurrentUserFromContext(
+          context.req.headers.cookie!
+        );
+        if (!user) {
           throw new Error("Authentication token is missing!");
         }
 
-        const user = await getCurrentUserFromContext(tokenString);
         if (!user || !user.id) {
           throw new Error("Invalid token or token has expired.");
         }
