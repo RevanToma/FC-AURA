@@ -18,6 +18,7 @@ export const FooterContainer = styled.div`
   p {
     ${theme.backgroundInfo};
     color: #d4d4d4;
+    text-align: center;
   }
   a {
     padding-left: 0.5rem;

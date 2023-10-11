@@ -18,6 +18,7 @@ interface IInput {
   max?: number | string;
   showValidIcon?: boolean;
   isValid?: boolean;
+  autocomplete?: string;
 }
 
 const Input: FC<IInput> = forwardRef<InputElement, IInput>(
@@ -31,6 +32,8 @@ const Input: FC<IInput> = forwardRef<InputElement, IInput>(
       readOnly,
       showValidIcon,
       isValid,
+      autocomplete,
+
       ...otherProps
     },
     ref
@@ -56,6 +59,7 @@ const Input: FC<IInput> = forwardRef<InputElement, IInput>(
             onChange={onChange}
             name={name}
             readOnly={readOnly}
+            autoComplete={autocomplete}
             {...otherProps}
           />
         )}

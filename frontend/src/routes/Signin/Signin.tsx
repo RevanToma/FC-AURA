@@ -61,11 +61,13 @@ const Signin = () => {
             label: "Din Email",
             type: InputType.email,
             name: InputType.email,
+            autocomplete: "email",
           },
           {
             label: "Lösenord",
             type: InputType.password,
             name: InputType.password,
+            autocomplete: "current-password",
           },
         ]}
         formData={formData}

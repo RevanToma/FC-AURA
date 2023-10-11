@@ -4,8 +4,7 @@ import * as S from "./LatestMatchesStyles";
 import HeaderLogo from "../../assets/images/HeaderLogo.svg";
 import RenderMatches from "./RenderMatches";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { register } from "swiper/element/bundle";
-register();
+
 const LatestMatches = () => {
   const [matches, setMatches] = useState(LatestMatchesData);
   const [currentPage, setCurrentPage] = useState(1);

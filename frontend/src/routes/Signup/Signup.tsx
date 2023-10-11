@@ -103,11 +103,13 @@ const SignUp = () => {
             label: "Lösenord",
             type: InputType.password,
             name: InputType.password,
+            autocomplete: "password",
           },
           {
             label: "Bekräfta lösenord",
             type: InputType.password,
             name: InputType.passwordConfirm,
+            autocomplete: "passwordConfirm",
           },
         ]}
         formData={formData}

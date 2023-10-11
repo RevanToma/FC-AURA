@@ -11,6 +11,7 @@ type InputField = {
   name: string;
   placeholder?: string;
   value?: string | number | boolean;
+  autocomplete?: string;
 };
 
 type FormProps = {
@@ -84,6 +85,7 @@ const ReusableForm: FC<FormProps> = ({
           <div key={index}>
             <S.Label>{field.label}</S.Label>
             <Input
+              autocomplete={field.autocomplete}
               type={field.type}
               name={field.name}
               placeholder={field.placeholder}
