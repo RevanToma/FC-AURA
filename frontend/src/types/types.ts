@@ -8,6 +8,7 @@ export type User = {
   role?: string;
   registrationStatus?: string;
   teamMember?: boolean;
+  skills: string[];
 };
 
 export type AuthContextType = {

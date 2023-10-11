@@ -13,6 +13,7 @@ import Button from "../../../components/common/Button/Button";
 import { ButtonType } from "../../../components/common/Button/ButtonTypes";
 import { toast } from "sonner";
 import VortexSpinner from "../../../components/common/Vortex/Vortex";
+import { BiCheckCircle } from "react-icons/bi";
 const ChangePassowrd = () => {
   const navigate = useNavigate();
 
@@ -20,8 +21,8 @@ const ChangePassowrd = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, touchedFields },
+  } = useForm({ mode: "onBlur" });
 
   const onSubmit = async (data: Record<string, string>) => {
     if (data.password !== data.passwordConfirm) {
@@ -55,7 +56,14 @@ const ChangePassowrd = () => {
           <img src={ChangePasswordImg} alt="change password" />
 
           <S.ChangeEmailForm onSubmit={handleSubmit(onSubmit)}>
-            <S.Label>Ditt nya lösenord</S.Label>
+            <S.Label>
+              Ditt nya lösenord
+              {touchedFields.password && !errors.password && (
+                <S.TouchedSvg>
+                  <BiCheckCircle color="green" size={30} />
+                </S.TouchedSvg>
+              )}
+            </S.Label>
             <Input
               type="password"
               {...register("password", { required: true, minLength: 8 })}

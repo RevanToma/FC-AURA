@@ -44,6 +44,13 @@ export const Label = styled.label`
   padding-left: 0.5rem;
   align-items: center;
   align-self: flex-start;
+  position: relative;
+  width: 100%;
+`;
+
+export const TouchedSvg = styled.span`
+  position: absolute;
+  right: 0;
 `;
 
 export const ChangeEmailForm = styled.form`

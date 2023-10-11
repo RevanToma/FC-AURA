@@ -12,12 +12,16 @@ import useUserSkills from "../../../hooks/useUserSkills";
 import { ADD_SKILLS } from "../../../Mutations/Mutations";
 import { useNavigate } from "react-router-dom";
 import { preDefinedSkills } from "../../../components/helpers/capitalizeFirstLetter";
+import { toast } from "sonner";
+import { useAuth } from "../../../context/auth/auth";
 
 const ChangeSkills = () => {
   const [inputSkill, setInputSkill] = useState<string>("");
   const selectRef = useRef<HTMLSelectElement>(null);
   const [addSkills] = useMutation(ADD_SKILLS);
   const { selectedSkills, setSelectedSkills } = useUserSkills();
+  const auth = useAuth();
+  const initialSkillsRef = auth.user?.skills || [];
 
   const navigate = useNavigate();
 
@@ -38,23 +42,36 @@ const ChangeSkills = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      const response = await addSkills({
-        variables: {
-          input: {
-            skills: selectedSkills,
+    if (!arraysAreEqual(initialSkillsRef, selectedSkills)) {
+      try {
+        const response = await addSkills({
+          variables: {
+            input: {
+              skills: selectedSkills,
+            },
           },
-        },
-      });
+        });
 
-      // handle response
-      if (response.data) {
-        navigate("/account");
+        // handle response
+        if (response.data) {
+          navigate("/account");
+          toast.success(`Färdigheter sparade`);
+        }
+      } catch (error: ApolloError | any) {
+        console.error("There was an error creating the user:", error);
       }
-    } catch (error: ApolloError | any) {
-      console.error("There was an error creating the user:", error);
+    } else {
+      navigate("/account");
+      toast.success(`Inga ändringar gjorda`);
     }
   };
+
+  function arraysAreEqual(arr1: string[], arr2: string[]) {
+    console.log(arr1, arr2);
+    return (
+      JSON.stringify([...arr1].sort()) === JSON.stringify([...arr2].sort())
+    );
+  }
 
   return (
     <>

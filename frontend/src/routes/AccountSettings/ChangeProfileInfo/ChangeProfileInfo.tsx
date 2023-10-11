@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import {
   CHANGE_PROFILE_INFO,
   GET_PROFILE_INFO,
-  GET_USER,
 } from "../../../Mutations/Mutations";
 import Upload from "../../../components/common/Upload/Upload";
 import useUploadFile from "../../../hooks/useUploadFile";
@@ -21,18 +20,19 @@ import { UpdateUserInput } from "../../../types/types";
 import Input from "../../../components/common/Input/Input";
 import Button from "../../../components/common/Button/Button";
 import { ButtonType } from "../../../components/common/Button/ButtonTypes";
+import { BiCheckCircle } from "react-icons/bi";
 
 const ChangeProfileInfo = () => {
   const auth = useAuth();
-  const getUserId = auth.user?.id;
 
   const {
     register,
     handleSubmit,
     setValue,
     getValues,
-    formState: { errors },
-  } = useForm();
+
+    formState: { errors, touchedFields },
+  } = useForm({ mode: "onBlur" });
   // In ChangeProfileInfo
   const [file, setFile] = useState<string>("");
 
@@ -97,6 +97,7 @@ const ChangeProfileInfo = () => {
       console.error("There was an error creating the user:", error);
     }
   };
+  console.log(touchedFields);
 
   if (loading) return <VortexSpinner />;
   return (
@@ -108,7 +109,14 @@ const ChangeProfileInfo = () => {
           <Upload setFile={setFile} file={file} />
 
           <S.ChangeEmailForm onSubmit={handleSubmit(onSubmit)}>
-            <S.Label>Din Bio</S.Label>
+            <S.Label>
+              Din Bio
+              {touchedFields.bio && !errors.bio && (
+                <S.TouchedSvg>
+                  <BiCheckCircle color="green" size={30} />
+                </S.TouchedSvg>
+              )}
+            </S.Label>
             {errors.bio && <span>Måste innehålla minst 10 tecken.</span>}
             <Input
               type="textarea"
@@ -124,7 +132,14 @@ const ChangeProfileInfo = () => {
               placeholder="Din vikt i kg"
             />
 
-            <S.Label>Din Längd</S.Label>
+            <S.Label>
+              Din Längd
+              {touchedFields.length && !errors.length && (
+                <S.TouchedSvg>
+                  <BiCheckCircle color="green" size={30} />
+                </S.TouchedSvg>
+              )}
+            </S.Label>
             {errors.length && (
               <span>Kontrollera din längd. Det verkar lite högt!</span>
             )}

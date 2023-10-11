@@ -7,22 +7,21 @@ import { ApolloError, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { CHANGE_EMAIL } from "../../../Mutations/Mutations";
 import { toast } from "sonner";
-import { useAuth } from "../../../context/auth/auth";
 import { useForm } from "react-hook-form";
 import Input from "../../../components/common/Input/Input";
 import Button from "../../../components/common/Button/Button";
 import { ButtonType } from "../../../components/common/Button/ButtonTypes";
 import VortexSpinner from "../../../components/common/Vortex/Vortex";
+import { BiCheckCircle } from "react-icons/bi";
 const ChangeEmail = () => {
-  const auth = useAuth();
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
 
-    formState: { errors },
-  } = useForm();
+    formState: { errors, touchedFields },
+  } = useForm({ mode: "onChange" });
 
   const [changeUserEmail, { error, loading }] = useMutation(CHANGE_EMAIL);
 
@@ -66,13 +65,25 @@ const ChangeEmail = () => {
           <img src={ChangeEmailImg} alt="Change email" />
 
           <S.ChangeEmailForm onSubmit={handleSubmit(onSubmit)}>
-            <S.Label>Din nya Email</S.Label>
+            <S.Label>
+              Din nya Email
+              {touchedFields.email && !errors.email && (
+                <S.TouchedSvg>
+                  <BiCheckCircle color="green" size={30} />
+                </S.TouchedSvg>
+              )}
+            </S.Label>
             <Input
-              placeholder="Nya email"
+              placeholder="exampel@gmail.com"
               type="email"
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: true,
+                pattern: /\S+@\S+\.\S+/,
+              })}
             />
-            {errors.email && <span>Detta fält är obligatoriskt</span>}
+            {errors.email && (
+              <span>Det angivna värdet matchar inte e-postformatet</span>
+            )}
             <Button type="submit" buttontypes={ButtonType.SignIn}>
               Bekräfta
             </Button>
