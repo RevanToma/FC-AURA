@@ -23,8 +23,6 @@ import { ButtonType } from "../../../components/common/Button/ButtonTypes";
 import { BiCheckCircle } from "react-icons/bi";
 
 const ChangeProfileInfo = () => {
-  const auth = useAuth();
-
   const {
     register,
     handleSubmit,
@@ -70,7 +68,7 @@ const ChangeProfileInfo = () => {
 
       keys.forEach((key) => {
         const value = formData[key];
-        if (value) {
+        if (value !== undefined) {
           if (key === "weight" || key === "length") {
             (input[key] as any) = parseFloat(value as string);
           } else {
@@ -97,7 +95,6 @@ const ChangeProfileInfo = () => {
       console.error("There was an error creating the user:", error);
     }
   };
-  console.log(touchedFields);
 
   if (loading) return <VortexSpinner />;
   return (
@@ -132,20 +129,13 @@ const ChangeProfileInfo = () => {
               placeholder="Din vikt i kg"
             />
 
-            <S.Label>
-              Din Längd
-              {touchedFields.length && !errors.length && (
-                <S.TouchedSvg>
-                  <BiCheckCircle color="green" size={30} />
-                </S.TouchedSvg>
-              )}
-            </S.Label>
+            <S.Label>Din Längd</S.Label>
             {errors.length && (
               <span>Kontrollera din längd. Det verkar lite högt!</span>
             )}
             <Input
               type="number"
-              {...register("length", { required: true, max: 210 })}
+              {...register("length", { max: 210 })}
               placeholder="Din Längd i cm"
             />
 
