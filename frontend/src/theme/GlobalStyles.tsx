@@ -55,7 +55,16 @@ button {
 }
 .backgroundInfo {
  display: flex;
- justify-content: centeR;
+ justify-content: center;
+
+ .content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.8s ease;
+}
+.content.open {
+  max-height: 30rem;
+}
  
   text-align: center;
   padding: 2rem;
@@ -66,19 +75,32 @@ button {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    width: 40rem;
+    max-width: 40rem;
+    align-items: center;
+
+    button{
+      font-size: 1.5rem;
+      padding: 1rem;
+    }
+  
   }
 
  p {
-  color: #fff;
+  color: #d4d4d4;
+
   ${theme.backgroundInfo}
  }
  header{
   ${theme.h1}
-  color: white;
+  color: #9b9b9b;
  }
 }
 
+.readMore{
+  color: #9b9b9b;
+  font-weight: bold;
+  
 
+}
 
 `;
