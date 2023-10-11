@@ -75,4 +75,12 @@ export const theme = {
     line-height: 2.4rem;
     color: white;
   `,
+  backgroundInfo: css`
+    font-family: "Roboto";
+    font-weight: 500;
+    font-size: 1.6rem;
+    letter-spacing: 2%;
+    line-height: 2.4rem;
+    paragraph-spacing: 5px;
+  `,
 };

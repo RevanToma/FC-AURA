@@ -1,6 +1,6 @@
-import img1 from "../../../assets/images/img1.jpg";
-import img2 from "../../../assets/images/img2.jpg";
-import img3 from "../../../assets/images/img3.jpg";
+import img1 from "../../../assets/images/dani.png";
+import img2 from "../../../assets/images/coach.png";
+import img3 from "../../../assets/images/training.png";
 import img4 from "../../../assets/images/img4.jpg";
 import MainImg from "../../../assets/images/TeamImage.jpg";
 export type ImageObject = {
@@ -19,26 +19,20 @@ export const CarouselImageData: ImageObject[] = [
   },
   {
     img1: img1,
-    blurHash: "L9JIOi00?I}];,00?c9r?v?J0Jo#",
+    blurHash: "L15OQn_3?bRjxuIUxuRj_3%MofM{",
     id: 2,
     alt: "Second Image",
   },
   {
     img1: img2,
-    blurHash: "LnIhgNof-;Rj~qfkt7ofW=ayRjt7",
+    blurHash: "L04B,y~q?bRj~qofofIUj[j[M{D%",
     id: 3,
     alt: "Third Image",
   },
   {
     img1: img3,
-    blurHash: "L2A,d@wI0NXSCTAE=|xD01rp}@x^",
+    blurHash: "L03[xTIUj[Rj~qRjD%t7%MM{t7WB",
     id: 4,
     alt: "Forth Image",
-  },
-  {
-    img1: img4,
-    blurHash: "L;GlI*ofofj[~qofofj[?bayayay",
-    id: 5,
-    alt: "Fifth Image",
   },
 ];
