@@ -6,7 +6,12 @@ export const TeamMemberContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 4rem;
-
+  h2 {
+    ${theme.h1}
+    color: white;
+    text-align: center;
+    padding: 2rem;
+  }
   button {
     background: #1e1e1e;
     padding: 1rem;

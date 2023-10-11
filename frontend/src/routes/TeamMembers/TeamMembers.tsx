@@ -63,31 +63,37 @@ const TeamMembers = () => {
       .filter((user: any) => user.registrationStatus === "Accepted") || [];
 
   if (loading) return null;
+
   return (
     <S.TeamMemberContainer>
-      {isTeamMember.map((user: TTeamMembers) => {
-        return (
-          <S.ProfilDiv key={user.id}>
-            {user.image ? (
-              <img
-                src={`${process.env.REACT_APP_IMAGE}${user.image}`}
-                alt="profile"
-              />
-            ) : (
-              <PiSoccerBallThin />
-            )}
-            <h4>{user.name}</h4>
-            <S.SkillsContainer>
-              {user.skills.map((skill, indx) => {
-                return <span key={indx}>{skill}</span>;
-              })}
-            </S.SkillsContainer>
-            <Link to={`/teamMembers/${user.id}`}>
-              <Button buttontypes={ButtonType.Skills}>Se Profil</Button>
-            </Link>
-          </S.ProfilDiv>
-        );
-      })}
+      {isTeamMember.length <= 0 ? (
+        <h2>Inga lagmedlemmar Registrerade just nu</h2>
+      ) : (
+        isTeamMember.map((user: TTeamMembers) => {
+          return (
+            <S.ProfilDiv key={user.id}>
+              {user.image ? (
+                <img
+                  src={`${process.env.REACT_APP_IMAGE}${user.image}`}
+                  alt="profile"
+                />
+              ) : (
+                <PiSoccerBallThin />
+              )}
+              <h4>{user.name}</h4>
+              <S.SkillsContainer>
+                {user.skills.map((skill, indx) => {
+                  return <span key={indx}>{skill}</span>;
+                })}
+              </S.SkillsContainer>
+              <Link to={`/teamMembers/${user.id}`}>
+                <Button buttontypes={ButtonType.Skills}>Se Profil</Button>
+              </Link>
+            </S.ProfilDiv>
+          );
+        })
+      )}
+
       {!hasMoreData && <h6>Du har nått slutet av listan!</h6>}
 
       <Outlet />
