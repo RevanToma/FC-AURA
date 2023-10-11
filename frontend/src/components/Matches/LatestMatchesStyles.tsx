@@ -52,6 +52,7 @@ export const LatestMatchesSection = styled.section`
   p {
     color: white;
     width: 4rem;
+    text-align: center;
   }
 `;
 
