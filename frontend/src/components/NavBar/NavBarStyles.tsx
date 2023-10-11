@@ -54,7 +54,7 @@ export const NavLinkDiv = styled(StyledDiv)<NavLinkProps>`
   a,
   img {
     color: ${({ active }) =>
-      active ? theme.color.primaryYellow : " rgba(0, 0, 0, 0.40) "};
+      active ? theme.color.primaryYellow : " rgba(0, 0, 0, 0.8) "};
     font-weight: 700;
     filter: ${({ active }) => (active ? "none" : "brightness(0.5)")};
     span {

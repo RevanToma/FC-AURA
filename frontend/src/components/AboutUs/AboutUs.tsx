@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "../common/Button/Button";
 import { ButtonType } from "../common/Button/ButtonTypes";
+import Footer from "../Footer/Footer";
 
 const AboutUs = () => {
   const [showMore, setShowMore] = useState(false);

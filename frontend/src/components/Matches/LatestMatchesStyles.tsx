@@ -9,7 +9,7 @@ export const LatestMatchesContainer = styled.div`
   border: 1rem;
   align-items: center;
 
-  padding: 2rem;
+  padding: 1rem;
 
   span {
     color: #808080;
@@ -78,5 +78,24 @@ export const RenderMatchDiv = styled.div<LatestMatchesSectionProps>`
   img {
     aspect-ratio: 1/1;
     height: 3rem;
+  }
+`;
+
+export const PaginationDiv = styled.div`
+  background-color: #000;
+  width: 100%;
+  max-width: 80.5rem;
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 0 0 1rem 1rem;
+  span {
+    cursor: pointer;
+    svg {
+      background-color: #323232;
+      border-radius: 50%;
+    }
+  }
+  .rightChevrone {
+    margin-left: auto;
   }
 `;

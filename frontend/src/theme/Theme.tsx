@@ -79,8 +79,7 @@ export const theme = {
     font-family: "Roboto";
     font-weight: 500;
     font-size: 1.6rem;
-    letter-spacing: 2%;
+    letter-spacing: 1.2px;
     line-height: 2.4rem;
-    paragraph-spacing: 5px;
   `,
 };
